@@ -7,7 +7,7 @@ namespace Goliath.Security
     /// <summary>
     /// 
     /// </summary>
-    public class AesSymmetricCryptoProvider : ISymmetricCryptoProvider
+    public class RijndaelSymmetricCryptoProvider : ISymmetricCryptoProvider
     {
         readonly byte[] keyArray;
 
@@ -30,13 +30,13 @@ namespace Goliath.Security
         public int KeySize { get; private set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AesSymmetricCryptoProvider"/> class.
+        /// Initializes a new instance of the <see cref="RijndaelSymmetricCryptoProvider"/> class.
         /// </summary>
         /// <param name="encryptionKey">The encryption key.</param>
         /// <param name="keySize">Size of the key.</param>
         /// <exception cref="System.ArgumentNullException">encryptionKey</exception>
         /// <exception cref="System.ArgumentException">Invalid encryption key</exception>
-        public AesSymmetricCryptoProvider(string encryptionKey, int keySize)
+        public RijndaelSymmetricCryptoProvider(string encryptionKey, int keySize)
         {
             if (string.IsNullOrEmpty(encryptionKey))
                 throw new ArgumentNullException("encryptionKey");
@@ -95,12 +95,12 @@ namespace Goliath.Security
         /// <returns></returns>
         public static string GenerateKey(int keySize)
         {
-            using (var aesProvider = new AesManaged { KeySize = keySize, BlockSize = 256 })
+            using (var rijProvider = new RijndaelManaged { KeySize = keySize, BlockSize = 256 })
             {
-                aesProvider.GenerateKey();
-                aesProvider.GenerateIV();
+                rijProvider.GenerateKey();
+                rijProvider.GenerateIV();
 
-                var key = SecurityHelperMethods.MergeByteArrays(aesProvider.Key, aesProvider.IV);
+                var key = SecurityHelperMethods.MergeByteArrays(rijProvider.Key, rijProvider.IV);
                 return Convert.ToBase64String(key);
             }
         }
@@ -121,12 +121,12 @@ namespace Goliath.Security
             {
                 var key = Key;
                 var iv = IV;
-                using (var aesCrypto = new AesManaged { BlockSize = BlockSize, KeySize = KeySize })
+                using (var crypto = new RijndaelManaged { BlockSize = BlockSize, KeySize = KeySize })
                 {
-                    aesCrypto.Key = key;
-                    aesCrypto.IV = iv;
+                    crypto.Key = key;
+                    crypto.IV = iv;
 
-                    using (var encryptor = aesCrypto.CreateEncryptor(aesCrypto.Key, aesCrypto.IV))
+                    using (var encryptor = crypto.CreateEncryptor(crypto.Key, crypto.IV))
                     {
                         using (var cryptoStream = new CryptoStream(memoryStream, encryptor, CryptoStreamMode.Write))
                         {
@@ -155,12 +155,12 @@ namespace Goliath.Security
             var key = Key;
             var iv = IV;
 
-            using (var aesCrypto = new AesManaged() { BlockSize = BlockSize, KeySize = KeySize })
+            using (var crypto = new RijndaelManaged() { BlockSize = BlockSize, KeySize = KeySize })
             {
-                aesCrypto.Key = key;
-                aesCrypto.IV = iv;
+                crypto.Key = key;
+                crypto.IV = iv;
 
-                using (var decryptor = aesCrypto.CreateDecryptor(aesCrypto.Key, aesCrypto.IV))
+                using (var decryptor = crypto.CreateDecryptor(crypto.Key, crypto.IV))
                 {
                     using (var memoryStream = new MemoryStream(armoredData))
                     {

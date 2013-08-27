@@ -18,16 +18,27 @@ namespace Goliath
         /// <returns></returns>
         public static byte[] ConvertToByteArray(this string text)
         {
-            var bytes = new byte[text.Length * sizeof(char)];
-            Buffer.BlockCopy(text.ToCharArray(), 0, bytes, 0, bytes.Length);
-            return bytes;
+            //var bytes = new byte[text.Length * sizeof(char)];
+            //Buffer.BlockCopy(text.ToCharArray(), 0, bytes, 0, bytes.Length);
+            //return bytes;
+
+            var encoding = new UTF8Encoding();
+            return encoding.GetBytes(text);
         }
 
+        /// <summary>
+        /// Converts to string.
+        /// </summary>
+        /// <param name="bytes">The bytes.</param>
+        /// <returns></returns>
         public static string ConvertToString(this byte[] bytes)
         {
-            var chars = new char[bytes.Length / sizeof(char)];
-            Buffer.BlockCopy(bytes, 0, chars, 0, bytes.Length);
-            return new string(chars);
+            //var chars = new char[bytes.Length / sizeof(char)];
+            //Buffer.BlockCopy(bytes, 0, chars, 0, bytes.Length);
+            //return new string(chars);
+
+            var encoding = new UTF8Encoding();
+            return encoding.GetString(bytes);
         }
 
         /// <summary>
@@ -63,10 +74,15 @@ namespace Goliath
         /// <returns></returns>
         public static byte[] ReadToEnd(this Stream stream)
         {
-            long originalPosition = stream.Position;
+            long originalPosition = 0;
+            if (stream.CanSeek)
+            {
+                originalPosition = stream.Position;
+                stream.Position = 0;
+            }
             try
             {
-                stream.Position = 0;
+                
                 byte[] readByteBuffer = new byte[4096];
                 using (MemoryStream memStream = new MemoryStream())
                 {
@@ -83,7 +99,8 @@ namespace Goliath
             }
             finally
             {
-                stream.Position = originalPosition;
+                if (stream.CanSeek)
+                    stream.Position = originalPosition;
             }
         }
 

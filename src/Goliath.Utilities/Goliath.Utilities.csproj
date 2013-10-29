@@ -39,6 +39,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Protocols\WebDav\DavResource.cs" />
+    <Compile Include="Protocols\WebDav\WebDavServer.cs" />
     <Compile Include="Security\RijndaelSymmetricCryptoProvider.cs" />
     <Compile Include="Security\CryptoProviderBase.cs" />
     <Compile Include="Security\DsaAsymmetricCryptoProvider.cs" />

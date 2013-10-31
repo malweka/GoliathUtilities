@@ -41,7 +41,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Protocols\WebDav\DavProperty.cs" />
+    <Compile Include="Protocols\WebDav\DavRequest.cs" />
     <Compile Include="Protocols\WebDav\DavResource.cs" />
+    <Compile Include="Protocols\WebDav\DavResponse.cs" />
+    <Compile Include="Protocols\WebDav\Enums.cs" />
+    <Compile Include="Protocols\WebDav\LockEntry.cs" />
     <Compile Include="Protocols\WebDav\WebDavServer.cs" />
     <Compile Include="Security\RijndaelSymmetricCryptoProvider.cs" />
     <Compile Include="Security\CryptoProviderBase.cs" />

@@ -41,13 +41,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Protocols\WebDav\DavProperty.cs" />
-    <Compile Include="Protocols\WebDav\DavRequest.cs" />
-    <Compile Include="Protocols\WebDav\DavResource.cs" />
-    <Compile Include="Protocols\WebDav\DavResponse.cs" />
-    <Compile Include="Protocols\WebDav\Enums.cs" />
-    <Compile Include="Protocols\WebDav\LockEntry.cs" />
-    <Compile Include="Protocols\WebDav\WebDavServer.cs" />
     <Compile Include="Security\RijndaelSymmetricCryptoProvider.cs" />
     <Compile Include="Security\CryptoProviderBase.cs" />
     <Compile Include="Security\DsaAsymmetricCryptoProvider.cs" />
@@ -62,8 +55,6 @@
     <Compile Include="Security\SaltedSha256HashProvider.cs" />
     <Compile Include="Security\SecureRandom.cs" />
     <Compile Include="Security\SecurityHelperMethods.cs" />
-    <Compile Include="Protocols\WebDav\DavCollection.cs" />
-    <Compile Include="Protocols\WebDav\IDavMethod.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

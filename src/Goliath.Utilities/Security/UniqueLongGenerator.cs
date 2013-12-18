@@ -6,29 +6,29 @@ using System.Threading.Tasks;
 
 namespace Goliath.Security
 {
-    public class RandomLongGenerator : IUniqueNumberGenerator
+    public class UniqueLongGenerator : IUniqueNumberGenerator
     {
         private const int StartYear = 2000;
         private int seed;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="RandomLongGenerator"/> class.
+        /// Initializes a new instance of the <see cref="UniqueLongGenerator"/> class.
         /// </summary>
-        public RandomLongGenerator():this(0){}
+        public UniqueLongGenerator():this(0){}
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="RandomLongGenerator"/> class.
+        /// Initializes a new instance of the <see cref="UniqueLongGenerator"/> class.
         /// </summary>
         /// <param name="seed">The seed.</param>
         /// <exception cref="System.ArgumentOutOfRangeException">
-        /// seed cannot be greater than 256
+        /// seed cannot be greater than 949
         /// or
         /// seed must be greater than or equal to zero
         /// </exception>
-        public RandomLongGenerator(int seed)
+        public UniqueLongGenerator(int seed)
         {
             if (seed > 949)
-                throw new ArgumentOutOfRangeException("seed cannot be greater than 256");
+                throw new ArgumentOutOfRangeException("seed cannot be greater than 949");
 
             if (seed < 0)
                 throw new ArgumentOutOfRangeException("seed must be greater than or equal to zero");
@@ -36,7 +36,7 @@ namespace Goliath.Security
             this.seed = seed;
         }
 
-        int[] BuildIdParts(DateTime date)
+        static int[] BuildIdParts(DateTime date)
         {
             var year = date.Year - StartYear;
             var month = date.Month;
@@ -59,7 +59,6 @@ namespace Goliath.Security
         /// <summary>
         /// Gets the next id.
         /// </summary>
-        /// <param name="seed">The seed. Seed must be lower than 950 and greater than 0</param>
         /// <returns></returns>
         /// <exception cref="System.ArgumentOutOfRangeException">seed cannot be greater than 256</exception>
         public long GetNextId()
@@ -76,7 +75,6 @@ namespace Goliath.Security
             if (seed > 0)
             {
                 idParts[0] = idParts[0] + randVal + seed + 2000;
-                //sb.Append(seedVal.ToString("D3"));
             }
 
             for (var i = 0; i < idParts.Length; i++)

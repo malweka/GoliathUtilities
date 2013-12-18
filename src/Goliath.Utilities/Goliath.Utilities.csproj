@@ -51,7 +51,7 @@
     <Compile Include="Security\RsaAsymmetricCryptoProvider.cs" />
     <Compile Include="Security\IHashProvider.cs" />
     <Compile Include="Security\IUniqueNumberGenerator.cs" />
-    <Compile Include="Security\RandomLongGenerator.cs" />
+    <Compile Include="Security\UniqueLongGenerator.cs" />
     <Compile Include="Security\SaltedSha256HashProvider.cs" />
     <Compile Include="Security\SecureRandom.cs" />
     <Compile Include="Security\SecurityHelperMethods.cs" />

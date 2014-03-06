@@ -67,7 +67,11 @@ namespace Goliath.Security
         /// <param name="data">The data.</param>
         /// <param name="hash">The hash.</param>
         /// <returns></returns>
-        /// <exception cref="System.NotImplementedException"></exception>
+        /// <exception cref="System.ArgumentNullException">
+        /// data
+        /// or
+        /// hash
+        /// </exception>
         public bool VerifyHash(byte[] data, byte[] hash)
         {
             if (data == null || data.Length == 0) throw new ArgumentNullException("data");

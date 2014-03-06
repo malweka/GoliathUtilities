@@ -42,7 +42,7 @@ namespace Goliath.Security
         public static byte[] GenerateRandomSalt()
         {
             var secureRandom = new SecureRandom();
-            var saltArray = new byte[secureRandom.Next(8, 56)];
+            var saltArray = new byte[secureRandom.Next(8, 36)];
 
             using (var cryptoProv = new RNGCryptoServiceProvider())
             {
@@ -70,11 +70,14 @@ namespace Goliath.Security
 
             var newArray = new byte[array1.Length + array2.Length];
 
-            for (int i = 0; i < array1.Length; i++)
-                newArray[i] = array1[i];
+            Array.Copy(array1, newArray, array1.Length);
+            Array.Copy(array2, 0, newArray, array1.Length, array2.Length);
 
-            for (int i = 0; i < array2.Length; i++)
-                newArray[array1.Length + 1] = array2[i];
+            //for (int i = 0; i < array1.Length; i++)
+            //    newArray[i] = array1[i];
+
+            //for (int i = 0; i < array2.Length; i++)
+            //    newArray[array1.Length + 1] = array2[i];
 
             return newArray;
         }

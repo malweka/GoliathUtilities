@@ -1,0 +1,38 @@
+using System.Collections.Generic;
+
+namespace Goliath.Security
+{
+    public class RandomStringGenerator
+    {
+        const string alphabet = @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijkmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ23456789?*-+!@#$^&_~abcdefghijkmnopqrstuvwxyz";
+
+
+        /// <summary>
+        /// Generates this instance.
+        /// </summary>
+        /// <returns></returns>
+        public string Generate()
+        {
+            return Generate(8);
+        }
+
+        /// <summary>
+        /// Generates the specified length.
+        /// </summary>
+        /// <param name="length">The length.</param>
+        /// <returns></returns>
+        public string Generate(int length)
+        {
+            if (length < 5) length = 5;
+            var rtxt = new List<char>();
+            var random = new SecureRandom();
+            for (int i = 0; i < length; i++)
+            {
+                var index = random.Next(0, alphabet.Length);
+                rtxt.Add(alphabet[index]);
+            }
+
+            return new string(rtxt.ToArray());
+        }
+    }
+}

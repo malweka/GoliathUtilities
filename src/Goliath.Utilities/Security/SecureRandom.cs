@@ -85,7 +85,6 @@ namespace Goliath.Security
         {
             using (var rngProvider = RandomNumberGenerator.Create())
             {
-                //offset = randomBuff.Length;
                 rngProvider.GetBytes(randomBuff);
             }
         }

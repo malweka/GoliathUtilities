@@ -63,8 +63,6 @@ namespace Goliath.Security
         /// <exception cref="System.ArgumentOutOfRangeException">seed cannot be greater than 256</exception>
         public long GetNextId()
         {
-            
-
             var date = DateTime.UtcNow;
             var idParts = BuildIdParts(date);
 

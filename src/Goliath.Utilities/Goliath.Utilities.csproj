@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Security\RandomStringGenerator.cs" />
     <Compile Include="Security\RijndaelSymmetricCryptoProvider.cs" />
     <Compile Include="Security\CryptoProviderBase.cs" />
     <Compile Include="Security\DsaAsymmetricCryptoProvider.cs" />

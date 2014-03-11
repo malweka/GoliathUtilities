@@ -27,6 +27,24 @@ namespace Goliath
         }
 
         /// <summary>
+        /// Converts from base64 string to byte array.
+        /// </summary>
+        /// <param name="base64String">The base64 string.</param>
+        /// <returns></returns>
+        public static byte[] ConvertFromBase64StringToByteArray(this string base64String)
+        {
+            return Convert.FromBase64String(base64String);
+        }
+
+        public static byte[] ConvertHexStringToByteArray(this string hex)
+        {
+            return Enumerable.Range(0, hex.Length)
+                             .Where(x => x % 2 == 0)
+                             .Select(x => Convert.ToByte(hex.Substring(x, 2), 16))
+                             .ToArray();
+        }
+
+        /// <summary>
         /// Converts to string.
         /// </summary>
         /// <param name="bytes">The bytes.</param>
@@ -82,7 +100,7 @@ namespace Goliath
             }
             try
             {
-                
+
                 byte[] readByteBuffer = new byte[4096];
                 using (MemoryStream memStream = new MemoryStream())
                 {

@@ -43,4 +43,17 @@ namespace Goliath.Utilities.Tests
             }
         }
     }
+
+    [TestFixture]
+    public class SaltedSha256HashProviderTests
+    {
+        [Test]
+        public void HashAndVerify()
+        {
+            var hasher = new SaltedSha256HashProvider();
+            string secret = "125f5sfasdfasdfsadfee";
+            var h = hasher.ComputeHash(secret.ConvertToByteArray());
+            Assert.IsTrue(hasher.VerifyHash(secret.ConvertToByteArray(), h));
+        }
+    }
 }

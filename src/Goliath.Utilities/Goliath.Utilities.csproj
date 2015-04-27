@@ -41,6 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Security\HmacSha256Provider.cs" />
+    <Compile Include="Security\HmacSha512Provider.cs" />
+    <Compile Include="Security\IHmacProvider.cs" />
     <Compile Include="Security\RandomStringGenerator.cs" />
     <Compile Include="Security\RijndaelSymmetricCryptoProvider.cs" />
     <Compile Include="Security\CryptoProviderBase.cs" />

@@ -30,12 +30,12 @@ namespace Goliath.Security
         /// <param name="data">The data.</param>
         /// <param name="hash">The hash.</param>
         /// <returns></returns>
-        public bool VerifyHash(byte[] secret, byte[] data, byte[] hash)
+        public bool VerifyHash(byte[] secret, byte[] data, string hash)
         {
             using (var hmac = new HMACSHA512(secret))
             {
                 var computedHash = hmac.ComputeHash(data);
-                return string.Equals(Convert.ToBase64String(hash), Convert.ToBase64String(computedHash));
+                return string.Equals(hash, Convert.ToBase64String(computedHash));
             }
         }
     }

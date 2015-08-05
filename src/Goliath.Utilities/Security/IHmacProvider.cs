@@ -4,6 +4,6 @@ namespace Goliath.Security
     {
         byte[] ComputeHash(byte[] secret, byte[] data);
 
-       bool VerifyHash(byte[] secret, byte[] data, byte[] hash);
+       bool VerifyHash(byte[] secret, byte[] data, string hash);
     }
 }

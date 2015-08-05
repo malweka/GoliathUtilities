@@ -14,13 +14,11 @@ namespace Goliath.Security
             }
         }
 
-        public bool VerifyHash(byte[] secret, byte[] data, byte[] hash)
+        public bool VerifyHash(byte[] secret, byte[] data, string hash)
         {
-            using (var hmac = new HMACSHA256(secret))
-            {
-                var computedHash = hmac.ComputeHash(data);
-                return string.Equals(Convert.ToBase64String(hash), Convert.ToBase64String(computedHash));
-            }
+            var computed = ComputeHash(secret, data);
+            var verify = Convert.ToBase64String(computed);
+            return string.Equals(hash, verify);
         }
     }
 }

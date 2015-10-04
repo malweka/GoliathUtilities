@@ -1,5 +1,6 @@
 glob:bin/**
 glob:obj/**
+glob:packages/**
 glob:Bin/**
 glob:Uploads/Goliath_Publishing/**
 glob:*.user

@@ -21,7 +21,7 @@ using System.Runtime.InteropServices;
 
 [assembly: AssemblyCompany("Hamsman")]
 [assembly: AssemblyProduct("Goliath")]
-[assembly: AssemblyCopyright("Copyright © Emmanuel Hameyie 2012")]
+[assembly: AssemblyCopyright("Copyright © Emmanuel Hameyie 2016")]
 [assembly: AssemblyTrademark("")]
 
 [assembly: AssemblyVersion("1.1.0.0")]

@@ -2,7 +2,24 @@ using System.Collections.Generic;
 
 namespace Goliath.Security
 {
-    public class RandomStringGenerator
+    public interface IRandomStringGenerator
+    {
+        /// <summary>
+        /// Generates this instance.
+        /// </summary>
+        /// <returns></returns>
+        string Generate();
+
+        /// <summary>
+        /// Generates the specified length.
+        /// </summary>
+        /// <param name="length">The length.</param>
+        /// <param name="withSpecialCharacters">if set to <c>true</c> [with special characters].</param>
+        /// <returns></returns>
+        string Generate(int length, bool withSpecialCharacters = true);
+    }
+
+    public class RandomStringGenerator : IRandomStringGenerator
     {
         const string alphabet = @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijkmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ23456789*-+!@#$^&_~abcdefghijkmnopqrstuvwxyz";
         private const string alphabetNoSpecialChars = @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijkmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ23456789";
@@ -20,6 +37,7 @@ namespace Goliath.Security
         /// Generates the specified length.
         /// </summary>
         /// <param name="length">The length.</param>
+        /// <param name="withSpecialCharacters">if set to <c>true</c> [with special characters].</param>
         /// <returns></returns>
         public string Generate(int length, bool withSpecialCharacters = true)
         {

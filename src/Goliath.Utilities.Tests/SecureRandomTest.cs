@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Goliath.Security;
 using NUnit.Framework;
 
@@ -90,6 +91,21 @@ namespace Goliath.Utilities.Tests
             var hv = v.ConvertToBase64String();
 
             Assert.IsTrue(provider.VerifyHash(secret.ConvertToByteArray(), val.ConvertToByteArray(), hash));
+        }
+
+        [Test]
+        public void GenerateRandomString()
+        {
+            var stringGen = new RandomStringGenerator();
+            Dictionary<string,int> dictionary = new Dictionary<string, int>();
+            int length = 68;
+            for (var i = 0; i < 20; i++)
+            {
+                var key = stringGen.Generate(length, false);
+                dictionary.Add(key,i);
+                Console.WriteLine(key);
+                Assert.AreEqual(length, key.Length);
+            }
         }
     }
 }

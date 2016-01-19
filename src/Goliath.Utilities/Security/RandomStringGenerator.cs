@@ -22,7 +22,7 @@ namespace Goliath.Security
     public class RandomStringGenerator : IRandomStringGenerator
     {
         const string alphabet = @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijkmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ23456789*-+!@#$^&_~abcdefghijkmnopqrstuvwxyz";
-        private const string alphabetNoSpecialChars = @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijkmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ23456789";
+        const string alphabetNoSpecialChars = @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijkmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ23456789";
 
         /// <summary>
         /// Generates this instance.
@@ -45,10 +45,9 @@ namespace Goliath.Security
             var rtxt = new List<char>();
             var random = new SecureRandom();
 
-            string alpha;
-            alpha = withSpecialCharacters ? alphabet : alphabetNoSpecialChars;
+            var alpha = withSpecialCharacters ? alphabet : alphabetNoSpecialChars;
            
-            for (int i = 0; i < length; i++)
+            for (var i = 0; i < length; i++)
             {
                 var index = random.Next(0, alpha.Length);
                 rtxt.Add(alpha[index]);

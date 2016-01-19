@@ -76,6 +76,7 @@ namespace Goliath.Security
         {
             if (data == null || data.Length == 0) throw new ArgumentNullException("data");
             if (hash == null || hash.Length == 0) throw new ArgumentNullException("hash");
+            
 
             using (var managedHashProvider = new SHA256Managed())
             {
@@ -83,6 +84,23 @@ namespace Goliath.Security
                 var computedHash = ComputeHash(data, salt);
                 return string.Equals(Convert.ToBase64String(hash), Convert.ToBase64String(computedHash));
             }
+        }
+
+        /// <summary>
+        /// Verifies the hash.
+        /// </summary>
+        /// <param name="data">The data.</param>
+        /// <param name="hash">The hash.</param>
+        /// <param name="salt">The salt.</param>
+        /// <returns></returns>
+        public bool VerifyHash(byte[] data, byte[] hash, byte[] salt)
+        {
+            if (data == null || data.Length == 0) throw new ArgumentNullException("data");
+            if (hash == null || hash.Length == 0) throw new ArgumentNullException("hash");
+            if (salt == null || salt.Length == 0) throw new ArgumentNullException("salt");
+
+            var computedHash = ComputeHash(data, salt);
+            return string.Equals(Convert.ToBase64String(hash), Convert.ToBase64String(computedHash));
         }
 
         #endregion

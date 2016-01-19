@@ -35,5 +35,14 @@ namespace Goliath.Security
         /// <param name="hash">The hash.</param>
         /// <returns></returns>
         bool VerifyHash(byte[] data, byte[] hash);
+
+        /// <summary>
+        /// Verifies the hash.
+        /// </summary>
+        /// <param name="data">The data.</param>
+        /// <param name="hash">The hash.</param>
+        /// <param name="salt">The salt.</param>
+        /// <returns></returns>
+        bool VerifyHash(byte[] data, byte[] hash, byte[] salt);
     }
 }

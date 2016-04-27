@@ -90,6 +90,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\ExternalLoginModel.cs" />
     <Compile Include="Web\UrlHelperExtensions.cs" />
     <Compile Include="Web\AppBuilderExtensions.cs" />
     <Compile Include="Security\AppUserManager.cs" />

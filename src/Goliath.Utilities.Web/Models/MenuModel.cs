@@ -7,22 +7,74 @@ using System.Xml.Linq;
 
 namespace Goliath.Models
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <seealso cref="Goliath.IXmlSerializable" />
     public class MenuModel : IXmlSerializable
     {
+        /// <summary>
+        /// Gets or sets the name.
+        /// </summary>
+        /// <value>
+        /// The name.
+        /// </value>
         public string Name { get; set; }
+        /// <summary>
+        /// Gets or sets the display name.
+        /// </summary>
+        /// <value>
+        /// The display name.
+        /// </value>
         public string DisplayName { get; set; }
+        /// <summary>
+        /// Gets or sets the source.
+        /// </summary>
+        /// <value>
+        /// The source.
+        /// </value>
         public string Source { get; set; }
+        /// <summary>
+        /// Gets or sets the classes.
+        /// </summary>
+        /// <value>
+        /// The classes.
+        /// </value>
         public string Classes { get; set; }
+        /// <summary>
+        /// Gets or sets the icon URL.
+        /// </summary>
+        /// <value>
+        /// The icon URL.
+        /// </value>
         public string IconUrl { get; set; }
+        /// <summary>
+        /// Gets or sets the requires.
+        /// </summary>
+        /// <value>
+        /// The requires.
+        /// </value>
         public string Requires { get; set; }
 
         readonly List<MenuModel> subMenus = new List<MenuModel>();
 
+        /// <summary>
+        /// Gets the sub menus.
+        /// </summary>
+        /// <value>
+        /// The sub menus.
+        /// </value>
         public List<MenuModel> SubMenus
         {
             get { return subMenus; }
         }
 
+        /// <summary>
+        /// Serializes to XML.
+        /// </summary>
+        /// <param name="doc">The document.</param>
+        /// <returns></returns>
+        /// <exception cref="System.Exception">Name is required.</exception>
         public XmlNode SerializeToXml(XmlDocument doc)
         {
             var menuElement = doc.CreateElement("menu");
@@ -61,6 +113,15 @@ namespace Goliath.Models
             return menuElement;
         }
 
+        /// <summary>
+        /// Consume the XML document and load the values.
+        /// </summary>
+        /// <param name="data">The data.</param>
+        /// <exception cref="System.Runtime.Serialization.SerializationException">
+        /// Could not load menu. Please make sure the XML is in correct format.
+        /// or
+        /// Menu name attribute is mandatory.
+        /// </exception>
         public void LoadXml(XContainer data)
         {
             var elm = data as XElement;
@@ -97,6 +158,11 @@ namespace Goliath.Models
             }
         }
 
+        /// <summary>
+        /// Loads from file.
+        /// </summary>
+        /// <param name="filepath">The filepath.</param>
+        /// <returns></returns>
         public static MenuModel LoadFromFile(string filepath)
         {
             using (var xmlStream = new FileStream(filepath, FileMode.Open))
@@ -105,6 +171,11 @@ namespace Goliath.Models
             }
         }
 
+        /// <summary>
+        /// Loads the specified XML.
+        /// </summary>
+        /// <param name="xml">The XML.</param>
+        /// <returns></returns>
         public static MenuModel Load(string xml)
         {
             using (TextReader reader = new StringReader(xml))
@@ -114,6 +185,12 @@ namespace Goliath.Models
             }
         }
 
+        /// <summary>
+        /// Loads the specified XML stream.
+        /// </summary>
+        /// <param name="xmlStream">The XML stream.</param>
+        /// <returns></returns>
+        /// <exception cref="System.ArgumentNullException"></exception>
         public static MenuModel Load(Stream xmlStream)
         {
             if (xmlStream == null) throw new ArgumentNullException(nameof(xmlStream));

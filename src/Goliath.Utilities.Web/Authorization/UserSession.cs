@@ -86,12 +86,27 @@ namespace Goliath.Authorization
         /// </value>
         public IDictionary<string, IRole> Roles { get; set; }
 
+        /// <summary>
+        /// Gets the full name.
+        /// </summary>
+        /// <value>
+        /// The full name.
+        /// </value>
         public string FullName => $"{FirstName} {LastName}";
 
+        /// <summary>
+        /// Gets or sets the permission service.
+        /// </summary>
+        /// <value>
+        /// The permission service.
+        /// </value>
         public IPermissionService PermissionService { get; set; }
 
         #endregion
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UserSession"/> class.
+        /// </summary>
         public UserSession()
         {
             Roles = new Dictionary<string, IRole>();

@@ -1,4 +1,4 @@
-using Goliath.Authorization;
+using Goliath.Web.Authorization;
 
 namespace Goliath.Models
 {

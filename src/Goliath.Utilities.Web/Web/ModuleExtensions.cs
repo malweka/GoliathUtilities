@@ -1,7 +1,7 @@
 using System;
-using Goliath.Authorization;
 using Goliath.Data.Diagnostics;
 using Goliath.Models;
+using Goliath.Web.Authorization;
 using Nancy;
 
 namespace Goliath.Web

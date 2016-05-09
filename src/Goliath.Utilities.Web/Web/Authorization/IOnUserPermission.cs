@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Goliath.Authorization
+namespace Goliath.Web.Authorization
 {
     /// <summary>
     /// 

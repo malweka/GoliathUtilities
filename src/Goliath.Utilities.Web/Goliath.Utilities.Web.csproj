@@ -44,20 +44,24 @@
       <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.Owin, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Owin.2.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
+    <Reference Include="Microsoft.Owin, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.Owin.Security, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Owin.Security.2.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    <Reference Include="Microsoft.Owin.Security, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.Owin.Security.Cookies, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.2.1.0\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.3.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.Owin.Security.OAuth, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.2.1.0\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    <Reference Include="Microsoft.Owin.Security.Jwt, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Jwt.3.0.1\lib\net45\Microsoft.Owin.Security.Jwt.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Nancy, Version=1.4.2.0, Culture=neutral, processorArchitecture=MSIL">
@@ -68,8 +72,8 @@
       <HintPath>..\packages\Nancy.Viewengines.Razor.1.4.3\lib\net40\Nancy.ViewEngines.Razor.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
@@ -78,8 +82,13 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.30506.0\lib\net40\System.Web.Razor.dll</HintPath>
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=4.0.20622.1351, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.4.0.2.206221351\lib\net45\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Xml.Linq" />
@@ -90,6 +99,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Web\Authorization\IUserAccessManager.cs" />
+    <Compile Include="Web\Authorization\JwtFormat.cs" />
+    <Compile Include="Web\Authorization\OAuthOptions.cs" />
+    <Compile Include="Web\Authorization\OAuthProvider.cs" />
     <Compile Include="Models\ExternalLoginModel.cs" />
     <Compile Include="Web\UrlHelperExtensions.cs" />
     <Compile Include="Web\AppBuilderExtensions.cs" />
@@ -117,24 +130,24 @@
     <Compile Include="Web\ModuleExtensions.cs" />
     <Compile Include="Web\PerRequestContext.cs" />
     <Compile Include="Security\GoliathIntegerKeyGenerator.cs" />
-    <Compile Include="Authorization\IAppService.cs" />
-    <Compile Include="Authorization\IAppUser.cs" />
+    <Compile Include="Web\Authorization\IAppService.cs" />
+    <Compile Include="Web\Authorization\IAppUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Authorization\ICacheProvider.cs" />
-    <Compile Include="Authorization\IDatabaseProvider.cs" />
-    <Compile Include="Authorization\INotificationService.cs" />
-    <Compile Include="Authorization\IOnUserPermission.cs" />
-    <Compile Include="Authorization\IPermissionService.cs" />
-    <Compile Include="Authorization\IPermissionStore.cs" />
-    <Compile Include="Authorization\IRole.cs" />
-    <Compile Include="Authorization\ISettingsProvider.cs" />
-    <Compile Include="Authorization\IUserPermissionProvider.cs" />
-    <Compile Include="Authorization\OnUserPermissionImp.cs" />
-    <Compile Include="Authorization\PermissionBuilder.cs" />
-    <Compile Include="Authorization\PermissionProvider.cs" />
-    <Compile Include="Authorization\PermissionValidator.cs" />
-    <Compile Include="Authorization\UserRolePerm.cs" />
-    <Compile Include="Authorization\UserSession.cs" />
+    <Compile Include="Web\Authorization\ICacheProvider.cs" />
+    <Compile Include="Web\Authorization\IDatabaseProvider.cs" />
+    <Compile Include="Web\Authorization\INotificationService.cs" />
+    <Compile Include="Web\Authorization\IOnUserPermission.cs" />
+    <Compile Include="Web\Authorization\IPermissionService.cs" />
+    <Compile Include="Web\Authorization\IPermissionStore.cs" />
+    <Compile Include="Web\Authorization\IRole.cs" />
+    <Compile Include="Web\Authorization\ISettingsProvider.cs" />
+    <Compile Include="Web\Authorization\IUserPermissionProvider.cs" />
+    <Compile Include="Web\Authorization\OnUserPermissionImp.cs" />
+    <Compile Include="Web\Authorization\PermissionBuilder.cs" />
+    <Compile Include="Web\Authorization\PermissionProvider.cs" />
+    <Compile Include="Web\Authorization\PermissionValidator.cs" />
+    <Compile Include="Web\Authorization\UserRolePerm.cs" />
+    <Compile Include="Web\Authorization\UserSession.cs" />
     <Compile Include="Security\UniqueIdFactory.cs" />
   </ItemGroup>
   <ItemGroup>

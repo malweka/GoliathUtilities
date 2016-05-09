@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 
-namespace Goliath.Authorization
+namespace Goliath.Web.Authorization
 {
     [Serializable]
     public class UserSession : IAppUser, Nancy.Security.IUserIdentity, Microsoft.AspNet.Identity.IUser<long>

@@ -1,8 +1,7 @@
 using System.Collections.Generic;
 using Goliath.Models;
-using Goliath.Web;
 
-namespace Goliath.Authorization
+namespace Goliath.Web.Authorization
 {
     /// <summary>
     /// 

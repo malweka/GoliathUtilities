@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Security;
 
-namespace Goliath.Authorization
+namespace Goliath.Web.Authorization
 {
     class OnUserPermissionImp : IOnUserPermission
     {

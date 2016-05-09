@@ -1,6 +1,6 @@
 using Goliath.Data;
 
-namespace Goliath.Authorization
+namespace Goliath.Web.Authorization
 {
     public interface IDatabaseProvider
     {

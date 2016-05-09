@@ -1,5 +1,5 @@
-﻿using Goliath.Authorization;
-using Goliath.Data;
+﻿using Goliath.Data;
+using Goliath.Web.Authorization;
 
 namespace Goliath.Web
 {

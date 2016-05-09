@@ -1,8 +1,6 @@
 ﻿//using System;
 
-using Goliath.Web;
-
-namespace Goliath.Authorization
+namespace Goliath.Web.Authorization
 {
     public interface IAppService
     {

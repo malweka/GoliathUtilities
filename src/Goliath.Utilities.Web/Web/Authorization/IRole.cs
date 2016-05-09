@@ -1,4 +1,4 @@
-﻿namespace Goliath.Authorization
+﻿namespace Goliath.Web.Authorization
 {
     public interface IRole : Microsoft.AspNet.Identity.IRole<long>
     {

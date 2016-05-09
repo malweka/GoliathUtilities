@@ -1,7 +1,7 @@
 using System;
 using Goliath.Models;
 
-namespace Goliath.Authorization
+namespace Goliath.Web.Authorization
 {
 
     public interface IUserRolePerm

@@ -32,4 +32,12 @@ namespace Goliath.Web.Authorization
         IDictionary<string, IRole> Roles { get; }
 
     }
+
+    public interface IPermissionAction
+    {
+        long Id { get; }
+        string Name { get; }
+        int PermValue { get; }
+    }
+
 }

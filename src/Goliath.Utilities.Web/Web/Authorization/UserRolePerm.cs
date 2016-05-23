@@ -11,7 +11,7 @@ namespace Goliath.Web.Authorization
 
          int RoleNumber { get; set; }
 
-         PermActionType PermValue { get; set; }
+         int PermValue { get; set; }
 
          DateTime CreatedOn { get; set; }
 

@@ -12,7 +12,7 @@ namespace Goliath.Web.Authorization
         /// </summary>
         /// <param name="action">The action.</param>
         /// <returns></returns>
-        bool CanPerformAction(PermActionType action);
+        bool CanPerformAction(int action);
 
 
         /// <summary>

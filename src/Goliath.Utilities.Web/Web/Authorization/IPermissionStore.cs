@@ -23,7 +23,7 @@ namespace Goliath.Web.Authorization
         /// <param name="description">The description.</param>
         /// <param name="roleNumber">The role number.</param>
         /// <param name="action">The action.</param>
-        void AddPermission(int resourceTypeId, string resourceName, string description, int roleNumber, PermActionType action);
+        void AddPermission(int resourceTypeId, string resourceName, string description, int roleNumber, int action);
 
         /// <summary>
         /// Modifies the permission.
@@ -31,7 +31,7 @@ namespace Goliath.Web.Authorization
         /// <param name="resourceTypeId">The resource type identifier.</param>
         /// <param name="roleNumber">The role number.</param>
         /// <param name="action">The action.</param>
-        void ModifyPermission(int resourceTypeId, int roleNumber, PermActionType action);
+        void ModifyPermission(int resourceTypeId, int roleNumber, int action);
 
         /// <summary>
         /// Gets the permission.
@@ -48,7 +48,7 @@ namespace Goliath.Web.Authorization
         /// <param name="user">The user.</param>
         /// <param name="action">The action.</param>
         /// <returns></returns>
-        bool CanPerformAction(int resourceTypeId, IAppUser user, PermActionType action);
+        bool CanPerformAction(int resourceTypeId, IAppUser user, int action);
 
         /// <summary>
         /// Removes the permission.

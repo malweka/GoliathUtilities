@@ -81,6 +81,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.IdentityModel" />
     <Reference Include="System.IdentityModel.Tokens.Jwt, Version=4.0.20622.1351, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -99,6 +100,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\DatabaseProvider.cs" />
+    <Compile Include="Data\SettingsProvider.cs" />
     <Compile Include="Web\Authorization\IUserAccessManager.cs" />
     <Compile Include="Web\Authorization\JwtFormat.cs" />
     <Compile Include="Web\Authorization\OAuthOptions.cs" />
@@ -133,14 +136,14 @@
     <Compile Include="Web\Authorization\IAppService.cs" />
     <Compile Include="Web\Authorization\IAppUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Web\Authorization\ICacheProvider.cs" />
-    <Compile Include="Web\Authorization\IDatabaseProvider.cs" />
+    <Compile Include="Data\ICacheProvider.cs" />
+    <Compile Include="Data\IDatabaseProvider.cs" />
     <Compile Include="Web\Authorization\INotificationService.cs" />
     <Compile Include="Web\Authorization\IOnUserPermission.cs" />
     <Compile Include="Web\Authorization\IPermissionService.cs" />
     <Compile Include="Web\Authorization\IPermissionStore.cs" />
     <Compile Include="Web\Authorization\IRole.cs" />
-    <Compile Include="Web\Authorization\ISettingsProvider.cs" />
+    <Compile Include="Data\ISettingsProvider.cs" />
     <Compile Include="Web\Authorization\IUserPermissionProvider.cs" />
     <Compile Include="Web\Authorization\OnUserPermissionImp.cs" />
     <Compile Include="Web\Authorization\PermissionBuilder.cs" />

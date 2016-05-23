@@ -1,4 +1,8 @@
-namespace Goliath.Web.Authorization
+using System;
+using System.Collections;
+using Goliath.Models;
+
+namespace Goliath.Data
 {
     /// <summary>
     /// 
@@ -17,7 +21,7 @@ namespace Goliath.Web.Authorization
         /// </summary>
         /// <param name="configKeyName">Name of the configuration key.</param>
         /// <returns></returns>
-        string GetConfigAppSetting(string configKeyName);
+        string GetConfigFileSetting(string configKeyName);
 
         /// <summary>
         /// Sets the specified key.

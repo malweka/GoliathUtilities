@@ -1,4 +1,4 @@
-namespace Goliath.Web.Authorization
+namespace Goliath.Data
 {
     public interface ICacheProvider
     {

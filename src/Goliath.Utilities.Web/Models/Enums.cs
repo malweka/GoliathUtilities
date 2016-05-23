@@ -26,16 +26,16 @@ namespace Goliath.Models
         Success,
     }
 
-    [Flags]
-    public enum PermActionType
-    {
-        None = 0,
-        View = 1,
-        Edit = 2,
-        Create = 4,
-        Delete = 8,
-        List = 16
-    }
+    //[Flags]
+    //public enum PermActionType
+    //{
+    //    None = 0,
+    //    View = 1,
+    //    Edit = 2,
+    //    Create = 4,
+    //    Delete = 8,
+    //    List = 16
+    //}
 
 
     public enum VisualEditorType

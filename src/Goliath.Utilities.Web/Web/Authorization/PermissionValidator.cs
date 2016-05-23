@@ -6,7 +6,7 @@ namespace Goliath.Web.Authorization
     /// <summary>
     /// 
     /// </summary>
-    public sealed class PermissionValidator
+    public class PermissionValidator
     {
         private readonly IPermissionService permissionService;
         private readonly IAppUser user;
@@ -37,7 +37,7 @@ namespace Goliath.Web.Authorization
         /// <param name="resourceTypeId">The resource type identifier.</param>
         /// <param name="action">The action.</param>
         /// <returns></returns>
-        public bool CanPerformAction(int resourceTypeId, PermActionType action)
+        public bool CanPerformAction(int resourceTypeId, int action)
         {
             return permissionService.For(user)
                 .OnResourceType(resourceTypeId, string.Empty)
@@ -50,7 +50,7 @@ namespace Goliath.Web.Authorization
         /// <param name="resourceType">Type of the resource.</param>
         /// <param name="action">The action.</param>
         /// <returns></returns>
-        public bool CanPerformAction(Type resourceType, PermActionType action)
+        public bool CanPerformAction(Type resourceType, int action)
         {
             return permissionService.For(user)
                 .OnResourceType(resourceType)
@@ -65,7 +65,7 @@ namespace Goliath.Web.Authorization
         public bool CanView(Type resourceType)
         {
             return permissionService.For(user).OnResourceType(resourceType)
-                .CanPerformAction(PermActionType.View);
+                .CanPerformAction(DefaultPermissions.View);
         }
 
         /// <summary>
@@ -76,7 +76,7 @@ namespace Goliath.Web.Authorization
         public bool CanView(int resourceTypeId)
         {
             return permissionService.For(user).OnResourceType(resourceTypeId, string.Empty)
-                .CanPerformAction(PermActionType.View);
+                .CanPerformAction(DefaultPermissions.View);
         }
 
         /// <summary>
@@ -87,7 +87,7 @@ namespace Goliath.Web.Authorization
         public bool CanEdit(Type resourceType)
         {
             return permissionService.For(user).OnResourceType(resourceType)
-                .CanPerformAction(PermActionType.Edit);
+                .CanPerformAction(DefaultPermissions.Edit);
         }
 
         /// <summary>
@@ -98,7 +98,7 @@ namespace Goliath.Web.Authorization
         public bool CanEdit(int resourceTypeId)
         {
             return permissionService.For(user).OnResourceType(resourceTypeId, string.Empty)
-                .CanPerformAction(PermActionType.Edit);
+                .CanPerformAction(DefaultPermissions.Edit);
         }
 
         /// <summary>
@@ -109,7 +109,7 @@ namespace Goliath.Web.Authorization
         public bool CanCreate(Type resourceType)
         {
             return permissionService.For(user).OnResourceType(resourceType)
-                .CanPerformAction(PermActionType.Create);
+                .CanPerformAction(DefaultPermissions.Create);
         }
 
         /// <summary>
@@ -120,7 +120,7 @@ namespace Goliath.Web.Authorization
         public bool CanCreate(int resourceTypeId)
         {
             return permissionService.For(user).OnResourceType(resourceTypeId, string.Empty)
-                .CanPerformAction(PermActionType.Create);
+                .CanPerformAction(DefaultPermissions.Create);
         }
 
         /// <summary>
@@ -131,7 +131,7 @@ namespace Goliath.Web.Authorization
         public bool CanDelete(Type resourceType)
         {
             return permissionService.For(user).OnResourceType(resourceType)
-                .CanPerformAction(PermActionType.Delete);
+                .CanPerformAction(DefaultPermissions.Delete);
         }
 
         /// <summary>
@@ -142,7 +142,7 @@ namespace Goliath.Web.Authorization
         public bool CanDelete(int resourceTypeId)
         {
             return permissionService.For(user).OnResourceType(resourceTypeId, string.Empty)
-                .CanPerformAction(PermActionType.Delete);
+                .CanPerformAction(DefaultPermissions.Delete);
         }
 
         /// <summary>
@@ -153,7 +153,7 @@ namespace Goliath.Web.Authorization
         public bool CanList(Type resourceType)
         {
             return permissionService.For(user).OnResourceType(resourceType)
-                .CanPerformAction(PermActionType.List);
+                .CanPerformAction(DefaultPermissions.List);
         }
 
         /// <summary>
@@ -164,7 +164,16 @@ namespace Goliath.Web.Authorization
         public bool CanList(int resourceTypeId)
         {
             return permissionService.For(user).OnResourceType(resourceTypeId, string.Empty)
-                .CanPerformAction(PermActionType.List);
+                .CanPerformAction(DefaultPermissions.List);
+        }
+
+        public static class DefaultPermissions
+        {
+            public const int View = 1;
+            public const int Edit = 2;
+            public const int Create = 4;
+            public const int Delete = 8;
+            public const int List = 16;
         }
     }
 }

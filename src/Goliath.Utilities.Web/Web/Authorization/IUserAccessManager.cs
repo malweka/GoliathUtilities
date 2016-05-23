@@ -64,4 +64,6 @@ namespace Goliath.Web.Authorization
         UserSession FindUser(string userName);
 
     }
+
+    public interface IGoliathUserAccessManager : IUserAccessManager<long> { }
 }

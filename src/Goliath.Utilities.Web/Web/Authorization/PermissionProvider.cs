@@ -2,7 +2,7 @@
 
 namespace Goliath.Web.Authorization
 {
-    class PermissionProvider : IUserPermissionProvider
+   public class PermissionProvider : IUserPermissionProvider
     {
         private readonly IAppUser user;
         private readonly int resourceTypeId;
@@ -34,7 +34,7 @@ namespace Goliath.Web.Authorization
         /// </summary>
         /// <param name="action">The action.</param>
         /// <returns></returns>
-        public bool CanPerformAction(PermActionType action)
+        public bool CanPerformAction(int action)
         {
             return permissionStore.CanPerformAction(resourceTypeId, user, action);
         }

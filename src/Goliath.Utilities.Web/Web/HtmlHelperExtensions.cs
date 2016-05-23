@@ -24,7 +24,7 @@ namespace Goliath.Web
         /// <param name="resourceType">Type of the resource.</param>
         /// <param name="action">The action.</param>
         /// <returns></returns>
-        public static bool CanPerformAction<T>(this HtmlHelpers<T> htmlHelper, int resourceType, PermActionType action)
+        public static bool CanPerformAction<T>(this HtmlHelpers<T> htmlHelper, int resourceType, int action)
         {
             var currentUser = htmlHelper.CurrentUser;
             if (currentUser == null) return false;
@@ -45,7 +45,7 @@ namespace Goliath.Web
         /// <param name="resourceType">Type of the resource.</param>
         /// <param name="action">The action.</param>
         /// <returns></returns>
-        public static bool CanPerformAction<T>(this HtmlHelpers<T> htmlHelper, Type resourceType, PermActionType action)
+        public static bool CanPerformAction<T>(this HtmlHelpers<T> htmlHelper, Type resourceType, int action)
         {
             var currentUser = htmlHelper.CurrentUser;
             var userSession = currentUser as UserSession;

@@ -37,7 +37,7 @@ namespace Goliath.Models
         /// <value>
         /// The permission.
         /// </value>
-        public PermActionType Permission { get; set; }
+        public IPermissionAction Permission { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this instance can view.
@@ -71,52 +71,52 @@ namespace Goliath.Models
         /// </value>
         public bool CanDelete { get; set; }
 
-        /// <summary>
-        /// Processes the permission value.
-        /// </summary>
-        /// <returns></returns>
-        public PermActionType ProcessPermissionValue()
-        {
-            var val = PermActionType.None;
+        ///// <summary>
+        ///// Processes the permission value.
+        ///// </summary>
+        ///// <returns></returns>
+        //public PermActionType ProcessPermissionValue()
+        //{
+        //    var val = PermActionType.None;
 
-            if (CanCreate)
-                val = val | PermActionType.Create;
+        //    if (CanCreate)
+        //        val = val | PermActionType.Create;
 
-            if (CanDelete)
-                val = val | PermActionType.Delete;
+        //    if (CanDelete)
+        //        val = val | PermActionType.Delete;
 
-            if (CanEdit)
-                val = val | PermActionType.Edit;
+        //    if (CanEdit)
+        //        val = val | PermActionType.Edit;
 
-            if (CanView)
-                val = val | PermActionType.View;
+        //    if (CanView)
+        //        val = val | PermActionType.View;
 
-            return val;
-        }
+        //    return val;
+        //}
 
 
-        /// <summary>
-        /// Creates the specified user role perm.
-        /// </summary>
-        /// <param name="userRolePerm">The user role perm.</param>
-        /// <returns></returns>
-        public static PermissionActionModel Create(IUserRolePerm userRolePerm)
-        {
-            var model = new PermissionActionModel() {RoleNumber = userRolePerm.RoleNumber, ResourceId = userRolePerm.ResourceId, Permission = userRolePerm.PermValue};
+        ///// <summary>
+        ///// Creates the specified user role perm.
+        ///// </summary>
+        ///// <param name="userRolePerm">The user role perm.</param>
+        ///// <returns></returns>
+        //public static PermissionActionModel Create(IUserRolePerm userRolePerm)
+        //{
+        //    var model = new PermissionActionModel() {RoleNumber = userRolePerm.RoleNumber, ResourceId = userRolePerm.ResourceId, Permission = userRolePerm.PermValue};
 
-            if ((userRolePerm.PermValue & PermActionType.Create) == PermActionType.Create)
-                model.CanCreate = true;
+        //    if ((userRolePerm.PermValue & PermActionType.Create) == PermActionType.Create)
+        //        model.CanCreate = true;
 
-            if ((userRolePerm.PermValue & PermActionType.Edit) == PermActionType.Edit)
-                model.CanEdit = true;
+        //    if ((userRolePerm.PermValue & PermActionType.Edit) == PermActionType.Edit)
+        //        model.CanEdit = true;
 
-            if ((userRolePerm.PermValue & PermActionType.Delete) == PermActionType.Delete)
-                model.CanDelete = true;
+        //    if ((userRolePerm.PermValue & PermActionType.Delete) == PermActionType.Delete)
+        //        model.CanDelete = true;
 
-            if ((userRolePerm.PermValue & PermActionType.View) == PermActionType.View)
-                model.CanView = true;
+        //    if ((userRolePerm.PermValue & PermActionType.View) == PermActionType.View)
+        //        model.CanView = true;
 
-            return model;
-        }
+        //    return model;
+        //}
     }
 }

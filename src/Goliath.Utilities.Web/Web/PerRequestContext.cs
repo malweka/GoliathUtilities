@@ -11,7 +11,7 @@ namespace Goliath.Web
     {
         private readonly IDatabaseProvider dbProvider;
 
-        private readonly IPermissionService permissionService;
+        private readonly IPermissionBuilder permissionService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PerRequestContext" /> class.
@@ -20,7 +20,7 @@ namespace Goliath.Web
         /// <param name="permissionService">The permission service.</param>
         /// <param name="userSession">The user session.</param>
         /// <exception cref="System.ArgumentNullException">dbProvider</exception>
-        public PerRequestContext(IDatabaseProvider dbProvider, IPermissionService permissionService, UserSession userSession)
+        public PerRequestContext(IDatabaseProvider dbProvider, IPermissionBuilder permissionService, UserSession userSession)
         {
             if (dbProvider == null)
                 throw new ArgumentNullException(nameof(dbProvider));

@@ -100,7 +100,7 @@ namespace Goliath.Web.Authorization
         /// <value>
         /// The permission service.
         /// </value>
-        public IPermissionService PermissionService { get; set; }
+        public IPermissionBuilder PermissionService { get; set; }
 
         #endregion
 

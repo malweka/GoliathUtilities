@@ -3,7 +3,7 @@ using Goliath.Models;
 namespace Goliath.Web.Authorization
 {
 
-    public interface IUserAccessManager<T> : IUserAccessManager
+    public interface IUserAccessManager<in T> : IUserAccessManager
     {
         /// <summary>
         /// Finds the user.

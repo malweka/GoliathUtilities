@@ -3,16 +3,17 @@
     /// <summary>
     /// 
     /// </summary>
-    public class PermissionService : IPermissionService
+    public class PermissionBuilder : IPermissionBuilder
     {
         private readonly IPermissionStore permissionStore;
-        private readonly IResourceSecurtityProvider secProv;
+        private readonly ITypeToResourceMapper secProv;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PermissionService" /> class.
+        /// Initializes a new instance of the <see cref="PermissionBuilder" /> class.
         /// </summary>
         /// <param name="permissionStore">The permission store.</param>
-        public PermissionService(IPermissionStore permissionStore, IResourceSecurtityProvider secProv)
+        /// <param name="secProv">The sec prov.</param>
+        public PermissionBuilder(IPermissionStore permissionStore, ITypeToResourceMapper secProv)
         {
             this.permissionStore = permissionStore;
             this.secProv = secProv;
@@ -27,15 +28,5 @@
         {
             return new OnUserPermissionImp(user, permissionStore, secProv);
         }
-
-        ///// <summary>
-        ///// Fors the specified role.
-        ///// </summary>
-        ///// <param name="role">The role.</param>
-        ///// <returns></returns>
-        //public IOnRolePermission For(UserRole role)
-        //{
-        //    return new OnRolePermissionImp(role, permissionStore);
-        //}
     }
 }

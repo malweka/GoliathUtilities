@@ -102,11 +102,17 @@
   <ItemGroup>
     <Compile Include="Data\DatabaseProvider.cs" />
     <Compile Include="Data\SettingsProvider.cs" />
+    <Compile Include="Web\Authorization\BasePermissionStore.cs" />
+    <Compile Include="Web\Authorization\InMemoryPermissionStore.cs" />
+    <Compile Include="Web\Authorization\IPermissionDataAdapter.cs" />
+    <Compile Include="Web\Authorization\IPermissionItem.cs" />
+    <Compile Include="Web\Authorization\ITypeToResourceMapper.cs" />
     <Compile Include="Web\Authorization\IUserAccessManager.cs" />
     <Compile Include="Web\Authorization\JwtFormat.cs" />
     <Compile Include="Web\Authorization\OAuthOptions.cs" />
     <Compile Include="Web\Authorization\OAuthProvider.cs" />
     <Compile Include="Models\ExternalLoginModel.cs" />
+    <Compile Include="Web\Authorization\PermissionList.cs" />
     <Compile Include="Web\UrlHelperExtensions.cs" />
     <Compile Include="Web\AppBuilderExtensions.cs" />
     <Compile Include="Security\AppUserManager.cs" />
@@ -140,16 +146,15 @@
     <Compile Include="Data\IDatabaseProvider.cs" />
     <Compile Include="Web\Authorization\INotificationService.cs" />
     <Compile Include="Web\Authorization\IOnUserPermission.cs" />
-    <Compile Include="Web\Authorization\IPermissionService.cs" />
+    <Compile Include="Web\Authorization\IPermissionBuilder.cs" />
     <Compile Include="Web\Authorization\IPermissionStore.cs" />
     <Compile Include="Web\Authorization\IRole.cs" />
     <Compile Include="Data\ISettingsProvider.cs" />
     <Compile Include="Web\Authorization\IUserPermissionProvider.cs" />
     <Compile Include="Web\Authorization\OnUserPermissionImp.cs" />
     <Compile Include="Web\Authorization\PermissionBuilder.cs" />
-    <Compile Include="Web\Authorization\PermissionProvider.cs" />
+    <Compile Include="Web\Authorization\PermissionEvaluator.cs" />
     <Compile Include="Web\Authorization\PermissionValidator.cs" />
-    <Compile Include="Web\Authorization\UserRolePerm.cs" />
     <Compile Include="Web\Authorization\UserSession.cs" />
     <Compile Include="Security\UniqueIdFactory.cs" />
   </ItemGroup>

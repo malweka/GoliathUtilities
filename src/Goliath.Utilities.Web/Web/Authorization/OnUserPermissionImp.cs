@@ -6,48 +6,42 @@ namespace Goliath.Web.Authorization
     class OnUserPermissionImp : IOnUserPermission
     {
         private readonly IAppUser user;
-        private readonly IResourceSecurtityProvider secProv;
+        private readonly ITypeToResourceMapper secProv;
         private readonly IPermissionStore permissionStore;
 
-        public OnUserPermissionImp(IAppUser user, IPermissionStore permissionStore, IResourceSecurtityProvider secProv)
+        public OnUserPermissionImp(IAppUser user, IPermissionStore permissionStore, ITypeToResourceMapper secProv)
         {
-            if (user == null) throw new ArgumentNullException("user");
-            //if (dbProvider == null) throw new ArgumentNullException("dbProvider");
+            if (user == null) throw new ArgumentNullException(nameof(user));
+            if (permissionStore == null) throw new ArgumentNullException(nameof(permissionStore));
+            if (secProv == null) throw new ArgumentNullException(nameof(secProv));
 
             this.user = user;
             this.permissionStore = permissionStore;
             this.secProv = secProv;
-            //this.dbProvider = dbProvider;
         }
 
-        public IUserPermissionProvider On<T>(T entity)
+        public IUserPermissionEvaluator On<T>(T entity)
         {
             var type = typeof (T);
-            var resourceTypeId = secProv.ResolveResourceTypeIdFromType(type);
-            if (resourceTypeId < 1)
-                throw new SecurityException(string.Format("Resource type Id not found for type {0}", type));
+            var resourceId = secProv.ResolveResourceIdFromType(type);
+            if (resourceId < 1)
+                throw new SecurityException($"Resource type Id not found for type {type}");
 
-            return new PermissionProvider(user, resourceTypeId, permissionStore) {ResourceName = type.FullName};
+            return new PermissionEvaluator(user, resourceId, permissionStore);
         }
 
-        public IUserPermissionProvider OnResourceType(int resourceTypeId, string resourceName)
+        public IUserPermissionEvaluator OnResourceType(int resourceId, string resourceName)
         {
-            return new PermissionProvider(user, resourceTypeId, permissionStore) {ResourceName = resourceName};
+            return new PermissionEvaluator(user, resourceId, permissionStore);
         }
 
-        public IUserPermissionProvider OnResourceType(Type resourceType)
+        public IUserPermissionEvaluator OnResourceType(Type resourceType)
         {
-            var resourceTypeId = secProv.ResolveResourceTypeIdFromType(resourceType);
-            if (resourceTypeId < 1)
-                throw new SecurityException(string.Format("Resource type Id not found for type {0}", resourceType));
+            var resourceId = secProv.ResolveResourceIdFromType(resourceType);
+            if (resourceId < 1)
+                throw new SecurityException($"Resource type Id not found for type {resourceType}");
 
-            return new PermissionProvider(user, resourceTypeId, permissionStore) {ResourceName = resourceType.FullName};
+            return new PermissionEvaluator(user, resourceId, permissionStore);
         }
-    }
-
-    public interface IResourceSecurtityProvider
-    {
-        int ResolveResourceTypeIdFromType(Type type);
-        Type ResolveTypeFromResourceTypeId(int resourceTypeId);
     }
 }

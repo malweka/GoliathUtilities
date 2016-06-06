@@ -3,6 +3,7 @@ namespace Goliath.Web.Authorization
     /// <summary>
     /// 
     /// </summary>
+    [System.Serializable]
     public class PermissionList : System.Collections.ObjectModel.KeyedCollection<int, IPermissionItem>
     {
         /// <summary>

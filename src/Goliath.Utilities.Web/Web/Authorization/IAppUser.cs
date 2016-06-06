@@ -5,24 +5,8 @@ namespace Goliath.Web.Authorization
     /// <summary>
     /// 
     /// </summary>
-    public interface IAppUser
+    public interface IAppUser: Microsoft.AspNet.Identity.IUser<long>
     {
-        /// <summary>
-        /// Gets the identifier.
-        /// </summary>
-        /// <value>
-        /// The identifier.
-        /// </value>
-        long Id { get; }
-
-        /// <summary>
-        /// Gets the user identifier.
-        /// </summary>
-        /// <value>
-        /// The user identifier.
-        /// </value>
-        string UserName { get; }
-
         /// <summary>
         /// Gets the user role.
         /// </summary>

@@ -134,36 +134,6 @@ namespace Goliath.Web.Authorization
             }
         }
 
-        //internal static UserSession CreateUserSession(User user, IProfileImageManager profileManager, IDictionary<string, RoleModel> roles = null)
-        //{
-        //    if (user == null) return null;
-
-        //    if (roles == null)
-        //        roles = new Dictionary<string, RoleModel>();
-
-        //    var session = new UserSession
-        //    {
-        //        Id = user.Id,
-        //        UserName = user.UserName,
-        //        IsActive = user.IsActive,
-        //        Roles = roles,
-        //        ProfileImageUrl = profileManager.CreateProfileImageUrl(user)
-        //    };
-
-
-        //    if (user.Contact == null) return session;
-
-        //    session.FirstName = user.Contact.FirstName;
-        //    session.LastName = user.Contact.LastName;
-        //    session.EmailAddress = user.Contact.EmailAddress;
-
-
-        //    var stringGenerator = new RandomStringGenerator();
-        //    session.SessionId = stringGenerator.Generate(24, false);
-
-        //    return session;
-        //}
-
         public ClaimsIdentity CreateClaimsIdentity(string cookieName)
         {
             try
@@ -189,14 +159,6 @@ namespace Goliath.Web.Authorization
 
         }
 
-        /// <summary>
-        /// Determines whether this instance is administrator.
-        /// </summary>
-        /// <returns></returns>
-        public bool IsAdministrator()
-        {
-            return Roles.ContainsKey("Admin");
-        }
 
         /// <summary>
         /// Determines whether [is in role] [the specified rolename].

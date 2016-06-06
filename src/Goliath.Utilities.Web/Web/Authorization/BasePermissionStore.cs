@@ -11,7 +11,7 @@ namespace Goliath.Web.Authorization
         /// <summary>
         /// True if the permissions are loaded
         /// </summary>
-        protected bool IsLoaded;
+        protected static bool IsLoaded;
 
         /// <summary>
         /// The permission database
@@ -76,6 +76,7 @@ namespace Goliath.Web.Authorization
             }
             else
             {
+                if ((permission.PermValue & action) == action) return;
                 //add the permission 
                 permission.PermValue = permission.PermValue | action;
                 //update the database with the changes

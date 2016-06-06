@@ -37,9 +37,11 @@ namespace Goliath.Web.Authorization
                 {
                     CachePermissionInternal(permissionItem);
                 }
+
+                IsLoaded = true;
             }
 
-            IsLoaded = true;
+            
         }
 
         void CachePermissionInternal(IPermissionItem permission)

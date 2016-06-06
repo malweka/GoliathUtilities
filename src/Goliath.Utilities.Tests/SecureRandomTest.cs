@@ -98,13 +98,26 @@ namespace Goliath.Utilities.Tests
         {
             var stringGen = new RandomStringGenerator();
             Dictionary<string,int> dictionary = new Dictionary<string, int>();
-            int length = 68;
+            int length = 120;
             for (var i = 0; i < 20; i++)
             {
                 var key = stringGen.Generate(length, false);
                 dictionary.Add(key,i);
                 Console.WriteLine(key);
                 Assert.AreEqual(length, key.Length);
+            }
+        }
+
+        [Test]
+        public void GenerateSaltedHashes()
+        {
+            var hasher = new SaltedSha256HashProvider();
+            string secret = "ChangeMe123$";
+            var b = secret.ConvertToByteArray();
+            for (var i = 0; i < 20; i++)
+            {
+                var key = hasher.ComputeHash(b);
+                Console.WriteLine(key.ConvertToBase64String());
             }
         }
     }

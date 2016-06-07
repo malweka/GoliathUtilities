@@ -101,6 +101,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\DatabaseProvider.cs" />
+    <Compile Include="Data\InMemoryCache.cs" />
     <Compile Include="Data\SettingsProvider.cs" />
     <Compile Include="Web\Authorization\BasePermissionStore.cs" />
     <Compile Include="Web\Authorization\InMemoryPermissionStore.cs" />

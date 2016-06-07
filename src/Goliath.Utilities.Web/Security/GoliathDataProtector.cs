@@ -68,11 +68,11 @@ namespace Goliath.Security
         }
     }
 
-    public class NancyDataProtectorProvider : IDataProtectionProvider
+    public class GoliathDataProtectorProvider : IDataProtectionProvider
     {
         private readonly IDataProtector protector;
 
-        public NancyDataProtectorProvider(IDataProtector protector)
+        public GoliathDataProtectorProvider(IDataProtector protector)
         {
             this.protector = protector;
         }

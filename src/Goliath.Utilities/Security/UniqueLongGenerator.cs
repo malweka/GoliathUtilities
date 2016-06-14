@@ -8,13 +8,13 @@ namespace Goliath.Security
 {
     public class UniqueLongGenerator : IUniqueNumberGenerator
     {
-        private const int StartYear = 2000;
-        private int seed;
+        private const int Epoch = 1970;
+        private readonly int seed;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="UniqueLongGenerator"/> class.
         /// </summary>
-        public UniqueLongGenerator():this(0){}
+        public UniqueLongGenerator() : this(2) { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="UniqueLongGenerator"/> class.
@@ -27,34 +27,20 @@ namespace Goliath.Security
         /// </exception>
         public UniqueLongGenerator(int seed)
         {
-            if (seed > 949)
-                throw new ArgumentOutOfRangeException("seed cannot be greater than 949");
+            if (seed > 99)
+                throw new ArgumentOutOfRangeException("seed cannot be greater than 99");
 
             if (seed < 0)
                 throw new ArgumentOutOfRangeException("seed must be greater than or equal to zero");
 
+            if (seed == 0)
+                seed = 2;
+
             this.seed = seed;
         }
 
-        static int[] BuildIdParts(DateTime date)
-        {
-            var year = date.Year - StartYear;
-            var month = date.Month;
-            var day = date.Day;
-            var hour = date.Hour;
-            var min = date.Minute;
-            var sec = date.Second;
-            var ms = date.Millisecond;
-            var parts = new int[] { year, month, day, hour, min, sec, ms };
-            return parts;
-        }
 
         #region IUniqueIdGenerator Members
-
-        //public long GetNextId()
-        //{
-        //    return GetNextId(0);
-        //}
 
         /// <summary>
         /// Gets the next id.
@@ -64,32 +50,24 @@ namespace Goliath.Security
         public long GetNextId()
         {
             var date = DateTime.UtcNow;
-            var idParts = BuildIdParts(date);
+            var epoch = date.Year - Epoch;
 
             var rand = new SecureRandom();
-            var randVal = rand.Next(1, 50);
-            var sb = new StringBuilder();
+            var randVal = rand.Next(1, 98);
+            var seedVal = randVal / seed;
 
-            if (seed > 0)
-            {
-                idParts[0] = idParts[0] + randVal + seed + 2000;
-            }
+            var stringId = string.Concat(epoch.ToString("D2"), seedVal.ToString("D2"), date.Month.ToString("D2"), date.Day.ToString("D2"), date.Hour.ToString("D2"),
+                date.Minute.ToString("D2"), date.Second.ToString("D2"), date.Millisecond.ToString("D3"), randVal.ToString("D2"));
 
-            for (var i = 0; i < idParts.Length; i++)
-            {
-                if (i == 6)
-                    sb.Append(idParts[i].ToString("D3"));
-                else
-                    sb.Append(idParts[i].ToString("D2"));
-            }
+            //let's wait at least 1 millisecond to avoid collisions
+            System.Threading.Thread.Sleep(1);
 
-            sb.Append(randVal.ToString("D2"));
+            return Convert.ToInt64(stringId);
 
-            return Convert.ToInt64(sb.ToString());
         }
 
         #endregion
     }
 
-    
+
 }

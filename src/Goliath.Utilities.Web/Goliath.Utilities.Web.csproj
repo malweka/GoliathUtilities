@@ -100,9 +100,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\BaseAppService.cs" />
     <Compile Include="Data\DatabaseProvider.cs" />
+    <Compile Include="Data\IGoliathCrudService.cs" />
     <Compile Include="Data\InMemoryCache.cs" />
     <Compile Include="Data\SettingsProvider.cs" />
+    <Compile Include="GoliathException.cs" />
     <Compile Include="Web\Authorization\BasePermissionStore.cs" />
     <Compile Include="Web\Authorization\InMemoryPermissionStore.cs" />
     <Compile Include="Web\Authorization\IPermissionDataAdapter.cs" />
@@ -140,7 +143,7 @@
     <Compile Include="Web\ModuleExtensions.cs" />
     <Compile Include="Web\PerRequestContext.cs" />
     <Compile Include="Security\GoliathIntegerKeyGenerator.cs" />
-    <Compile Include="Web\Authorization\IAppService.cs" />
+    <Compile Include="Data\IAppService.cs" />
     <Compile Include="Web\Authorization\IAppUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Data\ICacheProvider.cs" />

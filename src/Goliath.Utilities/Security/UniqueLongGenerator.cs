@@ -28,10 +28,10 @@ namespace Goliath.Security
         public UniqueLongGenerator(int seed)
         {
             if (seed > 99)
-                throw new ArgumentOutOfRangeException("seed cannot be greater than 99");
+                throw new ArgumentOutOfRangeException(nameof(seed), "seed cannot be greater than 99");
 
             if (seed < 0)
-                throw new ArgumentOutOfRangeException("seed must be greater than or equal to zero");
+                throw new ArgumentOutOfRangeException(nameof(seed), "seed must be greater than or equal to zero");
 
             if (seed == 0)
                 seed = 2;

@@ -117,6 +117,7 @@
     <Compile Include="Web\Authorization\OAuthProvider.cs" />
     <Compile Include="Models\ExternalLoginModel.cs" />
     <Compile Include="Web\Authorization\PermissionList.cs" />
+    <Compile Include="Web\Session\PersistentSession.cs" />
     <Compile Include="Web\UrlHelperExtensions.cs" />
     <Compile Include="Web\AppBuilderExtensions.cs" />
     <Compile Include="Security\AppUserManager.cs" />

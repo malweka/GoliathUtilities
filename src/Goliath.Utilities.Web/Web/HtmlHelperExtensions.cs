@@ -27,8 +27,8 @@ namespace Goliath.Web
         public static bool CanPerformAction<T>(this HtmlHelpers<T> htmlHelper, int resourceType, int action)
         {
             var currentUser = htmlHelper.CurrentUser;
-            if (currentUser == null) return false;
             var userSession = currentUser as UserSession;
+
             if (userSession == null) return false;
 
             var permissionValidator = userSession.GetPermissionValidator();
@@ -49,6 +49,7 @@ namespace Goliath.Web
         {
             var currentUser = htmlHelper.CurrentUser;
             var userSession = currentUser as UserSession;
+
             if (userSession == null) return false;
 
             var permissionValidator = userSession.GetPermissionValidator();

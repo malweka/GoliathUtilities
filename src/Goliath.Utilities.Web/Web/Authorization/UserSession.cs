@@ -76,6 +76,12 @@ namespace Goliath.Web.Authorization
         /// </value>
         public string AuthenticationProvider { get; set; }
 
+        /// <summary>
+        /// Gets or sets the profile image URL.
+        /// </summary>
+        /// <value>
+        /// The profile image URL.
+        /// </value>
         public string ProfileImageUrl { get; set; }
 
         /// <summary>
@@ -159,7 +165,6 @@ namespace Goliath.Web.Authorization
 
         }
 
-
         /// <summary>
         /// Determines whether [is in role] [the specified rolename].
         /// </summary>
@@ -169,5 +174,13 @@ namespace Goliath.Web.Authorization
         {
             return Roles.ContainsKey(rolename);
         }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is internal user.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if this instance is internal user; otherwise, <c>false</c>.
+        /// </value>
+        public bool IsInternalUser { get; internal set; }
     }
 }

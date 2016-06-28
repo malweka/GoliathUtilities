@@ -46,15 +46,6 @@ namespace Goliath.Models
         DatePicker,
     }
 
-    public enum ActivityLogType
-    {
-        UnknowUser = 0,
-        InactiveUser,
-        InvalidPassword,
-        LoginSuccess,
-        EmailChange,
-        PasswordReset,
-    }
 
     [Flags]
     public enum AuthenticationStatus

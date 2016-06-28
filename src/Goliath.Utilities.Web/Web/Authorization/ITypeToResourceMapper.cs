@@ -5,20 +5,21 @@ namespace Goliath.Web.Authorization
     /// <summary>
     /// 
     /// </summary>
-    public interface ITypeToResourceMapper
+    public interface IResourcePermissionGroupMapper
     {
+
         /// <summary>
-        /// Resolves the type of the resource type identifier from.
+        /// Gets the type of the resource group identifier by.
         /// </summary>
         /// <param name="type">The type.</param>
         /// <returns></returns>
-        int ResolveResourceIdFromType(Type type);
+        int GetResourceGroupIdByType(Type type);
 
         /// <summary>
-        /// Resolves the type from resource type identifier.
+        /// Gets the name of the resource group identifier by.
         /// </summary>
-        /// <param name="resourceId">The resource type identifier.</param>
+        /// <param name="resourceName">Name of the resource.</param>
         /// <returns></returns>
-        Type ResolveTypeFromResourceId(int resourceId);
+        int GetResourceGroupIdByName(string resourceName);
     }
 }

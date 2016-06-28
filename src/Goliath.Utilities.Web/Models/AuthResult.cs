@@ -13,7 +13,7 @@ namespace Goliath.Models
         /// <value>
         /// The status.
         /// </value>
-        public AuthenticationStatus Status { get; internal set; }
+        public AuthenticationStatus Status { get;  set; }
 
         /// <summary>
         /// Gets the session.
@@ -21,6 +21,6 @@ namespace Goliath.Models
         /// <value>
         /// The session.
         /// </value>
-        public UserSession UserSession { get; internal set; }
+        public UserSession UserSession { get; set; }
     }
 }

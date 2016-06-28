@@ -6,10 +6,10 @@ namespace Goliath.Web.Authorization
     class OnUserPermissionImp : IOnUserPermission
     {
         private readonly IAppUser user;
-        private readonly ITypeToResourceMapper secProv;
+        private readonly IResourcePermissionGroupMapper secProv;
         private readonly IPermissionStore permissionStore;
 
-        public OnUserPermissionImp(IAppUser user, IPermissionStore permissionStore, ITypeToResourceMapper secProv)
+        public OnUserPermissionImp(IAppUser user, IPermissionStore permissionStore, IResourcePermissionGroupMapper secProv)
         {
             if (user == null) throw new ArgumentNullException(nameof(user));
             if (permissionStore == null) throw new ArgumentNullException(nameof(permissionStore));
@@ -23,7 +23,7 @@ namespace Goliath.Web.Authorization
         public IUserPermissionEvaluator On<T>(T entity)
         {
             var type = typeof (T);
-            var resourceId = secProv.ResolveResourceIdFromType(type);
+            var resourceId = secProv.GetResourceGroupIdByType(type);
             if (resourceId < 1)
                 throw new SecurityException($"Resource type Id not found for type {type}");
 
@@ -37,7 +37,7 @@ namespace Goliath.Web.Authorization
 
         public IUserPermissionEvaluator OnResourceType(Type resourceType)
         {
-            var resourceId = secProv.ResolveResourceIdFromType(resourceType);
+            var resourceId = secProv.GetResourceGroupIdByType(resourceType);
             if (resourceId < 1)
                 throw new SecurityException($"Resource type Id not found for type {resourceType}");
 

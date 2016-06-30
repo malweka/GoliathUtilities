@@ -40,7 +40,7 @@ namespace Goliath.Models
         /// <value>
         /// The classes.
         /// </value>
-        public string Classes { get; set; }
+        public string CssClasses { get; set; }
         /// <summary>
         /// Gets or sets the icon URL.
         /// </summary>
@@ -48,13 +48,22 @@ namespace Goliath.Models
         /// The icon URL.
         /// </value>
         public string IconUrl { get; set; }
+
         /// <summary>
         /// Gets or sets the requires.
         /// </summary>
         /// <value>
         /// The requires.
         /// </value>
-        public string Requires { get; set; }
+        public string ResourceName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the permission action.
+        /// </summary>
+        /// <value>
+        /// The permission action.
+        /// </value>
+        public string PermissionAction { get; set; }
 
         readonly List<MenuModel> subMenus = new List<MenuModel>();
 
@@ -89,14 +98,17 @@ namespace Goliath.Models
             if (!string.IsNullOrWhiteSpace(Source))
                 menuElement.SetAttribute("source", Source);
 
-            if (!string.IsNullOrWhiteSpace(Classes))
-                menuElement.SetAttribute("classes", Classes);
+            if (!string.IsNullOrWhiteSpace(CssClasses))
+                menuElement.SetAttribute("cssClasses", CssClasses);
 
             if (!string.IsNullOrWhiteSpace(IconUrl))
                 menuElement.SetAttribute("iconUrl", IconUrl);
 
-            if (!string.IsNullOrWhiteSpace(Requires))
-                menuElement.SetAttribute("requires", Requires);
+            if (!string.IsNullOrWhiteSpace(ResourceName))
+                menuElement.SetAttribute("resourceName", ResourceName);
+
+            if (!string.IsNullOrWhiteSpace(PermissionAction))
+                menuElement.SetAttribute("permAction", PermissionAction);
 
             if (subMenus.Count > 0)
             {
@@ -140,14 +152,17 @@ namespace Goliath.Models
             var src = elm.Attribute("source");
             Source = src?.Value;
 
-            var classes = elm.Attribute("classes");
-            Classes = classes?.Value;
+            var classes = elm.Attribute("cssClasses");
+            CssClasses = classes?.Value;
 
             var icon = elm.Attribute("iconUrl");
             IconUrl = icon?.Value;
 
-            var req = elm.Attribute("requires");
-            Requires = req?.Value;
+            var req = elm.Attribute("resourceName");
+            ResourceName = req?.Value;
+
+            var action = elm.Attribute("permAction");
+            PermissionAction = action?.Value;
 
             var subs = elm.Descendants("subMenus").Descendants("menu");
             foreach (var xElement in subs)

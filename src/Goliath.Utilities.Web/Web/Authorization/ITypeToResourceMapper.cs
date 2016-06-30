@@ -20,6 +20,6 @@ namespace Goliath.Web.Authorization
         /// </summary>
         /// <param name="resourceName">Name of the resource.</param>
         /// <returns></returns>
-        int GetResourceGroupIdByName(string resourceName);
+        int? GetResourceGroupIdByName(string resourceName);
     }
 }

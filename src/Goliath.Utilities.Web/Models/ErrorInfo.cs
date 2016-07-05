@@ -1,8 +1,11 @@
-﻿namespace Goliath.Models
+﻿using System;
+
+namespace Goliath.Models
 {
     /// <summary>
     /// 
     /// </summary>
+    [Serializable]
     public struct ErrorInfo
     {
         /// <summary>

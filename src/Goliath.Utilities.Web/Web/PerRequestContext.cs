@@ -30,14 +30,6 @@ namespace Goliath.Web
             this.CurrentUser = userSession;
         }
 
-        ///// <summary>
-        ///// Updates the identity.
-        ///// </summary>
-        ///// <param name="userSession">The user session.</param>
-        //public void UpdateIdentity(UserSession userSession)
-        //{
-        //    this.userSession = userSession;
-        //}
 
         /// <summary>
         /// Gets or sets the current user.

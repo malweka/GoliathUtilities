@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Xml.Serialization;
 
 namespace Goliath.Models
 {
+    [Serializable]
     public class ViewExecutionInfo
     {
         /// <summary>
@@ -28,6 +31,7 @@ namespace Goliath.Models
         /// <value>
         /// The errors.
         /// </value>
+        [XmlIgnore]
         public Dictionary<string, ErrorInfo> Errors
         {
             get { return errors; }

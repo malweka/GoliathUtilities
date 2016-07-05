@@ -47,7 +47,7 @@ namespace Goliath.Data
         protected ICollection<T> FetchAllFromQuery<T>(IQueryBuilder<T> query, string filter, string sortString = null)
         {
             var filterTuple = CleanFilterString(filter);
-            var cleanSort = CleanSortString(sortString);
+            var cleanSort = CleanSortString(query, sortString);
             ICollection<T> list;
 
             if (filterTuple != null)
@@ -90,7 +90,7 @@ namespace Goliath.Data
         protected ICollection<T> FetchAllFromQuery<T>(IQueryBuilder<T> query, int limit, int offset, string filter, string sortString = null)
         {
             var filterTuple = CleanFilterString(filter);
-            var cleanSort = CleanSortString(sortString);
+            var cleanSort = CleanSortString(query, sortString);
 
             ICollection<T> list;
 
@@ -135,7 +135,7 @@ namespace Goliath.Data
         protected ICollection<T> FetchAllFromQuery<T>(IQueryBuilder<T> query, int limit, int offset, out long total, string filter, string sortString = null)
         {
             var filterTuple = CleanFilterString(filter);
-            var cleanSort = CleanSortString(sortString);
+            var cleanSort = CleanSortString(query, sortString);
 
             ICollection<T> list;
 
@@ -168,19 +168,24 @@ namespace Goliath.Data
         }
 
 
-        internal static Tuple<string, bool> CleanSortString(string sortString)
+        internal static Tuple<string, bool> CleanSortString<T>(IQueryBuilder<T> query, string sortString)
         {
             if (string.IsNullOrWhiteSpace(sortString)) return null;
 
-            var split = sortString.Split(new string[] {"_"}, StringSplitOptions.RemoveEmptyEntries);
-            return split.Length > 1 ? Tuple.Create(split[0], split[1].ToUpper().Equals("DESC")) : Tuple.Create(sortString, false);
+            var split = sortString.Split(new string[] { "_" }, StringSplitOptions.RemoveEmptyEntries);
+            if (split.Length == 0) return null;
+
+            var prop = query.Table[split[0]];
+            var columnName = prop.ColumnName ?? split[0];
+
+            return split.Length > 1 ? Tuple.Create(columnName, split[1].ToUpper().Equals("DESC")) : Tuple.Create(columnName, false);
         }
 
         internal static Tuple<string, string> CleanFilterString(string filter)
         {
             if (string.IsNullOrWhiteSpace(filter)) return null;
 
-            var split = filter.Split(new string[] {"_"}, StringSplitOptions.RemoveEmptyEntries);
+            var split = filter.Split(new string[] { "_" }, StringSplitOptions.RemoveEmptyEntries);
             return split.Length > 1 ? Tuple.Create(split[0], split[1].Replace("*", "%")) : null;
         }
 

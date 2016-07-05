@@ -1,4 +1,6 @@
-﻿using System.Dynamic;
+﻿using System;
+using System.Dynamic;
+using System.Xml.Serialization;
 using Goliath.Web;
 
 namespace Goliath.Models
@@ -15,6 +17,14 @@ namespace Goliath.Models
         /// The identifier.
         /// </value>
         public long Id { get; set; }
+
+        /// <summary>
+        /// Gets or sets the name of the tab.
+        /// </summary>
+        /// <value>
+        /// The name of the tab.
+        /// </value>
+        public string TabName { get; set; }
 
         /// <summary>
         /// Gets or sets the title.
@@ -48,13 +58,7 @@ namespace Goliath.Models
         /// </value>
         public ViewExecutionInfo ExecutionInfo { get; set; }
 
-        /// <summary>
-        /// Gets the current context.
-        /// </summary>
-        /// <value>
-        /// The current context.
-        /// </value>
-        public ApplicationContext CurrentContext { get; private set; }
+
 
         /// <summary>
         /// Gets or sets the view model bag.
@@ -62,6 +66,7 @@ namespace Goliath.Models
         /// <value>
         /// The view model bag.
         /// </value>
+        [XmlIgnore]
         public dynamic ViewModelBag { get; set; }
 
         protected ViewModel()

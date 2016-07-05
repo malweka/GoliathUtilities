@@ -17,6 +17,10 @@
         /// </summary>
         public string Filter;
 
+        public int Offset;
+
+        public int Limit;
+
         /// <summary>
         /// The sort string
         /// </summary>

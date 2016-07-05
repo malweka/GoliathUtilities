@@ -16,13 +16,25 @@ namespace Goliath.Web
         /// <exception cref="System.ArgumentNullException">request</exception>
         public static PagingQueryInfo GetPagingQueryInfo(this Request request)
         {
-            if (request == null) throw new ArgumentNullException("request");
+            if (request == null) throw new ArgumentNullException(nameof(request));
 
-            int currentPage;
+            int limit;
+            int offset;
             int totalPages;
 
-            int.TryParse(request.Query.p, out currentPage);
-            int.TryParse(request.Query.tp, out totalPages);
+            int.TryParse(request.Query.limit, out limit);
+            int.TryParse(request.Query.offset, out offset);
+            int.TryParse(request.Query.pages, out totalPages);
+
+            var currentPage = 1;
+            if (limit > 0)
+            {
+                currentPage = offset / limit;
+            }
+
+            if (offset < 1)
+                offset = 0;
+
             string filter = null;
             string sortString = null;
             try
@@ -42,7 +54,7 @@ namespace Goliath.Web
 
             }
 
-            return new PagingQueryInfo { TotalPages = totalPages, CurrentPage = currentPage, Filter = filter, SortString = sortString };
+            return new PagingQueryInfo { TotalPages = totalPages, Limit = limit, Offset = offset, CurrentPage = currentPage, Filter = filter, SortString = sortString };
         }
 
         //public static Response ErrorResponse(this NancyModule module, Exception exception)
@@ -81,7 +93,7 @@ namespace Goliath.Web
         /// </summary>
         /// <param name="parameters">The parameters.</param>
         /// <returns></returns>
-        public static int GetintParameter(dynamic parameters)
+        public static int GetintIdParameter(dynamic parameters)
         {
             int intV;
             int.TryParse(parameters.Id, out intV);
@@ -93,7 +105,7 @@ namespace Goliath.Web
         /// </summary>
         /// <param name="parameters">The parameters.</param>
         /// <returns></returns>
-        public static long GetlongParameter(dynamic parameters)
+        public static long GetlongIdParameter(dynamic parameters)
         {
             long intV;
             long.TryParse(parameters.Id, out intV);

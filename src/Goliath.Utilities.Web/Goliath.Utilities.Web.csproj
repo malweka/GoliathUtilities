@@ -106,6 +106,7 @@
     <Compile Include="Data\InMemoryCache.cs" />
     <Compile Include="Data\SettingsProvider.cs" />
     <Compile Include="GoliathException.cs" />
+    <Compile Include="Models\DisplayViewModel.cs" />
     <Compile Include="Web\Authorization\BasePermissionStore.cs" />
     <Compile Include="Web\Authorization\InMemoryPermissionStore.cs" />
     <Compile Include="Web\Authorization\IPermissionDataAdapter.cs" />

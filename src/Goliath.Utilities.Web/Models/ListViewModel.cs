@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Goliath.Models
 {
@@ -6,6 +7,7 @@ namespace Goliath.Models
     /// 
     /// </summary>
     /// <typeparam name="T"></typeparam>
+    [Serializable]
     public class ListViewModel<T> : ViewModel
     {
         /// <summary>
@@ -14,7 +16,7 @@ namespace Goliath.Models
         /// <value>
         /// The items.
         /// </value>
-        public IList<T> Items { get; set; }
+        public List<T> Items { get; set; }
 
         /// <summary>
         /// Gets or sets the current page.

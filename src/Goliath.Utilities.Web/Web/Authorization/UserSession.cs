@@ -181,6 +181,8 @@ namespace Goliath.Web.Authorization
         /// <value>
         /// <c>true</c> if this instance is internal user; otherwise, <c>false</c>.
         /// </value>
-        public bool IsInternalUser { get; internal set; }
+        public bool IsInternalUser => !string.IsNullOrWhiteSpace(ExternalUserId);
+
+        public string ExternalUserId { get; set; }
     }
 }

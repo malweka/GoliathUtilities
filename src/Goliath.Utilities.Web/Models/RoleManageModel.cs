@@ -1,4 +1,5 @@
-﻿using Goliath.Web.Authorization;
+﻿using System.Collections.Generic;
+using Goliath.Web.Authorization;
 
 namespace Goliath.Models
 {
@@ -38,6 +39,8 @@ namespace Goliath.Models
         /// The permissions.
         /// </value>
         public ListViewModel<PermissionActionModel> Permissions { get; set; }
+
+        public Dictionary<string, int> ActionList { get; set; } = new Dictionary<string, int>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RoleManageModel"/> class.

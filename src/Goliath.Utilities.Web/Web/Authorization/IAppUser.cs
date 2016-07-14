@@ -24,11 +24,4 @@ namespace Goliath.Web.Authorization
         bool IsInternalUser { get; }
     }
 
-    public interface IPermissionAction
-    {
-        long Id { get; }
-        string Name { get; }
-        int PermValue { get; }
-    }
-
 }

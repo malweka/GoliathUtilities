@@ -54,5 +54,15 @@ namespace Goliath.Web.Authorization
         /// <param name="resourceId">The resource identifier.</param>
         /// <returns></returns>
         PermissionList GetPermissions(int resourceId);
+
+        /// <summary>
+        /// Batches the process.
+        /// </summary>
+        /// <param name="inserts">The inserts.</param>
+        /// <param name="updates">The updates.</param>
+        /// <param name="deletes">The deletes.</param>
+        /// <param name="context">The context.</param>
+        void BatchProcess(IList<IPermissionItem> inserts, IList<IPermissionItem> updates, IList<IPermissionItem> deletes,
+            ApplicationContext context = null);
     }
 }

@@ -42,7 +42,7 @@ namespace Goliath.Web.Authorization
                 IsLoaded = true;
             }
 
-            
+
         }
 
         void CachePermissionInternal(IPermissionItem permission)
@@ -149,87 +149,57 @@ namespace Goliath.Web.Authorization
             return permissionList;
         }
 
-        //public void UpdateRolePermission(IRole role, IList<PermissionActionModel> permisionModels, ApplicationContext context)
-        //{
-        //    if (role.Name.Equals("Admin"))
-        //    {
-        //        //admin don't need no permissions
-        //        return;
-        //    }
+        public void UpdateRolePermission(IRole role, IList<PermissionActionModel> permisionModels, ApplicationContext context)
+        {
+            if (role.Name.Equals("Admin"))
+            {
+                //admin don't need no permissions
+                return;
+            }
 
-        //    List<IPermissionItem> permissionMarkedForDelete = new List<IPermissionItem>();
-        //    List<IPermissionItem> permissionMarkedForUpdate = new List<IPermissionItem>();
-        //    List<IPermissionItem> permissionMarkedForInsert = new List<IPermissionItem>();
+            List<IPermissionItem> permissionMarkedForDelete = new List<IPermissionItem>();
+            List<IPermissionItem> permissionMarkedForUpdate = new List<IPermissionItem>();
+            List<IPermissionItem> permissionMarkedForInsert = new List<IPermissionItem>();
 
-        //    lock (lockPad)
-        //    {
-        //        foreach (var perm in permisionModels)
-        //        {
-        //            var cachedPerm = GetPermission(perm.ResourceId, role.RoleNumber);
-        //            var permValue = perm.PermValue;
+            lock (lockPad)
+            {
+                foreach (var perm in permisionModels)
+                {
+                    var cachedPerm = GetPermission(perm.ResourceId, role.RoleNumber);
+                    var permValue = perm.PermValue;
 
 
-        //            if (cachedPerm != null)
-        //            {
-        //                if (permValue == 0)
-        //                {
-        //                    //should delete
-        //                    permissionMarkedForDelete.Add(cachedPerm);
-        //                    RemovePermissionFromCache(perm.ResourceId, role.RoleNumber);
-        //                }
-        //                else
-        //                {
-        //                    if (permValue != cachedPerm.PermValue)
-        //                    {
-        //                        cachedPerm.PermValue = permValue;
-        //                        permissionMarkedForUpdate.Add(cachedPerm);
-        //                    }
-        //                }
-        //            }
-        //            else
-        //            {
-        //                //new permission
-        //                if (permValue == 0)
-        //                    continue;
+                    if (cachedPerm != null)
+                    {
+                        if (permValue == 0)
+                        {
+                            //should delete
+                            permissionMarkedForDelete.Add(cachedPerm);
+                            RemovePermissionFromCache(perm.ResourceId, role.RoleNumber);
+                        }
+                        else
+                        {
+                            if (permValue != cachedPerm.PermValue)
+                            {
+                                cachedPerm.PermValue = permValue;
+                                permissionMarkedForUpdate.Add(cachedPerm);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        //new permission
+                        if (permValue == 0)
+                            continue;
 
-        //                var newPerm = PermissionDb.CreateNew(perm.ResourceId, role.RoleNumber, permValue);
-        //                permissionMarkedForInsert.Add(newPerm);
-        //                CachePermission(newPerm);
-        //            }
-        //        }
-        //    }
+                        var newPerm = PermissionDb.CreateNew(perm.ResourceId, role.RoleNumber, permValue);
+                        permissionMarkedForInsert.Add(newPerm);
+                        CachePermission(newPerm);
+                    }
+                }
+            }
 
-        //    using (var session = dbProvider.SessionFactory.OpenSession())
-        //    {
-        //        try
-        //        {
-        //            session.BeginTransaction();
-
-        //            var dataAdapter = session.GetEntityDataAdapter<UserRolePerm>();
-
-        //            foreach (var userRolePerm in permissionMarkedForInsert)
-        //            {
-        //                dataAdapter.Insert(userRolePerm);
-        //            }
-
-        //            foreach (var userRolePerm in permissionMarkedForUpdate)
-        //            {
-        //                dataAdapter.Update(userRolePerm);
-        //            }
-
-        //            foreach (var userRolePerm in permissionMarkedForDelete)
-        //            {
-        //                dataAdapter.Delete(userRolePerm);
-        //            }
-
-        //            session.CommitTransaction();
-        //        }
-        //        catch (Exception exception)
-        //        {
-        //            session.RollbackTransaction();
-        //            throw new LaventerDataException("Could not update permissions. Database transaction failed.", exception);
-        //        }
-        //    }
-        //}
+            PermissionDb.BatchProcess(permissionMarkedForInsert, permissionMarkedForUpdate, permissionMarkedForDelete, context);
+        }
     }
 }

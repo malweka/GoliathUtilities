@@ -1,4 +1,5 @@
-﻿using Goliath.Web.Authorization;
+﻿using System.Collections.Generic;
+using Goliath.Web.Authorization;
 
 namespace Goliath.Models
 {
@@ -32,68 +33,21 @@ namespace Goliath.Models
         public int ResourceId { get; set; }
 
         /// <summary>
-        /// Gets or sets the permission.
+        /// Gets or sets the perm value.
         /// </summary>
         /// <value>
-        /// The permission.
+        /// The perm value.
         /// </value>
-        public IPermissionAction Permission { get; set; }
+        public int PermValue { get; set; }
+
 
         /// <summary>
-        /// Gets or sets a value indicating whether this instance can view.
+        /// Gets the permission values.
         /// </summary>
         /// <value>
-        ///   <c>true</c> if this instance can view; otherwise, <c>false</c>.
+        /// The permission values.
         /// </value>
-        public bool CanView { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether this instance can edit.
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if this instance can edit; otherwise, <c>false</c>.
-        /// </value>
-        public bool CanEdit { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether this instance can create.
-        /// </summary>
-        /// <value>
-        /// <c>true</c> if this instance can create; otherwise, <c>false</c>.
-        /// </value>
-        public bool CanCreate { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether this instance can delete.
-        /// </summary>
-        /// <value>
-        /// <c>true</c> if this instance can delete; otherwise, <c>false</c>.
-        /// </value>
-        public bool CanDelete { get; set; }
-
-        ///// <summary>
-        ///// Processes the permission value.
-        ///// </summary>
-        ///// <returns></returns>
-        //public PermActionType ProcessPermissionValue()
-        //{
-        //    var val = PermActionType.None;
-
-        //    if (CanCreate)
-        //        val = val | PermActionType.Create;
-
-        //    if (CanDelete)
-        //        val = val | PermActionType.Delete;
-
-        //    if (CanEdit)
-        //        val = val | PermActionType.Edit;
-
-        //    if (CanView)
-        //        val = val | PermActionType.View;
-
-        //    return val;
-        //}
-
+        public Dictionary<string, int> PermissionActions { get; } = new Dictionary<string, int>();
 
         ///// <summary>
         ///// Creates the specified user role perm.

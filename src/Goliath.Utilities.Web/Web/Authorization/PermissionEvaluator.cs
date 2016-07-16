@@ -56,7 +56,7 @@ namespace Goliath.Web.Authorization
                 return false;
 
             //if it's an admin user we don't need to evaluate the permissions
-            if (User.Roles.ContainsKey(adminRoleName))
+            if (User.Roles.ContainsKey(adminRoleName)) 
                 return true;
 
             var permissionList = permissionStore.GetPermissions(resourceId);

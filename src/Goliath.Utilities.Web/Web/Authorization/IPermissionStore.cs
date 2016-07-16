@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using Goliath.Models;
+
 namespace Goliath.Web.Authorization
 {
     /// <summary>
@@ -45,6 +48,14 @@ namespace Goliath.Web.Authorization
         /// <param name="resourceId">The resource type identifier.</param>
         /// <returns></returns>
         PermissionList GetPermissions(int resourceId);
+
+        /// <summary>
+        /// Updates the role permissions.
+        /// </summary>
+        /// <param name="role">The role.</param>
+        /// <param name="permisionModels">The permision models.</param>
+        /// <param name="context">The context.</param>
+        void UpdateRolePermissions(IRole role, IList<PermissionActionModel> permisionModels, ApplicationContext context = null);
 
     }
 }

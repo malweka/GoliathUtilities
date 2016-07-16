@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using Goliath.Models;
 
 namespace Goliath.Web.Authorization
 {
@@ -112,6 +114,14 @@ namespace Goliath.Web.Authorization
         /// <param name="rolenumber">The rolenumber.</param>
         /// <returns></returns>
         public abstract IPermissionItem GetPermission(int resourceId, int rolenumber);
+
+        /// <summary>
+        /// Updates the role permissions.
+        /// </summary>
+        /// <param name="role">The role.</param>
+        /// <param name="permisionModels">The permision models.</param>
+        /// <param name="context">The context.</param>
+        public abstract void UpdateRolePermissions(IRole role, IList<PermissionActionModel> permisionModels, ApplicationContext context = null);
 
         /// <summary>
         /// Gets the permissions.

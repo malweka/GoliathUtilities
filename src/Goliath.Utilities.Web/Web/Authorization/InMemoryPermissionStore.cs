@@ -114,6 +114,12 @@ namespace Goliath.Web.Authorization
             {
                 //permission is not cached let's find it from the database
                 permission = PermissionDb.GetPermission(resourceId, rolenumber);
+                if (permission == null)
+                {
+                    //permission does not exist in the database either. probably is a new permission.
+                    return null;
+                }
+
                 //cache this permission
                 lock (lockPad)
                 {
@@ -149,7 +155,7 @@ namespace Goliath.Web.Authorization
             return permissionList;
         }
 
-        public void UpdateRolePermission(IRole role, IList<PermissionActionModel> permisionModels, ApplicationContext context)
+        public override void UpdateRolePermissions(IRole role, IList<PermissionActionModel> permisionModels, ApplicationContext context = null)
         {
             if (role.Name.Equals("Admin"))
             {

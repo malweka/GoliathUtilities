@@ -38,13 +38,6 @@ namespace Goliath.Models
     //}
 
 
-    public enum VisualEditorType
-    {
-        TextBox,
-        Editor,
-        CheckBox,
-        DatePicker,
-    }
 
 
     [Flags]

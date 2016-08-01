@@ -28,7 +28,8 @@ namespace Goliath.Data
         /// </summary>
         /// <param name="key">The key.</param>
         /// <param name="value">The value.</param>
-        void Set(string key, string value);
+        /// <param name="editorType">Type of the editor.</param>
+        void Set(string key, string value, VisualEditorType editorType);
 
         void Reset();
     }

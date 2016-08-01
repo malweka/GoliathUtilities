@@ -1,5 +1,6 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using Goliath.Models;
 
 namespace Goliath.Data
 {
@@ -28,14 +29,16 @@ namespace Goliath.Data
         /// </summary>
         /// <param name="key">The key.</param>
         /// <param name="value">The value.</param>
-        protected abstract void UpdateSetting(string key, string value);
+        /// <param name="editorType">Type of the editor.</param>
+        protected abstract void UpdateSetting(string key, string value, VisualEditorType editorType);
 
         /// <summary>
         /// Adds the setting.
         /// </summary>
         /// <param name="key">The key.</param>
         /// <param name="value">The value.</param>
-        protected abstract void AddSetting(string key, string value);
+        /// <param name="editorType">Type of the editor.</param>
+        protected abstract void AddSetting(string key, string value, VisualEditorType editorType);
 
         /// <summary>
         /// Gets the specified key.
@@ -47,7 +50,12 @@ namespace Goliath.Data
             LoadAll(settingCache);
 
             string val;
-            settingCache.TryGetValue(key, out val);
+            if (!settingCache.TryGetValue(key, out val))
+            {
+                //let's try the .config file may be it's in there
+                return GetConfigFileSetting(key);
+            }
+
             return val;
         }
 
@@ -56,19 +64,20 @@ namespace Goliath.Data
         /// </summary>
         /// <param name="key">The key.</param>
         /// <param name="value">The value.</param>
-        public void Set(string key, string value)
+        /// <param name="editorType">Type of the editor.</param>
+        public void Set(string key, string value, VisualEditorType editorType)
         {
             LoadAll(settingCache);
 
             string val;
             if (settingCache.TryGetValue(key, out val))
             {
-                UpdateSetting(key, val);
+                UpdateSetting(key, val, editorType);
             }
             else
             {
                 settingCache.TryAdd(key, value);
-                AddSetting(key, value);
+                AddSetting(key, value, editorType);
             }
         }
 
@@ -92,5 +101,14 @@ namespace Goliath.Data
         {
             return System.Configuration.ConfigurationManager.AppSettings.Get(configKeyName);
         }
+    }
+
+
+    public enum VisualEditorType
+    {
+        TextBox,
+        Editor,
+        CheckBox,
+        DatePicker,
     }
 }

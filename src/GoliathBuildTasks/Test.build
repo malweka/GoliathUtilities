@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<UsingTask AssemblyFile="$(MSBuildProjectDirectory)\bin\Debug\Goliath.BuildTasks.dll" 
+	TaskName="Goliath.BuildTasks.AssignBuildVersion" />
+	<PropertyGroup>
+		<BuildPath Condition="$(BuildPath)==''">$(MSBuildProjectDirectory)\Build</BuildPath>
+		<PackageDirectory Condition="$(PackageDirectory)==''">$(BuildPath)\Package</PackageDirectory>
+		<Configuration Condition="$(Configuration)==''">Release</Configuration>
+		<Version Condition="$(Version)==''">2.</Version>
+	</PropertyGroup>
+	<Target Name="Build">
+		<AssignBuildVersion AssemblyVersionFile="$(MSBuildProjectDirectory)\AssemblyInfo.Shared.cs"/>
+	</Target>
+</Project>

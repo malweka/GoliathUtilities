@@ -50,13 +50,7 @@ namespace Goliath.Data
             LoadAll(settingCache);
 
             string val;
-            if (!settingCache.TryGetValue(key, out val))
-            {
-                //let's try the .config file may be it's in there
-                return GetConfigFileSetting(key);
-            }
-
-            return val;
+            return !settingCache.TryGetValue(key, out val) ? GetConfigFileSetting(key) : val;
         }
 
         /// <summary>

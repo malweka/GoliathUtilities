@@ -24,6 +24,6 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyCopyright("Copyright © Emmanuel Hameyie 2016")]
 [assembly: AssemblyTrademark("")]
 
-[assembly: AssemblyVersion("1.4.1.1")]
-[assembly: AssemblyFileVersion("1.4.1.1")]
+[assembly: AssemblyVersion("1.4.1.3")]
+[assembly: AssemblyFileVersion("1.4.1.3")]
 

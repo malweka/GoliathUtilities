@@ -66,7 +66,7 @@ namespace Goliath.Data
             try
             {
                 Type genServType = Type.GetType(providerName);
-                if (genServType == null) throw new Exception(string.Format("Could not create provider {0}", providerName));
+                if (genServType == null) throw new Exception($"Could not create provider {providerName}");
                 var provider = (IDbProvider)Activator.CreateInstance(genServType);
                 return provider;
             }
@@ -88,7 +88,7 @@ namespace Goliath.Data
                 }
             }
 
-            throw new Exception(string.Format("No connection string define. Please define a connection string named {0} in the connectionStrings section of your web.config.", ConnectionStringName));
+            throw new Exception($"No connection string define. Please define a connection string named {ConnectionStringName} in the connectionStrings section of your web.config.");
         }
     }
 }

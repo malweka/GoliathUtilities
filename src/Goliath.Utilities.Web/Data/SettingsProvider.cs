@@ -63,10 +63,10 @@ namespace Goliath.Data
         {
             LoadAll(settingCache);
 
-            string val;
-            if (settingCache.TryGetValue(key, out val))
+            if (settingCache.ContainsKey(key))
             {
-                UpdateSetting(key, val, editorType);
+                UpdateSetting(key, value, editorType);
+                settingCache[key] = value;
             }
             else
             {

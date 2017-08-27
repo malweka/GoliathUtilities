@@ -14,8 +14,11 @@ namespace Goliath.Utilities.Tests
         [Test]
         public void GenerateKey_generate_aes_key()
         {
-            var key = RijndaelSymmetricCryptoProvider.GenerateKey(256);
-            Console.WriteLine(key);
+            for (var i = 0; i < 15; i++)
+            {
+                var key = RijndaelSymmetricCryptoProvider.GenerateKey(256);
+                Console.WriteLine(key);
+            }
         }
 
         [Test]

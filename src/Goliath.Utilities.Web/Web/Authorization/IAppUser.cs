@@ -5,7 +5,7 @@ namespace Goliath.Web.Authorization
     /// <summary>
     /// 
     /// </summary>
-    public interface IAppUser: Microsoft.AspNet.Identity.IUser<long>
+    public interface IAppUser
     {
         /// <summary>
         /// Gets the user role.

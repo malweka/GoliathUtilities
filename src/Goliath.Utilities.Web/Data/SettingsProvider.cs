@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using Goliath.Models;
@@ -94,6 +95,11 @@ namespace Goliath.Data
         public virtual string GetConfigFileSetting(string configKeyName)
         {
             return System.Configuration.ConfigurationManager.AppSettings.Get(configKeyName);
+        }
+
+        public virtual ConnectionStringInfo GetConnectionString(string connectionStringName)
+        {
+            throw new NotImplementedException();
         }
     }
 

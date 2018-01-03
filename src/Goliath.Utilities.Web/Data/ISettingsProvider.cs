@@ -23,6 +23,8 @@ namespace Goliath.Data
         /// <returns></returns>
         string GetConfigFileSetting(string configKeyName);
 
+        ConnectionStringInfo GetConnectionString(string connectionStringName);
+
         /// <summary>
         /// Sets the specified key.
         /// </summary>
@@ -32,5 +34,11 @@ namespace Goliath.Data
         void Set(string key, string value, VisualEditorType editorType);
 
         void Reset();
+    }
+
+    public struct ConnectionStringInfo
+    {
+        public string ProviderName;
+        public string ConnectionString;
     }
 }

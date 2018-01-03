@@ -6,7 +6,7 @@ using System.Security.Claims;
 namespace Goliath.Web.Authorization
 {
     [Serializable]
-    public class UserSession : IAppUser, Nancy.Security.IUserIdentity, Microsoft.AspNet.Identity.IUser<long>
+    public class UserSession : IAppUser 
     {
         public const string CacheKeyName = "go_ch_sess";
 
@@ -127,18 +127,18 @@ namespace Goliath.Web.Authorization
             return PermissionService == null ? null : new PermissionValidator(PermissionService, this);
         }
 
-        IEnumerable<string> Nancy.Security.IUserIdentity.Claims
-        {
-            get
-            {
-                var claims = new List<string>();
-                if (Roles != null && Roles.Count > 0)
-                {
-                    claims.AddRange(Roles.Values.Select(userRole => userRole.Name));
-                }
-                return claims;
-            }
-        }
+        //IEnumerable<string> Nancy.Security.IUserIdentity.Claims
+        //{
+        //    get
+        //    {
+        //        var claims = new List<string>();
+        //        if (Roles != null && Roles.Count > 0)
+        //        {
+        //            claims.AddRange(Roles.Values.Select(userRole => userRole.Name));
+        //        }
+        //        return claims;
+        //    }
+        //}
 
         public ClaimsIdentity CreateClaimsIdentity(string cookieName)
         {

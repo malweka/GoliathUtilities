@@ -1,6 +1,6 @@
 ﻿namespace Goliath.Web.Authorization
 {
-    public interface IRole : Microsoft.AspNet.Identity.IRole<long>
+    public interface IRole
     {
  
         /// <summary>
@@ -10,6 +10,7 @@
         /// The number.
         /// </value>
         int RoleNumber { get; }
+        string Name { get; }
 
     }
 }

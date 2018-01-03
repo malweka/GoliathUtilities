@@ -12,7 +12,7 @@
         public static IUniqueNumberGenerator CreateIdGenerator()
         {
             //TODO: use configuration value for seed 
-            return new UniqueLongGenerator(1);
+            return new UniqueLongGenerator();
         }
     }
 }

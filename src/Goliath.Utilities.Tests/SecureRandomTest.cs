@@ -1,14 +1,14 @@
 using System;
 using System.Collections.Generic;
 using Goliath.Security;
-using NUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Goliath.Utilities.Tests
 {
-    [TestFixture]
+    [TestClass]
     public class SecureRandomTest
     {
-        [Test]
+        [TestMethod]
         public void Next_with_minimum_and_maximum_value_result_should_be_within_range()
         {
             var random = new SecureRandom();
@@ -22,7 +22,7 @@ namespace Goliath.Utilities.Tests
             }
         }
 
-        [Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
+        [TestMethod, ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void Next_with_minimum_and_maximum_min_greater_than_max_should_throw()
         {
             var random = new SecureRandom();
@@ -30,7 +30,7 @@ namespace Goliath.Utilities.Tests
             Assert.Fail("Min cannot be greater than max, should have thrown an out of range exception.");
         }
 
-        [Test]
+        [TestMethod]
         public void NextDouble_should_always_return_a_double_between_lesser_than_1()
         {
             var random = new SecureRandom();
@@ -45,10 +45,10 @@ namespace Goliath.Utilities.Tests
         }
     }
 
-    [TestFixture]
+    [TestClass]
     public class SaltedSha256HashProviderTests
     {
-        [Test]
+        [TestMethod]
         public void HashAndVerify()
         {
             var hasher = new SaltedSha256HashProvider();
@@ -58,10 +58,10 @@ namespace Goliath.Utilities.Tests
         }
     }
 
-    [TestFixture]
+    [TestClass]
     public class HmacSha256ProviderTests
     {
-        [Test]
+        [TestMethod]
         public void VerifyHash()
         {
             string secret = "nDJtbb6dHjJUPhsqHAdWUSS3RO6EDFrL3xO8H6TUGu";
@@ -76,10 +76,10 @@ namespace Goliath.Utilities.Tests
         }
     }
 
-    [TestFixture]
+    [TestClass]
     public class HmacSha512ProviderTests
     {
-        [Test]
+        [TestMethod]
         public void VerifyHash()
         {
             string secret = "nDJtbb6dHjJUPhsqHAdWUSS3RO6EDFrL3xO8H6TUGu";
@@ -93,7 +93,7 @@ namespace Goliath.Utilities.Tests
             Assert.IsTrue(provider.VerifyHash(secret.ConvertToByteArray(), val.ConvertToByteArray(), hash));
         }
 
-        [Test]
+        [TestMethod]
         public void GenerateRandomString()
         {
             var stringGen = new RandomStringGenerator();
@@ -108,7 +108,7 @@ namespace Goliath.Utilities.Tests
             }
         }
 
-        [Test]
+        [TestMethod]
         public void GenerateSaltedHashes()
         {
             var hasher = new SaltedSha256HashProvider();

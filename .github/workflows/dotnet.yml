@@ -10,6 +10,9 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    env:
+      BuildConfiguration: Release
+      BuildVersion: 2.0.1
 
     steps:
     - uses: actions/checkout@v2
@@ -20,6 +23,6 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore src/GoliathUtils.sln
     - name: Build
-      run: dotnet build --no-restore src/GoliathUtils.sln
+      run: dotnet build --no-restore --configuration $BuildConfiguration -p:PackageVersion=$(BuildVersion).$(GITHUB_RUN_NUMBER) -p:Version=$(BuildVersion).$(GITHUB_RUN_NUMBER) -p:AssemblyVersion=$(BuildVersion).$(GITHUB_RUN_NUMBER) -p:FileVersion=$(BuildVersion).$(GITHUB_RUN_NUMBER) src/GoliathUtils.sln
     - name: Test
-      run: dotnet test --no-build --verbosity normal src/Goliath.Utilities.Tests/Goliath.Utilities.Tests.csproj
+      run: dotnet test --no-build --configuration $BuildConfiguration --verbosity normal src/Goliath.Utilities.Tests/Goliath.Utilities.Tests.csproj

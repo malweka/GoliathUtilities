@@ -1,32 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
 using Goliath.Security;
-using NUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Goliath.Utilities.Tests
 {
-    [TestFixture]
+    [TestClass]
     public class UniqueIdGeneratorTests
     {
-        [Test]
+        [TestMethod]
         public void GetNextID_valid_integer()
         {
             var generator = new UniqueLongGenerator();
             var id = generator.GetNextId();
             Console.WriteLine("Id: {0}", id);
-            Assert.AreEqual(17, id.ToString().Length);
+            Assert.IsTrue(id.ToString().Length > 12);
         }
 
-        [Test]
+        [TestMethod]
         public void GetNextID_with_seed_integer()
         {
             var generator = new UniqueLongGenerator(50);
             var id = generator.GetNextId();
             Console.WriteLine("Id: {0}", id);
-            Assert.AreEqual(19, id.ToString().Length);
+            Assert.IsTrue(id.ToString().Length > 12);
         }
 
-        [Test]
+        [TestMethod]
         public  void GetNextID_should_generate_unique_ids()
         {
             var generator = new UniqueLongGenerator();
@@ -43,7 +43,7 @@ namespace Goliath.Utilities.Tests
             }
         }
 
-        [Test]
+        [TestMethod]
         public void GetNextID_with_seed_should_generate_unique_ids()
         {
             

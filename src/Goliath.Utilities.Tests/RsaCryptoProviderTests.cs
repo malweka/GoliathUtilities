@@ -1,14 +1,14 @@
 ﻿using System;
 using System.IO;
-using NUnit.Framework;
 using Goliath.Security;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Goliath.Utilities.Tests
 {
-    [TestFixture]
+    [TestClass]
     public class RsaCryptoProviderTests
     {
-        [Test]
+        [TestMethod]
         public void GenerateKeyPair_generate_key_should_create_two_files_private_and_public_key()
         {
             var rsa = new RsaAsymmetricCryptoProvider();
@@ -21,7 +21,7 @@ namespace Goliath.Utilities.Tests
             Assert.IsTrue(File.Exists(pubKey));
         }
 
-        [Test]
+        [TestMethod]
         public void Sign_and_verify_should_sign_with_valid_key_and_verify()
         {
             var rsa = new RsaAsymmetricCryptoProvider();
@@ -30,11 +30,11 @@ namespace Goliath.Utilities.Tests
             string rsaPublicKey = @"<RSAKeyValue><Modulus>l7EzMLcKyCWRJGx0llt7ydar6e+ylPvGjmK5NiQ4kNMxfej1KKMamBkuOuNiCoQIivIUsktQ9E+FqGk+oQZN0qx72nzCLVt/WjsZkYxN493tq5phYypZAisGWQIQz2fdpCD66nrZ5a3s7IEZp26iomOt+OZ/BERz/yPDuMgy3YuG2WYmlINR+JCfRKROKCcUw7DwjNnzXSNcx3CvryDvAkQgPZAlu2OihcCR/Ayb7uVDh0GdQ5AFVxKffzHdmG9s0WB86vrpmgnjGV54FMQQpAQ9mN3iO3ItAVudv/S00d9NJp18x4OK6OK/aO1kWqGf5WQmrFUDO9EgO7T8YjlLhw==</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>";
 
             var signedBites = rsa.Sign(rsaPrivateKey, wkFolder);
-            Assert.IsNotEmpty(signedBites);
+            Assert.IsNotNull(signedBites);
             Assert.IsTrue(rsa.Verify(rsaPublicKey, signedBites, wkFolder.ConvertToByteArray()));
         }
 
-        [Test]
+        [TestMethod]
         public void encrypt_decrypt_should_not_fail()
         {
             var test = "Une idée qu’il a eu à émettre lors du récent forum d’Addis-Abeba autour de la problématique.  Au sujet du contrôle de l’exécutif, des entreprises et services public.";
@@ -44,7 +44,7 @@ namespace Goliath.Utilities.Tests
             string rsaPublicKey = @"<RSAKeyValue><Modulus>vTRSsteV+BZ2Vgs/wSj2LGOrJMNWV91B8lBxN6/D1/kizFai+wT1fZwQfxt4bKFI81XP6BZifAY6tJlE8cOHOhbsQ1X8c37/l3vwhf5VLa9xoco4i7JdEHiHYPbAYlWhATasV5Xn2o1pR3lsXBn+0KEsp5h0pLAL1S0Bo8NDCPFHNwAVAk/XykqKXoqXkLf1RmzPjvCG1GILShvTOx/69HQIJLt9UF3ocl7iPTh08XSN7SEcXjesrVRrO4kmaEpnTXcKltgoXGBI8bZns+9HiBWHtPTGWPvqFDrJL98AhoOjDHwJhKGCyenLUoK5A/oK7j25eS4GOseTopPZqK1gSQ==</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>";
 
             var armoredBytes = rsa.Encrypt(rsaPublicKey, test.ConvertToByteArray());
-            Assert.IsNotEmpty(armoredBytes);
+            Assert.IsNotNull(armoredBytes);
             var clearBytes = rsa.Decrypt(rsaPrivateKey, armoredBytes);
             Assert.AreEqual(test, clearBytes.ConvertToString());
         }

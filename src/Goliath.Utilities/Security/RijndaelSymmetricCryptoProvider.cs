@@ -14,7 +14,7 @@ namespace Goliath.Security
         /// <summary>
         /// The block size
         /// </summary>
-        public const int BlockSize = 256;
+        public const int BlockSize = 128;
 
         static int BlockSizeInByte
         {
@@ -95,7 +95,7 @@ namespace Goliath.Security
         /// <returns></returns>
         public static string GenerateKey(int keySize)
         {
-            using (var rijProvider = new RijndaelManaged { KeySize = keySize, BlockSize = 256 })
+            using (var rijProvider = new RijndaelManaged { KeySize = keySize, BlockSize = 128 })
             {
                 rijProvider.GenerateKey();
                 rijProvider.GenerateIV();

@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Goliath.Security;
-using NUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Goliath.Utilities.Tests
 {
-    [TestFixture]
+    [TestClass]
     public class RijndaelSymmetricCryptoProviderTests
     {
-        private const string cryptoKey = @"apNkK4PPjDR1qSo5Yaxut2TzDsb5l80+t+IYK/RxBzYAdgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==";
-        [Test]
+        private const string cryptoKey = @"BGGymw22QmTEWS+o65PTgzEdUNI9tDWb6VQ+i3zWCEoa/ojxPvLHfYQGaFOkOCnx";
+        [TestMethod]
         public void GenerateKey_generate_aes_key()
         {
             for (var i = 0; i < 15; i++)
@@ -21,7 +21,7 @@ namespace Goliath.Utilities.Tests
             }
         }
 
-        [Test]
+        [TestMethod]
         public void encrypt_and_decrypt_verify_with_original_should_match()
         {
             var test = "Une idée qu’il a eu à émettre lors du récent forum d’Addis-Abeba autour de la problématique.  Au sujet du contrôle de l’exécutif, des entreprises et services public.";

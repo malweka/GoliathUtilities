@@ -11,8 +11,10 @@ namespace Goliath.Models
     /// 
     /// </summary>
     /// <seealso cref="Goliath.IXmlSerializable" />
-    public class MenuModel : IXmlSerializable
+    [Serializable]
+    public class MenuModel : IXmlSerializable, ICloneable<MenuModel>
     {
+        public long Id { get; set; }
         /// <summary>
         /// Gets or sets the name.
         /// </summary>
@@ -63,9 +65,17 @@ namespace Goliath.Models
         /// <value>
         /// The permission action.
         /// </value>
-        public string PermissionAction { get; set; }
+        public int PermissionAction { get; set; }
 
-        readonly List<MenuModel> subMenus = new List<MenuModel>();
+        public long? ParentNodeId { get; set; }
+
+        public MenuModel ParentNode { get; set; }
+
+        public int Order { get; set; }
+
+        public bool Hidden { get; set; }
+
+        List<MenuModel> subMenus = new List<MenuModel>();
 
         /// <summary>
         /// Gets the sub menus.
@@ -75,7 +85,8 @@ namespace Goliath.Models
         /// </value>
         public List<MenuModel> SubMenus
         {
-            get { return subMenus; }
+            get => subMenus;
+            private set => subMenus = value;
         }
 
         /// <summary>
@@ -107,15 +118,14 @@ namespace Goliath.Models
             if (!string.IsNullOrWhiteSpace(ResourceName))
                 menuElement.SetAttribute("resourceName", ResourceName);
 
-            if (!string.IsNullOrWhiteSpace(PermissionAction))
-                menuElement.SetAttribute("permAction", PermissionAction);
+            menuElement.SetAttribute("permAction", PermissionAction.ToString());
 
             if (subMenus.Count > 0)
             {
                 var menus = doc.CreateElement("subMenus");
                 foreach (var subMenu in SubMenus)
                 {
-                    var subMen = ((IXmlSerializable) subMenu).SerializeToXml(doc);
+                    var subMen = ((IXmlSerializable)subMenu).SerializeToXml(doc);
                     menus.AppendChild(subMen);
                 }
 
@@ -162,13 +172,14 @@ namespace Goliath.Models
             ResourceName = req?.Value;
 
             var action = elm.Attribute("permAction");
-            PermissionAction = action?.Value;
+            if (int.TryParse(action?.Value, out int permAction))
+                PermissionAction = permAction;
 
             var subs = elm.Descendants("subMenus").Descendants("menu");
             foreach (var xElement in subs)
             {
                 var mn = new MenuModel();
-                ((IXmlSerializable) mn).LoadXml(xElement);
+                ((IXmlSerializable)mn).LoadXml(xElement);
                 SubMenus.Add(mn);
             }
         }
@@ -224,10 +235,35 @@ namespace Goliath.Models
             {
                 IXmlSerializable menu = new MenuModel();
                 menu.LoadXml(xElement);
-                model.SubMenus.Add((MenuModel) menu);
+                model.SubMenus.Add((MenuModel)menu);
             }
 
             return model;
+        }
+
+        object ICloneable.Clone()
+        {
+            return Clone();
+        }
+
+        public MenuModel Clone()
+        {
+            var menuModel = new MenuModel()
+            {
+                Id = Id,
+                Name = Name,
+                DisplayName = DisplayName,
+                Source = Source,
+                CssClasses = CssClasses,
+                IconUrl = IconUrl,
+                ResourceName = ResourceName,
+                PermissionAction = PermissionAction,
+                ParentNode = ParentNode,
+                ParentNodeId = ParentNodeId,
+                SubMenus = subMenus,
+            };
+
+            return menuModel;
         }
     }
 }

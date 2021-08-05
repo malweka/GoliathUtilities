@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
@@ -8,8 +9,6 @@ namespace Goliath.Authorization
     [Serializable]
     public class UserSession : IAppUser 
     {
-        public const string CacheKeyName = "go_ch_sess";
-
         #region Properties
 
         /// <summary>
@@ -19,14 +18,6 @@ namespace Goliath.Authorization
         /// The user identifier.
         /// </value>
         public long Id { get; set; }
-
-        /// <summary>
-        /// Gets or sets the session identifier.
-        /// </summary>
-        /// <value>
-        /// The session identifier.
-        /// </value>
-        public string SessionId { get; set; }
 
         /// <summary>
         /// Gets or sets the user identifier.
@@ -90,7 +81,7 @@ namespace Goliath.Authorization
         /// <value>
         /// The user role.
         /// </value>
-        public IDictionary<string, IRole> Roles { get; set; }
+        public IDictionary<string, IRole> Roles { get; set; } = new ConcurrentDictionary<string, IRole>();
 
         /// <summary>
         /// Gets the full name.
@@ -115,7 +106,6 @@ namespace Goliath.Authorization
         /// </summary>
         public UserSession()
         {
-            Roles = new Dictionary<string, IRole>();
         }
 
         /// <summary>
@@ -127,20 +117,7 @@ namespace Goliath.Authorization
             return PermissionService == null ? null : new PermissionValidator(PermissionService, this);
         }
 
-        //IEnumerable<string> Nancy.Security.IUserIdentity.Claims
-        //{
-        //    get
-        //    {
-        //        var claims = new List<string>();
-        //        if (Roles != null && Roles.Count > 0)
-        //        {
-        //            claims.AddRange(Roles.Values.Select(userRole => userRole.Name));
-        //        }
-        //        return claims;
-        //    }
-        //}
-
-        public ClaimsIdentity CreateClaimsIdentity(string cookieName)
+        public ClaimsIdentity CreateClaimsIdentity(string authenticationType)
         {
             try
             {
@@ -154,12 +131,11 @@ namespace Goliath.Authorization
                 if (Roles != null)
                     claims.AddRange(Roles.Select(roleModel => new Claim(ClaimTypes.Role, roleModel.Value.Name)));
 
-                var identity = new ClaimsIdentity(claims, cookieName);
+                var identity = new ClaimsIdentity(claims, authenticationType);
                 return identity;
             }
-            catch (Exception ex)
+            catch
             {
-                var x = ex.ToString();
                 return null;
             }
 

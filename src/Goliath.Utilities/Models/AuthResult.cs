@@ -15,6 +15,12 @@ namespace Goliath.Models
         /// </value>
         public AuthenticationStatus Status { get;  set; }
 
+        public string DisplayMessage { get; set; }
+
+        public string ResultMessage { get; set; }
+
+        public string IpAddress { get; set; }
+
         /// <summary>
         /// Gets the session.
         /// </summary>
@@ -22,5 +28,7 @@ namespace Goliath.Models
         /// The session.
         /// </value>
         public UserSession UserSession { get; set; }
+
+        public string Username { get; set; }
     }
 }

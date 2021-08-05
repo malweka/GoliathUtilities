@@ -10,11 +10,11 @@ namespace Goliath.Authorization
     /// <seealso cref="IUserPermissionEvaluator" />
     public class PermissionEvaluator : IUserPermissionEvaluator
     {
-        private readonly int resourceId;
+        private readonly long resourceId;
         private readonly IPermissionStore permissionStore;
         private string adminRoleName;
 
-        private readonly Dictionary<int, IRole> userRoles;
+        private readonly Dictionary<long, IRole> userRoles;
 
         /// <summary>
         /// Gets the user.
@@ -31,7 +31,7 @@ namespace Goliath.Authorization
         /// <param name="resourceId">The resource type identifier.</param>
         /// <param name="permissionStore">The permission store.</param>
         /// <param name="adminRoleName">Name of the admin role.</param>
-        public PermissionEvaluator(IAppUser user, int resourceId, IPermissionStore permissionStore, string adminRoleName = "Admin")
+        public PermissionEvaluator(IAppUser user, long resourceId, IPermissionStore permissionStore, string adminRoleName = "Admin")
         {
             if (user == null) throw new ArgumentNullException(nameof(user));
             if (permissionStore == null) throw new ArgumentNullException(nameof(permissionStore));
@@ -56,16 +56,15 @@ namespace Goliath.Authorization
                 return false;
 
             //if it's an admin user we don't need to evaluate the permissions
-            if (User.Roles.ContainsKey(adminRoleName)) 
+            if (User.Roles.Any(c => c.Value.IsAdminRole))
                 return true;
 
             var permissionList = permissionStore.GetPermissions(resourceId);
 
-            for (var i = 0; i < permissionList.Count; i++)
+            foreach (var userRole in User.Roles)
             {
-                var permission = permissionList[i];
-                if (!userRoles.ContainsKey(permission.RoleNumber)) continue;
-
+                if (!permissionList.TryGetValue(userRole.Value.RoleNumber, out IPermissionItem permission))
+                    continue;
                 var perm = (permission.PermValue & action) == action;
                 if (perm) return true;
             }
@@ -73,5 +72,20 @@ namespace Goliath.Authorization
             return false;
         }
 
+    }
+
+    class NoPermissionFoundEvaluator : IUserPermissionEvaluator
+    {
+        public NoPermissionFoundEvaluator(IAppUser user)
+        {
+            User = user;
+        }
+
+        public bool EvaluatePermission(int action)
+        {
+            return false;
+        }
+
+        public IAppUser User { get; private set; }
     }
 }

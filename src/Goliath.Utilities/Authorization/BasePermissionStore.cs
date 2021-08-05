@@ -27,8 +27,7 @@ namespace Goliath.Authorization
         /// <param name="permissionDataAdapter">The permission data adapter.</param>
         protected BasePermissionStore(IPermissionDataAdapter permissionDataAdapter)
         {
-            if (permissionDataAdapter == null) throw new ArgumentNullException(nameof(permissionDataAdapter));
-            PermissionDb = permissionDataAdapter;
+            PermissionDb = permissionDataAdapter ?? throw new ArgumentNullException(nameof(permissionDataAdapter));
         }
 
         /// <summary>
@@ -64,7 +63,7 @@ namespace Goliath.Authorization
         /// <param name="resourceId">The resource type identifier.</param>
         /// <param name="roleNumber">The role number.</param>
         /// <param name="action">The action.</param>
-        public virtual void AddPermission(int resourceId, int roleNumber, int action)
+        public virtual void AddPermission(long resourceId, long roleNumber, int action)
         {
             VerifyPermissionAreLoaded();
 
@@ -93,7 +92,7 @@ namespace Goliath.Authorization
         /// <param name="resourceId">The resource type identifier.</param>
         /// <param name="roleNumber">The role number.</param>
         /// <param name="action">The action.</param>
-        public virtual void RemovePermission(int resourceId, int roleNumber, int action)
+        public virtual void RemovePermission(long resourceId, long roleNumber, int action)
         {
             VerifyPermissionAreLoaded();
 
@@ -112,23 +111,23 @@ namespace Goliath.Authorization
         /// Gets the permission.
         /// </summary>
         /// <param name="resourceId">The resource identifier.</param>
-        /// <param name="rolenumber">The rolenumber.</param>
+        /// <param name="roleNumber">The role Number.</param>
         /// <returns></returns>
-        public abstract IPermissionItem GetPermission(int resourceId, int rolenumber);
+        public abstract IPermissionItem GetPermission(long resourceId, long roleNumber);
 
         /// <summary>
         /// Updates the role permissions.
         /// </summary>
         /// <param name="role">The role.</param>
-        /// <param name="permisionModels">The permision models.</param>
+        /// <param name="permissionModels">The permission models.</param>
         /// <param name="context">The context.</param>
-        public abstract void UpdateRolePermissions(IRole role, IList<PermissionActionModel> permisionModels, ApplicationContext context = null);
+        public abstract void UpdateRolePermissions(IRole role, IList<PermissionActionModel> permissionModels, ApplicationContext context = null);
 
         /// <summary>
         /// Gets the permissions.
         /// </summary>
         /// <param name="resourceId">The resource type identifier.</param>
         /// <returns></returns>
-        public abstract PermissionList GetPermissions(int resourceId);
+        public abstract PermissionList GetPermissions(long resourceId);
     }
 }

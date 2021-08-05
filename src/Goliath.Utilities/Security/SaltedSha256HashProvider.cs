@@ -34,9 +34,23 @@ namespace Goliath.Security
         /// <exception cref="System.ArgumentNullException">data</exception>
         public byte[] ComputeHash(byte[] data)
         {
-            if (data == null || data.Length == 0) throw new ArgumentNullException("data");
+            if (data == null || data.Length == 0) throw new ArgumentNullException(nameof(data));
             var saltArray = SecurityHelperMethods.GenerateRandomSalt();
             return ComputeHash(data, saltArray);
+        }
+
+        public string ComputeHash(string secret)
+        {
+           if(string.IsNullOrEmpty(secret))
+               throw new ArgumentNullException(nameof(secret));
+
+           var hash = ComputeHash(secret.ConvertToByteArray());
+           return hash.ConvertToBase64String();
+        }
+
+        public bool VerifyHash(string secret, string hash)
+        {
+            return VerifyHash(secret.ConvertToByteArray(), hash.ConvertFromBase64StringToByteArray());
         }
 
         /// <summary>
@@ -48,7 +62,8 @@ namespace Goliath.Security
         /// <exception cref="System.ArgumentNullException">data</exception>
         public byte[] ComputeHash(byte[] data, byte[] saltArray)
         {
-            if (data == null || data.Length == 0) throw new ArgumentNullException("data");
+            if (data == null || data.Length == 0) throw new ArgumentNullException(nameof(data));
+            if (saltArray == null || saltArray.Length == 0) throw new ArgumentNullException(nameof(saltArray));
 
             using (var managedHashProvider = new SHA256Managed())
             {
@@ -74,9 +89,8 @@ namespace Goliath.Security
         /// </exception>
         public bool VerifyHash(byte[] data, byte[] hash)
         {
-            if (data == null || data.Length == 0) throw new ArgumentNullException("data");
-            if (hash == null || hash.Length == 0) throw new ArgumentNullException("hash");
-            
+            if (data == null || data.Length == 0) throw new ArgumentNullException(nameof(data));
+            if (hash == null || hash.Length == 0) throw new ArgumentNullException(nameof(hash));
 
             using (var managedHashProvider = new SHA256Managed())
             {
@@ -95,9 +109,9 @@ namespace Goliath.Security
         /// <returns></returns>
         public bool VerifyHash(byte[] data, byte[] hash, byte[] salt)
         {
-            if (data == null || data.Length == 0) throw new ArgumentNullException("data");
-            if (hash == null || hash.Length == 0) throw new ArgumentNullException("hash");
-            if (salt == null || salt.Length == 0) throw new ArgumentNullException("salt");
+            if (data == null || data.Length == 0) throw new ArgumentNullException(nameof(data));
+            if (hash == null || hash.Length == 0) throw new ArgumentNullException(nameof(hash));
+            if (salt == null || salt.Length == 0) throw new ArgumentNullException(nameof(salt));
 
             var computedHash = ComputeHash(data, salt);
             return string.Equals(Convert.ToBase64String(hash), Convert.ToBase64String(computedHash));

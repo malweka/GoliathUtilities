@@ -6,9 +6,11 @@ namespace Goliath.Models
     public enum AuthenticationStatus
     {
         None = 0,
-        Failed = 1,
-        Success = 2,
+        Authenticated = 1,
+        Denied = 2,
         PasswordExpired = 4,
-        Disabled = 8
+        Disabled = 8,
+        LockedAccount = 16,
+        InvalidAccount = 32
     }
 }

@@ -80,9 +80,25 @@ namespace Goliath
 
             for (int i = 0; i < bytes.Length; i++)
             {
-                hexStringBuilder.Append(String.Format("{0:X2}", bytes[i]));
+                hexStringBuilder.Append($"{bytes[i]:X2}");
             }
             return hexStringBuilder.ToString();
+        }
+
+        /// <summary>
+        /// Convert a Hex encoded string to byte array
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static byte[] ConvertFromHexString(this string value)
+        {
+            var bytes = new byte[value.Length / 2];
+            for (var i = 0; i < bytes.Length; i++)
+            {
+                bytes[i] = Convert.ToByte(value.Substring(i * 2, 2), 16);
+            }
+
+            return bytes;
         }
 
         /// <summary>
@@ -158,6 +174,45 @@ namespace Goliath
             {
                 outStream.Write(buffer, 0, bytes);
             }
+        }
+
+        /// <summary>
+        /// Encodes to base64.
+        /// </summary>
+        /// <param name="arg">The argument.</param>
+        /// <returns></returns>
+        public static string EncodeToBase64(this byte[] arg)
+        {
+            var encodedString = Convert.ToBase64String(arg);
+
+            encodedString = encodedString.Split('=').First();
+            encodedString = encodedString.Replace('+', '-');
+            encodedString = encodedString.Replace('/', '_');
+
+            return encodedString;
+        }
+
+        /// <summary>
+        /// Decodes the base64.
+        /// </summary>
+        /// <param name="arg">The argument.</param>
+        /// <returns></returns>
+        /// <exception cref="Exception">Invalid Base64 encoded string.</exception>
+        public static byte[] DecodeBase64(string arg)
+        {
+            var newString = arg;
+            newString = newString.Replace('-', '+');
+            newString = newString.Replace('_', '/');
+
+            switch (newString.Length % 4)
+            {
+                case 0: break;
+                case 2: newString += "=="; break;
+                case 3: newString += "="; break;
+                default: throw new Exception("Invalid Base64 encoded string.");
+            }
+
+            return Convert.FromBase64String(newString);
         }
     }
 }

@@ -21,15 +21,26 @@ namespace Goliath.Authorization
 
         public IUserPermissionEvaluator On<T>(T entity)
         {
-            var type = typeof (T);
+            var type = typeof(T);
             var resourceId = secProv.GetResourceGroupIdByType(type);
-            if (resourceId < 1)
-                throw new SecurityException($"Resource type Id not found for type {type}");
 
-            return new PermissionEvaluator(user, resourceId, permissionStore);
+            if (!resourceId.HasValue)
+                return new NoPermissionFoundEvaluator(user);
+
+            return new PermissionEvaluator(user, resourceId.Value, permissionStore);
         }
 
-        public IUserPermissionEvaluator OnResourceType(int resourceId, string resourceName)
+        public IUserPermissionEvaluator OnResource(string resourceName)
+        {
+            var resourceId = secProv.GetResourceGroupIdByName(resourceName);
+
+            if (!resourceId.HasValue)
+                return new NoPermissionFoundEvaluator(user);
+
+            return new PermissionEvaluator(user, resourceId.Value, permissionStore);
+        }
+
+        public IUserPermissionEvaluator OnResource(long resourceId)
         {
             return new PermissionEvaluator(user, resourceId, permissionStore);
         }
@@ -37,10 +48,11 @@ namespace Goliath.Authorization
         public IUserPermissionEvaluator OnResourceType(Type resourceType)
         {
             var resourceId = secProv.GetResourceGroupIdByType(resourceType);
-            if (resourceId < 1)
-                throw new SecurityException($"Resource type Id not found for type {resourceType}");
 
-            return new PermissionEvaluator(user, resourceId, permissionStore);
+            if (!resourceId.HasValue)
+                return new NoPermissionFoundEvaluator(user);
+
+            return new PermissionEvaluator(user, resourceId.Value, permissionStore);
         }
     }
 }

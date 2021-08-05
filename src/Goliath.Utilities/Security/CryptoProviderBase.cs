@@ -134,10 +134,4 @@ namespace Goliath.Security
         /// <returns></returns>
         public abstract bool Verify(string publicKey, byte[] signature, byte[] data);
     }
-
-    public struct CryptoKey
-    {
-        public string PublicKey;
-        public string PrivateKey;
-    }
 }

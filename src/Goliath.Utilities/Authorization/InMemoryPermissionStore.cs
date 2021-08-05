@@ -12,7 +12,7 @@ namespace Goliath.Authorization
     public class InMemoryPermissionStore : BasePermissionStore
     {
         static readonly object lockPad = new object();
-        static readonly Dictionary<int, PermissionList> permissionCache = new Dictionary<int, PermissionList>();
+        static readonly Dictionary<long, PermissionList> permissionCache = new Dictionary<long, PermissionList>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="InMemoryPermissionStore"/> class.
@@ -62,7 +62,7 @@ namespace Goliath.Authorization
             }
         }
 
-        void RemovePermissionFromCache(int resourceId, int roleId)
+        void RemovePermissionFromCache(long resourceId, long roleId)
         {
             lock (lockPad)
             {
@@ -99,7 +99,7 @@ namespace Goliath.Authorization
         }
 
 
-        public override IPermissionItem GetPermission(int resourceId, int rolenumber)
+        public override IPermissionItem GetPermission(long resourceId, long roleNumber)
         {
             VerifyPermissionAreLoaded();
 
@@ -108,13 +108,13 @@ namespace Goliath.Authorization
             IPermissionItem permission = null;
             if (permissionCache.TryGetValue(resourceId, out permissionList))
             {
-                if (permissionList.Contains(rolenumber))
-                    permission = permissionList[rolenumber];
+                if (permissionList.Contains(roleNumber))
+                    permission = permissionList[roleNumber];
             }
             else
             {
                 //permission is not cached let's find it from the database
-                permission = PermissionDb.GetPermission(resourceId, rolenumber);
+                permission = PermissionDb.GetPermission(resourceId, roleNumber);
                 if (permission == null)
                 {
                     //permission does not exist in the database either. probably is a new permission.
@@ -131,7 +131,7 @@ namespace Goliath.Authorization
             return permission;
         }
 
-        public override PermissionList GetPermissions(int resourceId)
+        public override PermissionList GetPermissions(long resourceId)
         {
             VerifyPermissionAreLoaded();
 
@@ -156,7 +156,7 @@ namespace Goliath.Authorization
             return permissionList;
         }
 
-        public override void UpdateRolePermissions(IRole role, IList<PermissionActionModel> permisionModels, ApplicationContext context = null)
+        public override void UpdateRolePermissions(IRole role, IList<PermissionActionModel> permissionModels, ApplicationContext context = null)
         {
             if (role.Name.Equals("Admin"))
             {
@@ -170,7 +170,7 @@ namespace Goliath.Authorization
 
             lock (lockPad)
             {
-                foreach (var perm in permisionModels)
+                foreach (var perm in permissionModels)
                 {
                     var cachedPerm = GetPermission(perm.ResourceId, role.RoleNumber);
                     var permValue = perm.PermValue;

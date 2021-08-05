@@ -1,4 +1,5 @@
 using System;
+using System.Data;
 using System.Security.Cryptography;
 
 namespace Goliath.Security
@@ -10,7 +11,7 @@ namespace Goliath.Security
     {
         public const string ProviderName = "MD5";
 
-        public string Name { get { return ProviderName; } }
+        public string Name => ProviderName;
 
         public byte[] ComputeHash(byte[] data)
         {
@@ -19,6 +20,17 @@ namespace Goliath.Security
                 var hash = managedHashProvider.ComputeHash(data);
                 return hash;
             }
+        }
+
+        public string ComputeHash(string secret)
+        {
+            var hash = ComputeHash(secret.ConvertToByteArray());
+            return hash.ConvertToBase64String();
+        }
+
+        public bool VerifyHash(string secret, string hash)
+        {
+            return VerifyHash(secret.ConvertToByteArray(), hash.ConvertFromBase64StringToByteArray());
         }
 
         public byte[] ComputeHash(byte[] data, byte[] saltArray)

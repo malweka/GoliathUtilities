@@ -16,12 +16,13 @@ namespace Goliath.Authorization
         IUserPermissionEvaluator On<T>(T entity);
 
         /// <summary>
-        /// Ons the specified resource identifier.
+        /// On the specified resource identifier.
         /// </summary>
-        /// <param name="resourceId">The resource type identifier.</param>
         /// <param name="resourceName">Name of the resource.</param>
         /// <returns></returns>
-        IUserPermissionEvaluator OnResourceType(int resourceId, string resourceName);
+        IUserPermissionEvaluator OnResource(string resourceName);
+
+        IUserPermissionEvaluator OnResource(long resourceId);
 
         /// <summary>
         /// Called when [resource type].

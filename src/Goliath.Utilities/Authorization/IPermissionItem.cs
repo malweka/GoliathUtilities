@@ -12,21 +12,22 @@
         /// The identifier.
         /// </value>
         long Id { get; set; }
+
         /// <summary>
         /// Gets or sets the resource identifier.
         /// </summary>
         /// <value>
         /// The resource identifier.
         /// </value>
-        int ResourceId { get; set; }
+        long ResourceId { get; set; }
 
         /// <summary>
-        /// Gets or sets the role numbeer.
+        /// Gets or sets the role number.
         /// </summary>
         /// <value>
-        /// The role numbeer.
+        /// The role number.
         /// </value>
-        int RoleNumber { get; set; }
+        long RoleNumber { get; set; }
 
         /// <summary>
         /// Gets or sets the perm value.

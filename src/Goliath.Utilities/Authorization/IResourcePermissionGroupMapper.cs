@@ -13,13 +13,17 @@ namespace Goliath.Authorization
         /// </summary>
         /// <param name="type">The type.</param>
         /// <returns></returns>
-        int GetResourceGroupIdByType(Type type);
+        long? GetResourceGroupIdByType(Type type);
 
         /// <summary>
         /// Gets the name of the resource group identifier by.
         /// </summary>
         /// <param name="resourceName">Name of the resource.</param>
         /// <returns></returns>
-        int? GetResourceGroupIdByName(string resourceName);
+        long? GetResourceGroupIdByName(string resourceName);
+
+        void Load();
+
+        void Clear();
     }
 }

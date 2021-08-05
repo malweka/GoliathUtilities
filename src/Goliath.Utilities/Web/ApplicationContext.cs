@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using System.Threading;
 using Goliath.Authorization;
 
 namespace Goliath.Web
@@ -31,7 +32,9 @@ namespace Goliath.Web
         /// <value>
         /// The culture.
         /// </value>
-        public CultureInfo Culture { get; protected set; }
+        public virtual CultureInfo Culture => Thread.CurrentThread.CurrentCulture;
+
+        public abstract long SessionId { get; }
 
         /// <summary>
         /// Gets the permission validator.
@@ -39,7 +42,7 @@ namespace Goliath.Web
         /// <value>
         /// The permission validator.
         /// </value>
-        public abstract PermissionValidator AuthorizatonValidator { get; }
+        public abstract PermissionValidator AuthorizationValidator { get; }
 
     }
 }

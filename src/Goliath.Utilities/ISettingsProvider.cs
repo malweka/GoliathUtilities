@@ -24,6 +24,13 @@ namespace Goliath
         ConnectionStringInfo GetConnectionString(string connectionStringName);
 
         /// <summary>
+        /// Gets the encryption key for the specified encryption
+        /// </summary>
+        /// <param name="algorithmName"></param>
+        /// <returns></returns>
+        string GetEncryptionKey(string algorithmName);
+
+        /// <summary>
         /// Sets the specified key.
         /// </summary>
         /// <param name="key">The key.</param>

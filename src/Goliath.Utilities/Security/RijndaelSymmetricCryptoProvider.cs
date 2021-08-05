@@ -10,6 +10,7 @@ namespace Goliath.Security
     public class RijndaelSymmetricCryptoProvider : ISymmetricCryptoProvider
     {
         readonly byte[] keyArray;
+        public const string ProviderName = "Rijndael";
 
         /// <summary>
         /// The block size
@@ -32,11 +33,19 @@ namespace Goliath.Security
         /// <summary>
         /// Initializes a new instance of the <see cref="RijndaelSymmetricCryptoProvider"/> class.
         /// </summary>
+        public RijndaelSymmetricCryptoProvider(ISettingsProvider settings) : this(settings?.GetEncryptionKey(ProviderName))
+        {
+
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RijndaelSymmetricCryptoProvider"/> class.
+        /// </summary>
         /// <param name="encryptionKey">The encryption key.</param>
         /// <param name="keySize">Size of the key.</param>
         /// <exception cref="System.ArgumentNullException">encryptionKey</exception>
         /// <exception cref="System.ArgumentException">Invalid encryption key</exception>
-        public RijndaelSymmetricCryptoProvider(string encryptionKey, int keySize)
+        public RijndaelSymmetricCryptoProvider(string encryptionKey, int keySize = 256)
         {
             if (string.IsNullOrEmpty(encryptionKey))
                 throw new ArgumentNullException("encryptionKey");
@@ -86,7 +95,7 @@ namespace Goliath.Security
         /// <value>
         /// The name.
         /// </value>
-        public string Name { get { return "AES"; } }
+        public string Name => ProviderName;
 
         /// <summary>
         /// Generates the key.

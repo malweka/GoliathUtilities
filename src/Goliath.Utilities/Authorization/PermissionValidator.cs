@@ -16,10 +16,7 @@ namespace Goliath.Authorization
         /// <value>
         /// The permission service.
         /// </value>
-        public IPermissionBuilder PermissionBuilder
-        {
-            get { return permissionBuilder; }
-        }
+        public IPermissionBuilder PermissionBuilder => permissionBuilder;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PermissionValidator"/> class.
@@ -34,11 +31,8 @@ namespace Goliath.Authorization
         /// </exception>
         public PermissionValidator(IPermissionBuilder permissionBuilder, IAppUser user)
         {
-            if (permissionBuilder == null) throw new ArgumentNullException(nameof(permissionBuilder));
-            if (user == null) throw new ArgumentNullException(nameof(user));
-
-            this.permissionBuilder = permissionBuilder;
-            this.user = user;
+            this.permissionBuilder = permissionBuilder ?? throw new ArgumentNullException(nameof(permissionBuilder));
+            this.user = user ?? throw new ArgumentNullException(nameof(user));
         }
 
         /// <summary>
@@ -47,10 +41,17 @@ namespace Goliath.Authorization
         /// <param name="resourceId">The resource type identifier.</param>
         /// <param name="action">The action.</param>
         /// <returns></returns>
-        public bool CanPerformAction(int resourceId, int action)
+        public bool CanPerformAction(long resourceId, int action)
         {
             return permissionBuilder.For(user)
-                .OnResourceType(resourceId, string.Empty)
+                .OnResource(resourceId)
+                .EvaluatePermission(action);
+        }
+
+        public bool CanPerformAction(string resourceName, int action)
+        {
+            return permissionBuilder.For(user)
+                .OnResource(resourceName)
                 .EvaluatePermission(action);
         }
 
@@ -66,7 +67,5 @@ namespace Goliath.Authorization
                 .OnResourceType(resourceType)
                 .EvaluatePermission(action);
         }
-
-        
     }
 }

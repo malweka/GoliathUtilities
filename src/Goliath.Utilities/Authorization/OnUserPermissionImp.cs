@@ -7,6 +7,7 @@ namespace Goliath.Authorization
         private readonly IAppUser user;
         private readonly IResourcePermissionGroupMapper secProv;
         private readonly IPermissionStore permissionStore;
+        private ILogger logger = Logger.GetLogger("Goliath.Authorization");
 
         public OnUserPermissionImp(IAppUser user, IPermissionStore permissionStore, IResourcePermissionGroupMapper secProv)
         {
@@ -25,7 +26,10 @@ namespace Goliath.Authorization
             var resourceId = secProv.GetResourceGroupIdByType(type);
 
             if (!resourceId.HasValue)
+            {
+                logger.Log(LogLevel.Info, $"Could not find resource ID for type {type}.");
                 return new NoPermissionFoundEvaluator(user);
+            }
 
             return new PermissionEvaluator(user, resourceId.Value, permissionStore);
         }
@@ -35,7 +39,10 @@ namespace Goliath.Authorization
             var resourceId = secProv.GetResourceGroupIdByName(resourceName);
 
             if (!resourceId.HasValue)
+            {
+                logger.Log(LogLevel.Info, $"Could not find resource ID resource name {resourceName}.");
                 return new NoPermissionFoundEvaluator(user);
+            }
 
             return new PermissionEvaluator(user, resourceId.Value, permissionStore);
         }
@@ -50,7 +57,10 @@ namespace Goliath.Authorization
             var resourceId = secProv.GetResourceGroupIdByType(resourceType);
 
             if (!resourceId.HasValue)
+            {
+                logger.Log(LogLevel.Info, $"Could not find resource ID for type {resourceType}.");
                 return new NoPermissionFoundEvaluator(user);
+            }
 
             return new PermissionEvaluator(user, resourceId.Value, permissionStore);
         }

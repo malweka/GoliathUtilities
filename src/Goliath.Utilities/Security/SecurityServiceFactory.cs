@@ -7,9 +7,9 @@ namespace Goliath.Security
 {
     public class SecurityServiceFactory : ISecurityServiceFactory
     {
-        private Dictionary<string, IHashProvider> hashProviders;
-        private Dictionary<string, ISymmetricCryptoProvider> symmetricCrytos;
-        private Dictionary<string, IAsymmetricCryptoProvider> asymmetricCryptos;
+        private readonly Dictionary<string, IHashProvider> hashProviders;
+        private readonly Dictionary<string, ISymmetricCryptoProvider> symmetricCryptos;
+        private readonly Dictionary<string, IAsymmetricCryptoProvider> asymmetricCryptos;
 
         public SecurityServiceFactory(IEnumerable<IHashProvider> hashProviders, 
             IEnumerable<ISymmetricCryptoProvider> symmetricCryptoProviders,
@@ -19,7 +19,7 @@ namespace Goliath.Security
             if (symmetricCryptoProviders == null) throw new ArgumentNullException(nameof(symmetricCryptoProviders));
 
             this.hashProviders = hashProviders.ToDictionary(c => c.Name);
-            symmetricCrytos = symmetricCryptoProviders.ToDictionary(c => c.Name);
+            symmetricCryptos = symmetricCryptoProviders.ToDictionary(c => c.Name);
             asymmetricCryptos = asymmetricCryptoProviders.ToDictionary(c => c.Name);
         }
 
@@ -32,7 +32,7 @@ namespace Goliath.Security
 
         public ISymmetricCryptoProvider GetSymmetricCryptoProvider(string providerName)
         {
-            if (!symmetricCrytos.TryGetValue(providerName, out ISymmetricCryptoProvider provider))
+            if (!symmetricCryptos.TryGetValue(providerName, out ISymmetricCryptoProvider provider))
                 throw new InvalidOperationException($"provider {providerName} does not exist.");
             return provider;
         }

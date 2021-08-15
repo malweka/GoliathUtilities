@@ -118,6 +118,5 @@ namespace Goliath.Security
         }
 
         #endregion
-
     }
 }

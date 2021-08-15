@@ -4,7 +4,7 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <AssemblyName>Goliath.Utilities</AssemblyName>
     <RootNamespace>Goliath</RootNamespace>
-    <Copyright>Copyright © Emmanuel Hameyie</Copyright>
+    <Copyright>Copyright © 2021 Emmanuel Hameyie</Copyright>
     <Product>Goliath</Product>
     <Company>Emmanuel Hameyie</Company>
     <Authors>Emmanuel Hameyie</Authors>
@@ -12,9 +12,5 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageProjectUrl>https://github.com/malweka/GoliathUtilities</PackageProjectUrl>
   </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="BCrypt.Net-Next" Version="4.0.2" />
-  </ItemGroup>
 
 </Project>

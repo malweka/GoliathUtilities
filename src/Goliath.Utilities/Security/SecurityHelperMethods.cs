@@ -22,6 +22,12 @@ namespace Goliath.Security
         {
             var sizeInBytes = hashAlgorithm.HashSize / 8;
 
+            return ExtractRandomSalt(sizeInBytes, hashBytes);
+        }
+
+        public static byte[] ExtractRandomSalt(int sizeInBytes, byte[] hashBytes)
+        {
+
             if (hashBytes.Length < sizeInBytes)
             {
                 throw new ArgumentException("hashBytes was not hashed with the HashAlgorithm submitted.");
@@ -34,6 +40,7 @@ namespace Goliath.Security
 
             return salt;
         }
+
 
         /// <summary>
         /// Generates the random salt.

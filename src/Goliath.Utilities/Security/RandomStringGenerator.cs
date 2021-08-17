@@ -7,6 +7,7 @@ namespace Goliath.Security
     {
         const string alphabet = @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijkmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ23456789*-+!@#$^&_~abcdefghijkmnopqrstuvwxyz";
         const string alphabetNoSpecialChars = @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijkmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ23456789";
+
         private static readonly SecureRandom random = new SecureRandom();
 
         /// <summary>

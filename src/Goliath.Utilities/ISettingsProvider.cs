@@ -14,6 +14,8 @@ namespace Goliath
         /// <returns></returns>
         string Get(string key);
 
+        string Get(string key, string defaultValue);
+
         /// <summary>
         /// Gets the configuration application setting.
         /// </summary>

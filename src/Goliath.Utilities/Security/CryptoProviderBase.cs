@@ -20,10 +20,8 @@ namespace Goliath.Security
         /// <param name="isPrivateKey">if set to <c>true</c> [is private key].</param>
         protected void CreateKey(AsymmetricAlgorithm asymmetricAlgorithm, string keyFile, bool isPrivateKey)
         {
-            using (var privateStream = new FileStream(keyFile, FileMode.Create, FileAccess.ReadWrite))
-            {
-                CreateKey(asymmetricAlgorithm, privateStream, isPrivateKey);
-            }
+            using var privateStream = new FileStream(keyFile, FileMode.Create, FileAccess.ReadWrite);
+            CreateKey(asymmetricAlgorithm, privateStream, isPrivateKey);
         }
 
         /// <summary>
@@ -35,12 +33,10 @@ namespace Goliath.Security
         /// <exception cref="System.ArgumentNullException">privateStream</exception>
         protected void CreateKey(AsymmetricAlgorithm asymmetricAlgorithm, Stream privateStream, bool isPrivateKey)
         {
-            if (privateStream == null) throw new ArgumentNullException("privateStream");
+            if (privateStream == null) throw new ArgumentNullException(nameof(privateStream));
 
-            using (var streamWriter = new StreamWriter(privateStream))
-            {
-                streamWriter.Write(CreateKey(asymmetricAlgorithm, isPrivateKey));
-            }
+            using var streamWriter = new StreamWriter(privateStream);
+            streamWriter.Write(CreateKey(asymmetricAlgorithm, isPrivateKey));
         }
 
         /// <summary>
@@ -60,13 +56,10 @@ namespace Goliath.Security
         /// <param name="privateKey">The private key.</param>
         /// <param name="data">The data.</param>
         /// <returns></returns>
-        public byte[] Sign(Stream privateKey, string data)
+        public virtual byte[] Sign(Stream privateKey, string data)
         {
-            byte[] hash;
-            using (var dataStream = new MemoryStream(data.ConvertToByteArray()))
-            {
-                hash = Sign(privateKey, dataStream);
-            }
+            using var dataStream = new MemoryStream(data.ConvertToByteArray());
+            var hash = Sign(privateKey, dataStream);
             return hash;
         }
 
@@ -76,13 +69,10 @@ namespace Goliath.Security
         /// <param name="privateKey">The private key.</param>
         /// <param name="data">The data.</param>
         /// <returns></returns>
-        public byte[] Sign(Stream privateKey, Stream data)
+        public virtual byte[] Sign(Stream privateKey, Stream data)
         {
-            byte[] hash;
-            using (var reader = new StreamReader(privateKey))
-            {
-                hash = Sign(reader.ReadToEnd(), data);
-            }
+            using var reader = new StreamReader(privateKey);
+            var hash = Sign(reader.ReadToEnd(), data);
 
             return hash;
         }
@@ -93,13 +83,10 @@ namespace Goliath.Security
         /// <param name="privateKey">The private key.</param>
         /// <param name="data">The data.</param>
         /// <returns></returns>
-        public byte[] Sign(string privateKey, string data)
+        public virtual byte[] Sign(string privateKey, string data)
         {
-            byte[] hash;
-            using (var dataStream = new MemoryStream(data.ConvertToByteArray()))
-            {
-                hash = Sign(privateKey, dataStream);
-            }
+            using var dataStream = new MemoryStream(data.ConvertToByteArray());
+            var hash = Sign(privateKey, dataStream);
             return hash;
         }
 
@@ -119,7 +106,7 @@ namespace Goliath.Security
         /// <param name="signature">The signature.</param>
         /// <param name="data">The data.</param>
         /// <returns></returns>
-        public bool Verify(string publicKey, string signature, Stream data)
+        public virtual bool Verify(string publicKey, string signature, Stream data)
         {
             var result = Verify(publicKey, Convert.FromBase64String(signature), data.ReadToEnd());
             return result;

@@ -19,7 +19,10 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 3.1.x
+        dotnet-version: 5.0.x
+        
+    - name: Add Package Source
+      run: dotnet nuget add source --username malweka --password ${{ secrets.PACKAGETOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/malweka/index.json"
     - name: Restore dependencies
       run: dotnet restore src/GoliathUtils.sln
     - name: Build

@@ -208,3 +208,4 @@ pingme.txt
 .nuget
 *.vsext
 Settings.StyleCop
+/src/PackAndPush.cmd

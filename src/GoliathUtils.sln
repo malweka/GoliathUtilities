@@ -5,7 +5,12 @@ VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Goliath.Utilities", "Goliath.Utilities\Goliath.Utilities.csproj", "{36636CBD-3B73-4293-97C5-940CE16A69DC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Goliath.Utilities.Tests", "Goliath.Utilities.Tests\Goliath.Utilities.Tests.csproj", "{CD7D918C-6C86-4396-B973-1724F28EB45E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Goliath.Utilities.Tests", "Goliath.Utilities.Tests\Goliath.Utilities.Tests.csproj", "{CD7D918C-6C86-4396-B973-1724F28EB45E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{36EA3C27-B292-4B32-9F23-A37E974A6B14}"
+	ProjectSection(SolutionItems) = preProject
+		BuildMe.cmd = BuildMe.cmd
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

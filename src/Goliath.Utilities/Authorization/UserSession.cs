@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
 
 namespace Goliath.Authorization
 {
@@ -91,14 +89,6 @@ namespace Goliath.Authorization
         /// </value>
         public string FullName => $"{FirstName} {LastName}";
 
-        /// <summary>
-        /// Gets or sets the permission service.
-        /// </summary>
-        /// <value>
-        /// The permission service.
-        /// </value>
-        public IPermissionBuilder PermissionService { get; set; }
-
         #endregion
 
         /// <summary>
@@ -109,46 +99,13 @@ namespace Goliath.Authorization
         }
 
         /// <summary>
-        /// Gets the permission validator.
+        /// Determines whether [is in role] [the specified roleName].
         /// </summary>
+        /// <param name="roleName">The roleName.</param>
         /// <returns></returns>
-        public PermissionValidator GetPermissionValidator()
+        public bool IsInRole(string roleName)
         {
-            return PermissionService == null ? null : new PermissionValidator(PermissionService, this);
-        }
-
-        public ClaimsIdentity CreateClaimsIdentity(string authenticationType)
-        {
-            try
-            {
-                var claims = new List<Claim> {
-                    new Claim(ClaimTypes.NameIdentifier, Id.ToString()),
-                    new Claim(ClaimTypes.Name, UserName),
-                    new Claim(ClaimTypes.GivenName, FirstName),
-                    new Claim(ClaimTypes.Surname, LastName),
-                    new Claim(ClaimTypes.Email, EmailAddress)};
-
-                if (Roles != null)
-                    claims.AddRange(Roles.Select(roleModel => new Claim(ClaimTypes.Role, roleModel.Value.Name)));
-
-                var identity = new ClaimsIdentity(claims, authenticationType);
-                return identity;
-            }
-            catch
-            {
-                return null;
-            }
-
-        }
-
-        /// <summary>
-        /// Determines whether [is in role] [the specified rolename].
-        /// </summary>
-        /// <param name="rolename">The rolename.</param>
-        /// <returns></returns>
-        public bool IsInRole(string rolename)
-        {
-            return Roles.ContainsKey(rolename);
+            return Roles.ContainsKey(roleName);
         }
 
         /// <summary>

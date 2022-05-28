@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       BuildConfiguration: Release
-      BuildVersion: 2.0.1
+      BuildVersion: 2.1.0
 
     steps:
     - uses: actions/checkout@v2
@@ -29,3 +29,5 @@ jobs:
       run: dotnet build --no-restore --configuration $BuildConfiguration -p:PackageVersion=$BuildVersion.$GITHUB_RUN_NUMBER -p:Version=$BuildVersion.$GITHUB_RUN_NUMBER -p:AssemblyVersion=$BuildVersion.$GITHUB_RUN_NUMBER -p:FileVersion=$BuildVersion.$GITHUB_RUN_NUMBER src/GoliathUtils.sln
     - name: Test
       run: dotnet test --no-build --configuration $BuildConfiguration --verbosity normal src/Goliath.Utilities.Tests/Goliath.Utilities.Tests.csproj
+    - name: Package Push
+      run: dotnet nuget push --api-key %apiKey% --source "github" src/Goliath.Utilities/bin/$BuildConfiguration/Goliath.Utilities.$BuildVersion.$GITHUB_RUN_NUMBER

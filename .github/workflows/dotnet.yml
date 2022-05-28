@@ -30,4 +30,4 @@ jobs:
     - name: Test
       run: dotnet test --no-build --configuration $BuildConfiguration --verbosity normal src/Goliath.Utilities.Tests/Goliath.Utilities.Tests.csproj
     - name: Package Push src/Goliath.Utilities/bin/Release/Goliath.Utilities
-      run: dotnet nuget push --api-key ${{ secrets.PACKAGETOKEN }} --source "github" src/Goliath.Utilities/bin/$BuildConfiguration/Goliath.Utilities.$BuildVersion.$GITHUB_RUN_NUMBER
+      run: dotnet nuget push --api-key ${{ secrets.PACKAGETOKEN }} --source "github" src/Goliath.Utilities/bin/$BuildConfiguration/Goliath.Utilities.$BuildVersion.$GITHUB_RUN_NUMBER.nupkg

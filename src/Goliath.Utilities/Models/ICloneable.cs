@@ -1,6 +1,6 @@
 namespace Goliath.Models
 {
-    public interface ICloneable<T> : System.ICloneable
+    public interface ICloneable<T>
     {
         T Clone();
     }

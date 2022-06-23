@@ -209,3 +209,5 @@ pingme.txt
 *.vsext
 Settings.StyleCop
 /src/PackAndPush.cmd
+.DS_Store
+src/.idea

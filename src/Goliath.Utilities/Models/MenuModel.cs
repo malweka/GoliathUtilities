@@ -12,7 +12,7 @@ namespace Goliath.Models
     /// </summary>
     /// <seealso cref="Goliath.IXmlSerializable" />
     [Serializable]
-    public class MenuModel : IXmlSerializable, ICloneable<MenuModel>
+    public class MenuModel : IXmlSerializable, ICloneable<MenuModel>, ICloneable
     {
         public long Id { get; set; }
         /// <summary>

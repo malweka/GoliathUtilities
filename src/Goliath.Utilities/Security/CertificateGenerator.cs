@@ -3,6 +3,7 @@ using System.Linq;
 using Org.BouncyCastle.Asn1.X509;
 using Org.BouncyCastle.Crypto;
 using Org.BouncyCastle.Crypto.Generators;
+using Org.BouncyCastle.Crypto.Operators;
 using Org.BouncyCastle.Crypto.Prng;
 using Org.BouncyCastle.Math;
 using Org.BouncyCastle.Security;
@@ -134,12 +135,11 @@ namespace Goliath.Security
         {
             var certificateGenerator = new X509V3CertificateGenerator();
 
-            certificateGenerator.SetSerialNumber(subjectSerialNumber);
+            certificateGenerator.SetSerialNumber(subjectSerialNumber); 
 
             // Set the signature algorithm. This is used to generate the thumbprint which is then signed
             // with the issuer's private key. We'll use SHA-256, which is (currently) considered fairly strong.
             const string signatureAlgorithm = "SHA256WithRSA";
-            certificateGenerator.SetSignatureAlgorithm(signatureAlgorithm);
 
             var issuerDN = new X509Name(issuerName);
             certificateGenerator.SetIssuerDN(issuerDN);
@@ -169,7 +169,7 @@ namespace Goliath.Security
                 certificateGenerator.AddSubjectAlternativeNames(subjectAlternativeNames);
 
             // The certificate is signed with the issuer's private key.
-            var certificate = certificateGenerator.Generate(issuerKeyPair.Private, random);
+            var certificate = certificateGenerator.Generate(new Asn1SignatureFactory(signatureAlgorithm, issuerKeyPair.Private, random));
             return certificate;
         }
 

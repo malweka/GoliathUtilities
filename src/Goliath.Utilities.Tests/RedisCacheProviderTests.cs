@@ -8,7 +8,7 @@ using StackExchange.Redis;
 namespace Goliath.Utilities.Tests
 {
 #if !INTEGRATION
-    [Ignore]
+   // [Ignore]
 #endif
     [TestClass]
     public class RedisCacheProviderTests
@@ -21,7 +21,7 @@ namespace Goliath.Utilities.Tests
             {
                 EndPoints = { "localhost:6379" },
                 KeepAlive = 10,
-                AbortOnConnectFail = false,
+                AbortOnConnectFail = true,
                 ConfigurationChannel = "",
                 TieBreaker = "",
                 ConfigCheckSeconds = 0, 

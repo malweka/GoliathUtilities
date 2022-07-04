@@ -19,7 +19,7 @@ namespace Goliath.Utilities.Tests
         {
             var configurationOptions = new ConfigurationOptions
             {
-                EndPoints = { "localhost:6379" },
+                EndPoints = { "redis:6379" },
                 KeepAlive = 10,
                 AbortOnConnectFail = true,
                 ConfigurationChannel = "",

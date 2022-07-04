@@ -24,7 +24,8 @@ namespace Goliath.Utilities.Tests
                 AbortOnConnectFail = false,
                 ConfigurationChannel = "",
                 TieBreaker = "",
-                ConfigCheckSeconds = 0,
+                ConfigCheckSeconds = 0, 
+                ConnectTimeout = 12000,
                 //CommandMap = CommandMap.Create(new HashSet<string>
                 //{ // EXCLUDE a few commands
                 //    "SUBSCRIBE", "UNSUBSCRIBE", "CLUSTER"

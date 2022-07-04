@@ -19,7 +19,7 @@ namespace Goliath.Utilities.Tests
         {
             var configurationOptions = new ConfigurationOptions
             {
-                EndPoints = { "localhost:6379" },
+                EndPoints = { "RedisTest:6379" },
                 KeepAlive = 10,
                 AbortOnConnectFail = false,
                 ConfigurationChannel = "",

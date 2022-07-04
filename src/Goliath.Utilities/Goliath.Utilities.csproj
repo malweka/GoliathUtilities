@@ -21,7 +21,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
 		<PackageReference Include="Portable.BouncyCastle" Version="1.8.10" />
+		<PackageReference Include="StackExchange.Redis" Version="2.6.48" />
+		<PackageReference Include="System.Runtime.Caching" Version="6.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>

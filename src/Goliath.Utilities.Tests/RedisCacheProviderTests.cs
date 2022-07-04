@@ -1,11 +1,15 @@
 using System;
 using System.Collections.Generic;
 using Goliath.Caching;
+using Goliath.Security;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using StackExchange.Redis;
 
 namespace Goliath.Utilities.Tests
 {
+#if !INTEGRATION
+    [Ignore]
+#endif
     [TestClass]
     public class RedisCacheProviderTests
     {
@@ -35,6 +39,20 @@ namespace Goliath.Utilities.Tests
         {
             var cache = new RedisCacheProvider(lazyConnection.Value.GetDatabase(0));
             Assert.IsNotNull(cache.Database);
+        }
+
+        [TestMethod]
+        public void Get_should_return_value()
+        {
+            RandomStringGenerator generator = new RandomStringGenerator();
+            var key = $"tests:keys:{generator.Generate(6)}";
+
+             var db = lazyConnection.Value.GetDatabase(0);
+             db.Set(key, "this is a test", TimeSpan.FromMinutes(5));
+
+            var cache = new RedisCacheProvider(lazyConnection.Value.GetDatabase(0));
+            var cachedValue = cache.Get<string>(key);
+            Assert.AreEqual("this is a test", cachedValue);
         }
     }
 }   

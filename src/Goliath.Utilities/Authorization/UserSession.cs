@@ -15,7 +15,7 @@ namespace Goliath.Authorization
         /// <value>
         /// The user identifier.
         /// </value>
-        public long Id { get; set; }
+        public virtual long Id { get; set; }
 
         /// <summary>
         /// Gets or sets the user identifier.
@@ -23,7 +23,7 @@ namespace Goliath.Authorization
         /// <value>
         /// The user identifier.
         /// </value>
-        public string UserName { get; set; }
+        public virtual string UserName { get; set; }
 
         /// <summary>
         /// Gets or sets the first name.
@@ -31,7 +31,7 @@ namespace Goliath.Authorization
         /// <value>
         /// The first name.
         /// </value>
-        public string FirstName { get; set; }
+        public virtual string FirstName { get; set; }
 
         /// <summary>
         /// Gets or sets the last name.
@@ -39,7 +39,7 @@ namespace Goliath.Authorization
         /// <value>
         /// The last name.
         /// </value>
-        public string LastName { get; set; }
+        public virtual string LastName { get; set; }
 
         /// <summary>
         /// Gets or sets the email address.
@@ -47,7 +47,7 @@ namespace Goliath.Authorization
         /// <value>
         /// The email address.
         /// </value>
-        public string EmailAddress { get; set; }
+        public virtual string EmailAddress { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this instance is active.
@@ -55,7 +55,7 @@ namespace Goliath.Authorization
         /// <value>
         ///   <c>true</c> if this instance is active; otherwise, <c>false</c>.
         /// </value>
-        public bool IsActive { get; set; }
+        public virtual bool IsActive { get; set; }
 
         /// <summary>
         /// Gets or sets the authentication provider.
@@ -63,7 +63,7 @@ namespace Goliath.Authorization
         /// <value>
         /// The authentication provider.
         /// </value>
-        public string AuthenticationProvider { get; set; }
+        public virtual string AuthenticationProvider { get; set; }
 
         /// <summary>
         /// Gets or sets the profile image URL.
@@ -71,7 +71,7 @@ namespace Goliath.Authorization
         /// <value>
         /// The profile image URL.
         /// </value>
-        public string ProfileImageUrl { get; set; }
+        public virtual string ProfileImageUrl { get; set; }
 
         /// <summary>
         /// Gets or sets the user role.
@@ -87,7 +87,7 @@ namespace Goliath.Authorization
         /// <value>
         /// The full name.
         /// </value>
-        public string FullName => $"{FirstName} {LastName}";
+        public virtual string FullName => $"{FirstName} {LastName}";
 
         #endregion
 

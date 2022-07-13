@@ -21,7 +21,8 @@ namespace Goliath.Caching
         public static T Get<T>(this IDatabase redisCache, string key)
         {
             var jsonSerialized = redisCache.StringGet(key);
-            return JsonConvert.DeserializeObject<T>(jsonSerialized);
+
+            return string.IsNullOrWhiteSpace(jsonSerialized) ? default(T) : JsonConvert.DeserializeObject<T>(jsonSerialized);
         }
 
         /// <summary>
@@ -34,7 +35,7 @@ namespace Goliath.Caching
         public static async Task<T> GetAsync<T>(this IDatabase redisCache, string key)
         {
             var jsonSerialized = await redisCache.StringGetAsync(key);
-            return JsonConvert.DeserializeObject<T>(jsonSerialized);
+            return string.IsNullOrWhiteSpace(jsonSerialized) ? default(T) : JsonConvert.DeserializeObject<T>(jsonSerialized);
         }
 
         /// <summary>
@@ -46,7 +47,7 @@ namespace Goliath.Caching
         public static object Get(this IDatabase redisCache, string key)
         {
             var jsonSerialized = redisCache.StringGet(key);
-            return JsonConvert.DeserializeObject(jsonSerialized);
+            return string.IsNullOrWhiteSpace(jsonSerialized) ? null : JsonConvert.DeserializeObject(jsonSerialized);
         }
 
         /// <summary>
@@ -58,7 +59,7 @@ namespace Goliath.Caching
         public static async Task<object> GetAsync(this IDatabase redisCache, string key)
         {
             var jsonSerialized = await redisCache.StringGetAsync(key);
-            return JsonConvert.DeserializeObject(jsonSerialized);
+            return string.IsNullOrWhiteSpace(jsonSerialized) ? null : JsonConvert.DeserializeObject(jsonSerialized);
         }
 
         /// <summary>

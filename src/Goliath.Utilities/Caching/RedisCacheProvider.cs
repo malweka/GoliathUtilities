@@ -31,10 +31,6 @@ namespace Goliath.Caching
         /// <returns></returns>
         public T Get<T>(string key)
         {
-
-            if (!db.KeyExists(key))
-                return default(T);
-
             return db.Get<T>(key);
         }
 
@@ -46,9 +42,6 @@ namespace Goliath.Caching
         /// <returns></returns>
         public async Task<T> GetAsync<T>(string key)
         {
-            if (!db.KeyExists(key))
-                return default(T);
-
             return await db.GetAsync<T>(key);
         }
 
@@ -158,7 +151,5 @@ namespace Goliath.Caching
             lifetime ??= new TimeSpan(0, 0, 0, 0, 1);
             return db.KeyExpire(key, lifetime);
         }
-
-   
     }
 }

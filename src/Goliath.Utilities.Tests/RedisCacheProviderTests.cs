@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Goliath.Caching;
 using Goliath.Security;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json;
 using StackExchange.Redis;
 
 namespace Goliath.Utilities.Tests
@@ -22,7 +23,7 @@ namespace Goliath.Utilities.Tests
             {
                 EndPoints = { "localhost:6379" },
                 KeepAlive = 10,
-                AbortOnConnectFail = true,
+                AbortOnConnectFail = false,
                 ConfigurationChannel = "",
                 TieBreaker = "",
                 ConfigCheckSeconds = 0,
@@ -33,6 +34,9 @@ namespace Goliath.Utilities.Tests
                 //}, available: false),  
                 AllowAdmin = true
             };
+
+            var json = JsonConvert.SerializeObject(configurationOptions);
+            Console.WriteLine(json);
             lazyConnection = new Lazy<ConnectionMultiplexer>(() => ConnectionMultiplexer.Connect(configurationOptions));
         }
 

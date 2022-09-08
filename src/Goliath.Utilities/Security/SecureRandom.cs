@@ -32,7 +32,6 @@ namespace Goliath.Security
             {
                 rngProvider.GetBytes(randomBuff);
             }
-
             var nxt = BitConverter.ToInt32(randomBuff, 0) & 0x7fffffff;
             return nxt;
         }

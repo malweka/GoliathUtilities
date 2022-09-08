@@ -5,13 +5,10 @@ namespace Goliath.Security
 {
     public class HmacSha256Provider : IHmacProvider
     {
-
         public byte[] ComputeHash(byte[] secret, byte[] data)
         {
-            using (var hmac = new HMACSHA256(secret))
-            {
-                return hmac.ComputeHash(data);
-            }
+            using var hmac = new HMACSHA256(secret);
+            return hmac.ComputeHash(data);
         }
 
         public bool VerifyHash(byte[] secret, byte[] data, string hash)

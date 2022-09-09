@@ -18,6 +18,12 @@ namespace Goliath.Security
     {
         static string[] alternativeNames = new string[] { "hamsman", "hamsman.com" };
 
+        public static class SigningAlgorithms
+        {
+            public const string Sha256WithRsa = "SHA256WITHRSA";
+            public const string Sha384WithEcdsa = "SHA384WITHECDSA";
+        }
+
         public static X509Certificate2 LoadCertificateFromFile(string issuerFileName, string password)
         {
             // We need to pass 'Exportable', otherwise we can't get the private key.
@@ -31,7 +37,10 @@ namespace Goliath.Security
             return new X509Certificate2(certBytes, password, X509KeyStorageFlags.Exportable);
         }
 
-        public X509Certificate2 IssueCertificate(string subjectName, X509Certificate2 issuerCertificate, int expiresIn, string[] subjectAlternativeNames = null, KeyPurposeID[] usages = null)
+        public X509Certificate2 IssueCertificate(string subjectName, X509Certificate2 issuerCertificate, int expiresIn,
+            string[] subjectAlternativeNames = null,
+            KeyPurposeID[] usages = null,
+            string signatureAlgorithm = SigningAlgorithms.Sha256WithRsa)
         {
             // It's self-signed, so these are the same.
             var issuerName = issuerCertificate.Subject;
@@ -43,7 +52,7 @@ namespace Goliath.Security
                 usages = new[] { KeyPurposeID.IdKPServerAuth };
 
             var random = GetSecureRandom();
-            var subjectKeyPair = GenerateKeyPair(random, 3072);
+            var subjectKeyPair = GenerateKeyPair(random, signatureAlgorithm);
 
             var issuerKeyPair = DotNetUtilities.GetKeyPair(issuerCertificate.PrivateKey);
 
@@ -54,11 +63,14 @@ namespace Goliath.Security
             var certificate = GenerateCertificate(random, subjectName, subjectKeyPair, serialNumber,
                                                   subjectAlternativeNames, issuerName, issuerKeyPair,
                                                   issuerSerialNumber, isCertificateAuthority,
-                                                  usages, expiresIn);
+                                                  usages, expiresIn, signatureAlgorithm);
             return certificate.ConvertCertificate(subjectKeyPair, random);
         }
 
-        public X509Certificate2 CreateCertificateAuthorityCertificate(string subjectName, int expiresIn, string[] subjectAlternativeNames = null, KeyPurposeID[] usages = null)
+        public X509Certificate2 CreateCertificateAuthorityCertificate(string subjectName, int expiresIn,
+            string[] subjectAlternativeNames = null,
+            KeyPurposeID[] usages = null,
+            string signatureAlgorithm = SigningAlgorithms.Sha256WithRsa)
         {
             // It's self-signed, so these are the same.
             var issuerName = subjectName;
@@ -70,7 +82,7 @@ namespace Goliath.Security
                 usages = new[] { KeyPurposeID.IdKPServerAuth };
 
             var random = GetSecureRandom();
-            var subjectKeyPair = GenerateKeyPair(random, 3072);
+            var subjectKeyPair = GenerateKeyPair(random, signatureAlgorithm);
 
             // It's self-signed, so these are the same.
             var issuerKeyPair = subjectKeyPair;
@@ -82,11 +94,14 @@ namespace Goliath.Security
             var certificate = GenerateCertificate(random, subjectName, subjectKeyPair, serialNumber,
                                                   subjectAlternativeNames, issuerName, issuerKeyPair,
                                                   issuerSerialNumber, isCertificateAuthority,
-                                                  usages, expiresIn);
+                                                  usages, expiresIn, signatureAlgorithm);
             return certificate.ConvertCertificate(subjectKeyPair, random);
         }
 
-        public X509Certificate2 CreateSelfSignedCertificate(string subjectName, int expiresIn, string[] subjectAlternativeNames = null, KeyPurposeID[] usages = null)
+        public X509Certificate2 CreateSelfSignedCertificate(string subjectName, int expiresIn,
+            string[] subjectAlternativeNames = null,
+            KeyPurposeID[] usages = null,
+            string signatureAlgorithm = SigningAlgorithms.Sha256WithRsa)
         {
             // It's self-signed, so these are the same.
             var issuerName = subjectName;
@@ -98,7 +113,7 @@ namespace Goliath.Security
                 usages = new[] { KeyPurposeID.IdKPServerAuth };
 
             var random = GetSecureRandom();
-            var subjectKeyPair = GenerateKeyPair(random, 3072);
+            var subjectKeyPair = GenerateKeyPair(random, signatureAlgorithm);
 
             // It's self-signed, so these are the same.
             var issuerKeyPair = subjectKeyPair;
@@ -110,7 +125,7 @@ namespace Goliath.Security
             var certificate = GenerateCertificate(random, subjectName, subjectKeyPair, serialNumber,
                                                   subjectAlternativeNames, issuerName, issuerKeyPair,
                                                   issuerSerialNumber, isCertificateAuthority,
-                                                  usages, expiresIn);
+                                                  usages, expiresIn, signatureAlgorithm);
             return certificate.ConvertCertificate(subjectKeyPair, random);
         }
 
@@ -131,15 +146,16 @@ namespace Goliath.Security
             BigInteger issuerSerialNumber,
             bool isCertificateAuthority,
             KeyPurposeID[] usages,
-            int expiresIn)
+            int expiresIn,
+            string signatureAlgorithm)
         {
             var certificateGenerator = new X509V3CertificateGenerator();
 
-            certificateGenerator.SetSerialNumber(subjectSerialNumber); 
+            certificateGenerator.SetSerialNumber(subjectSerialNumber);
 
             // Set the signature algorithm. This is used to generate the thumbprint which is then signed
             // with the issuer's private key. We'll use SHA-256, which is (currently) considered fairly strong.
-            const string signatureAlgorithm = "SHA256WithRSA";
+            //const string signatureAlgorithm = "SHA256WithRSA"; /
 
             var issuerDN = new X509Name(issuerName);
             certificateGenerator.SetIssuerDN(issuerDN);
@@ -167,7 +183,6 @@ namespace Goliath.Security
 
             if (subjectAlternativeNames != null && subjectAlternativeNames.Any())
                 certificateGenerator.AddSubjectAlternativeNames(subjectAlternativeNames);
-
             // The certificate is signed with the issuer's private key.
             var certificate = certificateGenerator.Generate(new Asn1SignatureFactory(signatureAlgorithm, issuerKeyPair.Private, random));
             return certificate;
@@ -192,13 +207,25 @@ namespace Goliath.Security
         /// Generate a key pair.
         /// </summary>
         /// <param name="random">The random number generator.</param>
-        /// <param name="strength">The key length in bits. For RSA, 2048 bits should be considered the minimum acceptable these days.</param>
+        /// <param name="signatureAlgorithm"></param>
         /// <returns></returns>
-        private static AsymmetricCipherKeyPair GenerateKeyPair(Org.BouncyCastle.Security.SecureRandom random, int strength)
+        private static AsymmetricCipherKeyPair GenerateKeyPair(Org.BouncyCastle.Security.SecureRandom random, string signatureAlgorithm)
         {
+            IAsymmetricCipherKeyPairGenerator keyPairGenerator;
+            int strength;
+            if (SigningAlgorithms.Sha384WithEcdsa.Equals(signatureAlgorithm))
+            {
+                keyPairGenerator = new ECKeyPairGenerator();
+                strength = 384;
+            }
+            else
+            {
+                keyPairGenerator = new RsaKeyPairGenerator();
+                strength = 3072;
+            }
+
             var keyGenerationParameters = new KeyGenerationParameters(random, strength);
 
-            var keyPairGenerator = new RsaKeyPairGenerator();
             keyPairGenerator.Init(keyGenerationParameters);
             var subjectKeyPair = keyPairGenerator.GenerateKeyPair();
             return subjectKeyPair;

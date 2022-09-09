@@ -13,10 +13,9 @@ namespace Goliath.Caching
         {
         }
 
-        public MemoryCacheProvider(MemoryCache? memoryCache)
+        public MemoryCacheProvider(MemoryCache memoryCache)
         {
             memoryCache ??= MemoryCache.Default;
-
             this.memoryCache = memoryCache;
         }
 

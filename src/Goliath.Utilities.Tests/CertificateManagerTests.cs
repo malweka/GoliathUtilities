@@ -50,5 +50,20 @@ namespace Goliath.Utilities.Tests
 
             Assert.IsFalse(string.IsNullOrWhiteSpace(signature));
         }
+
+        [TestMethod]
+        [DataRow("cert-ecdsa.pfx")]
+        [DataRow("cert-rsa.pfx")]
+        public void Verify_happy_path(string certFileName)
+        {
+            var wkFolder = AppDomain.CurrentDomain.BaseDirectory.Substring(0, AppDomain.CurrentDomain.BaseDirectory.IndexOf("bin"));
+            string priKey = Path.Combine(wkFolder, certFileName);
+            var certManager = new CertificateManager(priKey);
+
+            var token = "xxxxxwe32323sdwzdg23235d300doowmfdkj433cdwadhoieoieoosdkofij#!@#2@3d@33".ConvertToByteArray();
+            var signature = certManager.SignData(token);
+
+            Assert.IsTrue(certManager.VerifySignature(signature, token));
+        }
     }
 }

@@ -34,4 +34,8 @@
 	  </None>
 	</ItemGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\Goliath.Models\Goliath.Models.csproj" />
+	</ItemGroup>
+
 </Project>

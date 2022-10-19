@@ -12,7 +12,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{36EA
 		BuildMe.cmd = BuildMe.cmd
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Goliath.Models", "Goliath.Models\Goliath.Models.csproj", "{276A5633-E5C4-4C0F-81CE-8924A00EAAB1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Goliath.Models", "Goliath.Models\Goliath.Models.csproj", "{276A5633-E5C4-4C0F-81CE-8924A00EAAB1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Goliath.Authorization", "Goliath.Authorization\Goliath.Authorization.csproj", "{6A38777E-4F06-47BF-ABB0-6B88CD540D00}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,6 +34,10 @@ Global
 		{276A5633-E5C4-4C0F-81CE-8924A00EAAB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{276A5633-E5C4-4C0F-81CE-8924A00EAAB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{276A5633-E5C4-4C0F-81CE-8924A00EAAB1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A38777E-4F06-47BF-ABB0-6B88CD540D00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A38777E-4F06-47BF-ABB0-6B88CD540D00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A38777E-4F06-47BF-ABB0-6B88CD540D00}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A38777E-4F06-47BF-ABB0-6B88CD540D00}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

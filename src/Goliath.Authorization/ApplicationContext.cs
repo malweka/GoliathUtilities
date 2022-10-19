@@ -1,8 +1,7 @@
 ﻿using System.Globalization;
 using System.Threading;
-using Goliath.Authorization;
 
-namespace Goliath.Web
+namespace Goliath.Authorization
 {
     /// <summary>
     /// 

@@ -26,7 +26,7 @@ jobs:
 
     env:
       BuildConfiguration: Release
-      BuildVersion: 2.1.0
+      BuildVersion: 3.0.0
 
     steps:
     - name: Git Check out
@@ -48,5 +48,5 @@ jobs:
       run: dotnet build --no-restore --configuration $BuildConfiguration /p:DefineConstants=INTEGRATION -p:PackageVersion=$BuildVersion.$GITHUB_RUN_NUMBER -p:Version=$BuildVersion.$GITHUB_RUN_NUMBER -p:AssemblyVersion=$BuildVersion.$GITHUB_RUN_NUMBER -p:FileVersion=$BuildVersion.$GITHUB_RUN_NUMBER src/GoliathUtils.sln
     - name: Test
       run: dotnet test --no-build --configuration $BuildConfiguration --verbosity normal /p:DefineConstants=INTEGRATION src/Goliath.Utilities.Tests/Goliath.Utilities.Tests.csproj
-    - name: Package Push src/Goliath.Utilities/bin/Release/Goliath.Utilities
-      run: dotnet nuget push --api-key ${{ secrets.PACKAGETOKEN }} --source "github" src/Goliath.Utilities/bin/$BuildConfiguration/Goliath.Utilities.$BuildVersion.$GITHUB_RUN_NUMBER.nupkg
+    # - name: Package Push src/Goliath.Utilities/bin/Release/Goliath.Utilities
+      # run: dotnet nuget push --api-key ${{ secrets.PACKAGETOKEN }} --source "github" src/Goliath.Utilities/bin/$BuildConfiguration/Goliath.Utilities.$BuildVersion.$GITHUB_RUN_NUMBER.nupkg

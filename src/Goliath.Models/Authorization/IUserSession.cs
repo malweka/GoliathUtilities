@@ -13,14 +13,6 @@ namespace Goliath.Authorization
         long Id { get; set; }
 
         /// <summary>
-        /// Gets or sets the user identifier.
-        /// </summary>
-        /// <value>
-        /// The user identifier.
-        /// </value>
-        string UserName { get; set; }
-
-        /// <summary>
         /// Gets or sets the first name.
         /// </summary>
         /// <value>

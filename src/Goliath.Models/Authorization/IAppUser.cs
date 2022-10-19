@@ -8,6 +8,14 @@ namespace Goliath.Authorization
     public interface IAppUser
     {
         /// <summary>
+        /// Gets or sets the user identifier.
+        /// </summary>
+        /// <value>
+        /// The user identifier.
+        /// </value>
+        string UserName { get; set; }
+
+        /// <summary>
         /// Gets the user role.
         /// </summary>
         /// <value>

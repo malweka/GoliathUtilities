@@ -8,6 +8,6 @@ on:
 
 jobs:
   call-build-Workflow:
-    uses: malweka/GoliathUtilities/.github/workflows/build.yml@master
+    uses: ./.github/workflows/build.yml
     with:
       BuildVersion: 3.0.0

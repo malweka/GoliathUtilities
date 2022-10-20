@@ -1,0 +1,13 @@
+name: Continuous Integration
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  call-build-Workflow:
+    uses: malweka/GoliathUtilities/.github/workflows/build.yml
+    with:
+      BuildVersion: 3.0.0

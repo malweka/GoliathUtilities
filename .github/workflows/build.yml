@@ -1,10 +1,11 @@
-name: .NET
+name: Build Projects
 
 on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+  workflow_call:
+    inputs:
+      BuildVersion:
+        required: true
+        type: string
 
 jobs:
   build:
@@ -26,7 +27,6 @@ jobs:
 
     env:
       BuildConfiguration: Release
-      BuildVersion: 3.0.0
 
     steps:
     - name: Git Check out
@@ -45,8 +45,8 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore src/GoliathUtils.sln
     - name: Build
-      run: dotnet build --no-restore --configuration $BuildConfiguration /p:DefineConstants=INTEGRATION -p:PackageVersion=$BuildVersion.$GITHUB_RUN_NUMBER -p:Version=$BuildVersion.$GITHUB_RUN_NUMBER -p:AssemblyVersion=$BuildVersion.$GITHUB_RUN_NUMBER -p:FileVersion=$BuildVersion.$GITHUB_RUN_NUMBER src/GoliathUtils.sln
+      run: dotnet build --no-restore --configuration $BuildConfiguration /p:DefineConstants=INTEGRATION -p:PackageVersion=${{ inputs.BuildVersion }}.$GITHUB_RUN_NUMBER -p:Version=${{ inputs.BuildVersion }}.$GITHUB_RUN_NUMBER -p:AssemblyVersion=${{ inputs.BuildVersion }}.$GITHUB_RUN_NUMBER -p:FileVersion=${{ inputs.BuildVersion }}.$GITHUB_RUN_NUMBER src/GoliathUtils.sln
     - name: Test
       run: dotnet test --no-build --configuration $BuildConfiguration --verbosity normal /p:DefineConstants=INTEGRATION src/Goliath.Utilities.Tests/Goliath.Utilities.Tests.csproj
     # - name: Package Push src/Goliath.Utilities/bin/Release/Goliath.Utilities
-      # run: dotnet nuget push --api-key ${{ secrets.PACKAGETOKEN }} --source "github" src/Goliath.Utilities/bin/$BuildConfiguration/Goliath.Utilities.$BuildVersion.$GITHUB_RUN_NUMBER.nupkg
+      # run: dotnet nuget push --api-key ${{ secrets.PACKAGETOKEN }} --source "github" src/Goliath.Utilities/bin/$BuildConfiguration/Goliath.Utilities.${{ inputs.BuildVersion }}.$GITHUB_RUN_NUMBER.nupkg

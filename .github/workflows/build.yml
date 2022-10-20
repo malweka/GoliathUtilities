@@ -36,7 +36,7 @@ jobs:
 
     steps:
     - name: Git Check out
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
     
     # - name: Start dependencies (docker-compose)
     #   run: docker-compose up -d
@@ -53,8 +53,13 @@ jobs:
     - name: Build
       run: dotnet build --no-restore --configuration $BuildConfiguration /p:DefineConstants=INTEGRATION -p:PackageVersion=${{ inputs.BuildVersion }}.$GITHUB_RUN_NUMBER -p:Version=${{ inputs.BuildVersion }}.$GITHUB_RUN_NUMBER -p:AssemblyVersion=${{ inputs.BuildVersion }}.$GITHUB_RUN_NUMBER -p:FileVersion=${{ inputs.BuildVersion }}.$GITHUB_RUN_NUMBER src/GoliathUtils.sln
     - name: Test
-      if: ${{ inputs.isRelease }} == false
       run: dotnet test --no-build --configuration $BuildConfiguration --verbosity normal /p:DefineConstants=INTEGRATION src/Goliath.Utilities.Tests/Goliath.Utilities.Tests.csproj
-    - name: Package Push src/Goliath.Utilities/bin/Release/Goliath.Utilities
-      if: ${{ inputs.isRelease }} == true
-      run: dotnet nuget push --api-key ${{ secrets.token }} --source "github" src/Goliath.Utilities/bin/$BuildConfiguration/Goliath.Utilities.${{ inputs.BuildVersion }}.$GITHUB_RUN_NUMBER.nupkg
+    - name: Create Artifacts
+      run: mkdir packages && find src/ -type f -name "*.nupkg" -exec cp {} packages/ \;
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: goliath-utilities
+        path: packages
+    # - name: Package Push src/Goliath.Utilities/bin/Release/Goliath.Utilities
+    #   run: dotnet nuget push --api-key ${{ secrets.token }} --source "github" src/Goliath.Utilities/bin/$BuildConfiguration/Goliath.Utilities.${{ inputs.BuildVersion }}.$GITHUB_RUN_NUMBER.nupkg

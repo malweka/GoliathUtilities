@@ -6,6 +6,9 @@ on:
       BuildVersion:
         required: true
         type: string
+    secrets:
+      token:
+        required: true
 
 jobs:
   build:
@@ -41,7 +44,7 @@ jobs:
         dotnet-version: 6.0.x
         
     - name: Add Package Source
-      run: dotnet nuget add source --username malweka --password ${{ secrets.PACKAGETOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/malweka/index.json"
+      run: dotnet nuget add source --username malweka --password ${{ secrets.token }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/malweka/index.json"
     - name: Restore dependencies
       run: dotnet restore src/GoliathUtils.sln
     - name: Build
@@ -49,4 +52,4 @@ jobs:
     - name: Test
       run: dotnet test --no-build --configuration $BuildConfiguration --verbosity normal /p:DefineConstants=INTEGRATION src/Goliath.Utilities.Tests/Goliath.Utilities.Tests.csproj
     # - name: Package Push src/Goliath.Utilities/bin/Release/Goliath.Utilities
-      # run: dotnet nuget push --api-key ${{ secrets.PACKAGETOKEN }} --source "github" src/Goliath.Utilities/bin/$BuildConfiguration/Goliath.Utilities.${{ inputs.BuildVersion }}.$GITHUB_RUN_NUMBER.nupkg
+      # run: dotnet nuget push --api-key ${{ secrets.token }} --source "github" src/Goliath.Utilities/bin/$BuildConfiguration/Goliath.Utilities.${{ inputs.BuildVersion }}.$GITHUB_RUN_NUMBER.nupkg

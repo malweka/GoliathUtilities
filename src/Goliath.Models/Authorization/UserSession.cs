@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace Goliath.Authorization
 {
     [Serializable]
-    public class UserSession : IAppUser 
+    public class UserSession : IUserSession
     {
         #region Properties
 
@@ -104,14 +104,6 @@ namespace Goliath.Authorization
         {
             return Roles.ContainsKey(roleName);
         }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether this instance is internal user.
-        /// </summary>
-        /// <value>
-        /// <c>true</c> if this instance is internal user; otherwise, <c>false</c>.
-        /// </value>
-        public bool IsInternalUser => !string.IsNullOrWhiteSpace(ExternalUserId);
 
         public string ExternalUserId { get; set; }
     }

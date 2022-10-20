@@ -1,10 +1,14 @@
-name: .NET
+name: Build Projects
 
 on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+  workflow_call:
+    inputs:
+      BuildVersion:
+        required: true
+        type: string
+    secrets:
+      token:
+        required: true
 
 jobs:
   build:
@@ -26,7 +30,6 @@ jobs:
 
     env:
       BuildConfiguration: Release
-      BuildVersion: 2.1.0
 
     steps:
     - name: Git Check out
@@ -38,15 +41,15 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 5.0.x
+        dotnet-version: 6.0.x
         
     - name: Add Package Source
-      run: dotnet nuget add source --username malweka --password ${{ secrets.PACKAGETOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/malweka/index.json"
+      run: dotnet nuget add source --username malweka --password ${{ secrets.token }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/malweka/index.json"
     - name: Restore dependencies
       run: dotnet restore src/GoliathUtils.sln
     - name: Build
-      run: dotnet build --no-restore --configuration $BuildConfiguration /p:DefineConstants=INTEGRATION -p:PackageVersion=$BuildVersion.$GITHUB_RUN_NUMBER -p:Version=$BuildVersion.$GITHUB_RUN_NUMBER -p:AssemblyVersion=$BuildVersion.$GITHUB_RUN_NUMBER -p:FileVersion=$BuildVersion.$GITHUB_RUN_NUMBER src/GoliathUtils.sln
+      run: dotnet build --no-restore --configuration $BuildConfiguration /p:DefineConstants=INTEGRATION -p:PackageVersion=${{ inputs.BuildVersion }}.$GITHUB_RUN_NUMBER -p:Version=${{ inputs.BuildVersion }}.$GITHUB_RUN_NUMBER -p:AssemblyVersion=${{ inputs.BuildVersion }}.$GITHUB_RUN_NUMBER -p:FileVersion=${{ inputs.BuildVersion }}.$GITHUB_RUN_NUMBER src/GoliathUtils.sln
     - name: Test
       run: dotnet test --no-build --configuration $BuildConfiguration --verbosity normal /p:DefineConstants=INTEGRATION src/Goliath.Utilities.Tests/Goliath.Utilities.Tests.csproj
-    - name: Package Push src/Goliath.Utilities/bin/Release/Goliath.Utilities
-      run: dotnet nuget push --api-key ${{ secrets.PACKAGETOKEN }} --source "github" src/Goliath.Utilities/bin/$BuildConfiguration/Goliath.Utilities.$BuildVersion.$GITHUB_RUN_NUMBER.nupkg
+    # - name: Package Push src/Goliath.Utilities/bin/Release/Goliath.Utilities
+      # run: dotnet nuget push --api-key ${{ secrets.token }} --source "github" src/Goliath.Utilities/bin/$BuildConfiguration/Goliath.Utilities.${{ inputs.BuildVersion }}.$GITHUB_RUN_NUMBER.nupkg

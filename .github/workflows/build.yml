@@ -55,5 +55,6 @@ jobs:
     - name: Test
       if: ${{ inputs.isRelease }} == false
       run: dotnet test --no-build --configuration $BuildConfiguration --verbosity normal /p:DefineConstants=INTEGRATION src/Goliath.Utilities.Tests/Goliath.Utilities.Tests.csproj
-    # - name: Package Push src/Goliath.Utilities/bin/Release/Goliath.Utilities
-      # run: dotnet nuget push --api-key ${{ secrets.token }} --source "github" src/Goliath.Utilities/bin/$BuildConfiguration/Goliath.Utilities.${{ inputs.BuildVersion }}.$GITHUB_RUN_NUMBER.nupkg
+    - name: Package Push src/Goliath.Utilities/bin/Release/Goliath.Utilities
+      if: ${{ inputs.isRelease }} == true
+      run: dotnet nuget push --api-key ${{ secrets.token }} --source "github" src/Goliath.Utilities/bin/$BuildConfiguration/Goliath.Utilities.${{ inputs.BuildVersion }}.$GITHUB_RUN_NUMBER.nupkg

@@ -6,9 +6,6 @@ on:
       BuildVersion:
         required: true
         type: string
-      isRelease:
-        required: true
-        type: boolean
     secrets:
       token:
         required: true
@@ -37,12 +34,9 @@ jobs:
     steps:
     - name: Git Check out
       uses: actions/checkout@v3
-    
-    # - name: Start dependencies (docker-compose)
-    #   run: docker-compose up -d
 
     - name: Setup .NET
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 6.0.x
         

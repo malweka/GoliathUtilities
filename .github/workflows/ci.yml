@@ -1,8 +1,6 @@
 name: Continuous Integration
 
 on:
-  push:
-    branches: [ master ]
   pull_request:
     branches: [ master ]
 
@@ -11,5 +9,6 @@ jobs:
     uses: ./.github/workflows/build.yml
     with:
       BuildVersion: 3.0.0
+      isRelease: false
     secrets:
       token: ${{ secrets.PACKAGETOKEN }}

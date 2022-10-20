@@ -6,6 +6,9 @@ on:
       BuildVersion:
         required: true
         type: string
+      isRelease:
+        required: true
+        type: boolean
     secrets:
       token:
         required: true
@@ -50,6 +53,7 @@ jobs:
     - name: Build
       run: dotnet build --no-restore --configuration $BuildConfiguration /p:DefineConstants=INTEGRATION -p:PackageVersion=${{ inputs.BuildVersion }}.$GITHUB_RUN_NUMBER -p:Version=${{ inputs.BuildVersion }}.$GITHUB_RUN_NUMBER -p:AssemblyVersion=${{ inputs.BuildVersion }}.$GITHUB_RUN_NUMBER -p:FileVersion=${{ inputs.BuildVersion }}.$GITHUB_RUN_NUMBER src/GoliathUtils.sln
     - name: Test
+      if: ${{ inputs.isRelease }} == false
       run: dotnet test --no-build --configuration $BuildConfiguration --verbosity normal /p:DefineConstants=INTEGRATION src/Goliath.Utilities.Tests/Goliath.Utilities.Tests.csproj
     # - name: Package Push src/Goliath.Utilities/bin/Release/Goliath.Utilities
       # run: dotnet nuget push --api-key ${{ secrets.token }} --source "github" src/Goliath.Utilities/bin/$BuildConfiguration/Goliath.Utilities.${{ inputs.BuildVersion }}.$GITHUB_RUN_NUMBER.nupkg

@@ -17,5 +17,19 @@ namespace Goliath.Authorization
         {
             return item.RoleNumber;
         }
+
+        public bool TryGetValue(long key, out IPermissionItem val)
+        {
+            bool isFound = false;
+            val = default(IPermissionItem);
+
+            if (Contains(key))
+            {
+                isFound = true;
+                val = this[key];
+            }
+
+            return isFound;
+        }
     }
 }

@@ -42,10 +42,4 @@ namespace Goliath
 
         void Reset();
     }
-
-    public struct ConnectionStringInfo
-    {
-        public string ProviderName;
-        public string ConnectionString;
-    }
 }

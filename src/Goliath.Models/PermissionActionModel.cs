@@ -48,28 +48,5 @@ namespace Goliath.Models
         /// </value>
         public Dictionary<string, int> PermissionActions { get; } = new Dictionary<string, int>();
 
-        ///// <summary>
-        ///// Creates the specified user role perm.
-        ///// </summary>
-        ///// <param name="userRolePerm">The user role perm.</param>
-        ///// <returns></returns>
-        //public static PermissionActionModel Create(IUserRolePerm userRolePerm)
-        //{
-        //    var model = new PermissionActionModel() {RoleNumber = userRolePerm.RoleNumber, ResourceId = userRolePerm.ResourceId, Permission = userRolePerm.PermValue};
-
-        //    if ((userRolePerm.PermValue & PermActionType.Create) == PermActionType.Create)
-        //        model.CanCreate = true;
-
-        //    if ((userRolePerm.PermValue & PermActionType.Edit) == PermActionType.Edit)
-        //        model.CanEdit = true;
-
-        //    if ((userRolePerm.PermValue & PermActionType.Delete) == PermActionType.Delete)
-        //        model.CanDelete = true;
-
-        //    if ((userRolePerm.PermValue & PermActionType.View) == PermActionType.View)
-        //        model.CanView = true;
-
-        //    return model;
-        //}
     }
 }

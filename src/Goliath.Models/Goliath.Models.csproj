@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<Version>3.0.0</Version>
+		<AssemblyVersion>3.0.0.0</AssemblyVersion>
+		<FileVersion>3.0.0.0</FileVersion>
+		<Authors>Emmanuel Hameyie</Authors>
+		<Company>Malweka</Company>
+		<Product>Goliath Utilities</Product>
+		<Copyright>Copyright © 2022 Emmanuel Hameyie</Copyright>
+		<PackageProjectUrl>https://github.com/malweka/GoliathUtilities</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/malweka/GoliathUtilities</RepositoryUrl>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+	</PropertyGroup>
+
+</Project>

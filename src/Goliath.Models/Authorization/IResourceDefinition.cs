@@ -4,7 +4,6 @@ namespace Goliath.Authorization
     {
         long ResourceId { get; set; }
         string ResourceName { get; set; }
-        string GroupName { get; set; }
-        bool Restricted { get; set; }
+        bool UnRestricted { get; set; }
     }
 }

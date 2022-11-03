@@ -23,28 +23,44 @@ namespace Goliath.Authorization
         public IUserPermissionEvaluator On<T>(T entity)
         {
             var type = typeof(T);
-            var resourceId = secProv.GetResourceGroupIdByType(type);
+            var resource = secProv.GetResourceDefinition(type);
 
-            if (!resourceId.HasValue)
+            if (resource == null)
             {
                 logger.LogInformation("Permission evaluator could not determine the resource ID for type {type}. Permission was therefore denied.", type);
-                return new NoPermissionFoundEvaluator(user);
+                return new DenyAllPermissionEvaluator(user);
             }
 
-            return new PermissionEvaluator(user, resourceId.Value, permissionStore, loggerFactory.CreateLogger<PermissionEvaluator>());
+            if (resource.UnRestricted)
+            {
+                logger.LogInformation("Resource {type} mapped to unrestricted resource {resourceId}({resourceName}). Permission will not be enforced", 
+                    type, resource.ResourceId, resource.ResourceName);
+
+                return new AllowAllPermissionEvaluator(user);
+            }
+
+            return new PermissionEvaluator(user, resource.ResourceId, permissionStore, loggerFactory.CreateLogger<PermissionEvaluator>());
         }
 
         public IUserPermissionEvaluator OnResource(string resourceName)
         {
-            var resourceId = secProv.GetResourceGroupIdByName(resourceName);
+            var resource = secProv.GetResourceDefinition(resourceName);
 
-            if (!resourceId.HasValue)
+            if (resource == null)
             {
                 logger.LogInformation("Permission evaluator could not determine the resource ID for resource {resource}. Permission was therefore denied.", resourceName);
-                return new NoPermissionFoundEvaluator(user);
+                return new DenyAllPermissionEvaluator(user);
             }
 
-            return new PermissionEvaluator(user, resourceId.Value, permissionStore, loggerFactory.CreateLogger<PermissionEvaluator>());
+            if (resource.UnRestricted)
+            {
+                logger.LogInformation("Resource {type} mapped to unrestricted resource {resourceId}({resourceName}). Permission will not be enforced",
+                    resourceName, resource.ResourceId, resource.ResourceName);
+
+                return new AllowAllPermissionEvaluator(user);
+            }
+
+            return new PermissionEvaluator(user, resource.ResourceId, permissionStore, loggerFactory.CreateLogger<PermissionEvaluator>());
         }
 
         public IUserPermissionEvaluator OnResource(long resourceId)
@@ -55,15 +71,23 @@ namespace Goliath.Authorization
         public IUserPermissionEvaluator OnResourceType(Type resourceType)
         {
             if (resourceType == null) throw new ArgumentNullException(nameof(resourceType));
-            var resourceId = secProv.GetResourceGroupIdByType(resourceType);
+            var resource = secProv.GetResourceDefinition(resourceType);
 
-            if (!resourceId.HasValue)
+            if (resource == null)
             {
                 logger.LogInformation("Permission evaluator could not determine the resource ID for type {type}. Permission was therefore denied.", resourceType.ToString());
-                return new NoPermissionFoundEvaluator(user);
+                return new DenyAllPermissionEvaluator(user);
             }
 
-            return new PermissionEvaluator(user, resourceId.Value, permissionStore, loggerFactory.CreateLogger<PermissionEvaluator>());
+            if (resource.UnRestricted)
+            {
+                logger.LogInformation("Resource {type} mapped to unrestricted resource {resourceId}({resourceName}). Permission will not be enforced",
+                    resourceType, resource.ResourceId, resource.ResourceName);
+
+                return new AllowAllPermissionEvaluator(user);
+            }
+
+            return new PermissionEvaluator(user, resource.ResourceId, permissionStore, loggerFactory.CreateLogger<PermissionEvaluator>());
         }
     }
 }

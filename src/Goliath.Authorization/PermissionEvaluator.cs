@@ -77,19 +77,4 @@ namespace Goliath.Authorization
         }
 
     }
-
-    class NoPermissionFoundEvaluator : IUserPermissionEvaluator
-    {
-        public NoPermissionFoundEvaluator(IAppUser user)
-        {
-            User = user;
-        }
-
-        public bool EvaluatePermission(int action)
-        {
-            return false;
-        }
-
-        public IAppUser User { get; private set; }
-    }
 }

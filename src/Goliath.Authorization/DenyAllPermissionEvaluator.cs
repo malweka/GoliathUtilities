@@ -1,4 +1,6 @@
-﻿namespace Goliath.Authorization
+﻿using Microsoft.Extensions.Logging;
+
+namespace Goliath.Authorization
 {
     class DenyAllPermissionEvaluator : IUserPermissionEvaluator
     {

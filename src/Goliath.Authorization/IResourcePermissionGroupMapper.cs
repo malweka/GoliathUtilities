@@ -7,7 +7,6 @@ namespace Goliath.Authorization
     /// </summary>
     public interface IResourcePermissionGroupMapper
     {
-
         IResourceDefinition GetResourceDefinition(Type type);
 
         IResourceDefinition GetResourceDefinition(string resourceName);

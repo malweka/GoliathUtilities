@@ -1,9 +1,10 @@
 namespace Goliath.Authorization
 {
-    public interface IPermissionResourceDefinition
+    public interface IResourceDefinition
     {
-        string GroupName { get; set; }
         long ResourceId { get; set; }
         string ResourceName { get; set; }
+        string GroupName { get; set; }
+        bool Restricted { get; set; }
     }
 }

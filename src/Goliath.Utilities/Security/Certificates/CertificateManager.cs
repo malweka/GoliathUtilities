@@ -8,7 +8,7 @@ namespace Goliath.Security
     public class CertificateManager : ICertificateManager
     {
         private X509Certificate2 signingCertificate;
-        private static Dictionary<string, Func<X509Certificate2, ICertificateSigner>> supportedAlgorithms =
+        private static readonly Dictionary<string, Func<X509Certificate2, ICertificateSigner>> supportedAlgorithms =
             new Dictionary<string, Func<X509Certificate2, ICertificateSigner>>();
 
         public string SigningAlgorithmName => signingCertificate?.SignatureAlgorithm.FriendlyName;
@@ -69,12 +69,5 @@ namespace Goliath.Security
 
             return signer.Verify(signature, data);
         }
-    }
-
-    public interface ICertificateManager
-    {
-        string SigningAlgorithmName { get; }
-        byte[] SignData(byte[] data);
-        bool VerifySignature(byte[] signature, byte[] data);
     }
 }

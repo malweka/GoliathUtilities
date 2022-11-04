@@ -31,7 +31,7 @@ namespace Goliath.Authorization
                 return new DenyAllPermissionEvaluator(user);
             }
 
-            if (resource.UnRestricted)
+            if (resource.Unrestricted)
             {
                 logger.LogInformation("Resource {type} mapped to unrestricted resource {resourceId}({resourceName}). Permission will not be enforced", 
                     type, resource.ResourceId, resource.ResourceName);
@@ -52,7 +52,7 @@ namespace Goliath.Authorization
                 return new DenyAllPermissionEvaluator(user);
             }
 
-            if (resource.UnRestricted)
+            if (resource.Unrestricted)
             {
                 logger.LogInformation("Resource {type} mapped to unrestricted resource {resourceId}({resourceName}). Permission will not be enforced",
                     resourceName, resource.ResourceId, resource.ResourceName);
@@ -79,7 +79,7 @@ namespace Goliath.Authorization
                 return new DenyAllPermissionEvaluator(user);
             }
 
-            if (resource.UnRestricted)
+            if (resource.Unrestricted)
             {
                 logger.LogInformation("Resource {type} mapped to unrestricted resource {resourceId}({resourceName}). Permission will not be enforced",
                     resourceType, resource.ResourceId, resource.ResourceName);

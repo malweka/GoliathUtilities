@@ -1,6 +1,7 @@
 using System;
 using System.Data;
 using System.Security.Cryptography;
+using System.Text;
 
 namespace Goliath.Security
 {
@@ -25,7 +26,14 @@ namespace Goliath.Security
         public string ComputeHash(string secret)
         {
             var hash = ComputeHash(secret.ConvertToByteArray());
-            return hash.ConvertToBase64String();
+            var sb = new StringBuilder();
+
+            for (var i = 0; i < hash.Length; i++)
+            {
+                sb.Append(hash[i].ToString("x2"));
+            }
+
+            return sb.ToString();
         }
 
         public bool VerifyHash(string secret, string hash)

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -28,8 +27,7 @@ namespace Goliath.Security
 
             this.epoch = epoch;
         }
-
-
+        
         #region IUniqueIdGenerator Members
 
         /// <summary>
@@ -55,6 +53,4 @@ namespace Goliath.Security
 
         #endregion
     }
-
-
 }

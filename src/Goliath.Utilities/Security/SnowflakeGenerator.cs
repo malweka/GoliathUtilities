@@ -127,5 +127,10 @@ namespace Goliath.Security
             nodeId &= MaxNodeId;
             return nodeId;
         }
+        
+#if NET7_0_OR_GREATER
+        static SnowflakeGenerator current = new SnowflakeGenerator();
+        public static IUniqueNumberGenerator Current => current;
+#endif
     }
 }

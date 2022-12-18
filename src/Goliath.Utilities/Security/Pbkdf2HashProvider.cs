@@ -6,8 +6,8 @@ namespace Goliath.Security
     public class Pbkdf2HashProvider : IHashProvider
     {
         public const string ProviderName = "PBKDF2";
-        protected int iterations = 301;
-        protected int hashSize = 64;
+        private int iterations = 301;
+        private int hashSize = 64;
 
         public string Name => ProviderName;
 

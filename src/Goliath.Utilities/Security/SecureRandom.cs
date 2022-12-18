@@ -58,7 +58,7 @@ namespace Goliath.Security
         public override int Next(int min, int max)
         {
             if (min > max)
-                throw new ArgumentOutOfRangeException("min MUST be greater than ");
+                throw new ArgumentOutOfRangeException("min MUST be greater than max");
 
             var range = max - min;
             return min + Next(range);
@@ -82,10 +82,8 @@ namespace Goliath.Security
         /// <param name="buffer">An array of bytes to contain random numbers.</param>
         public override void NextBytes(byte[] buffer)
         {
-            using (var rngProvider = RandomNumberGenerator.Create())
-            {
-                rngProvider.GetBytes(randomBuff);
-            }
+            using var rngProvider = RandomNumberGenerator.Create();
+            rngProvider.GetBytes(randomBuff);
         }
     }
 }

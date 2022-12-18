@@ -45,11 +45,9 @@ namespace Goliath.Security
         /// <returns></returns>
         public CryptoKey GenerateKeyPair(int keySize)
         {
-            using (var provider = new DSACryptoServiceProvider(keySize) { PersistKeyInCsp = false })
-            {
-                var key = new CryptoKey { PrivateKey = CreateKey(provider, true), PublicKey = CreateKey(provider, false) };
-                return key;
-            }
+            using var provider = new DSACryptoServiceProvider(keySize) { PersistKeyInCsp = false };
+            var key = new CryptoKey { PrivateKey = CreateKey(provider, true), PublicKey = CreateKey(provider, false) };
+            return key;
         }
 
         /// <summary>
@@ -60,12 +58,9 @@ namespace Goliath.Security
         /// <returns></returns>
         public override byte[] Sign(string privateKey, Stream data)
         {
-            byte[] hash;
-            using (var provider = new DSACryptoServiceProvider())
-            {
-                provider.FromXmlString(privateKey);
-                hash = provider.SignData(data);
-            }
+            using var provider = new DSACryptoServiceProvider();
+            provider.FromXmlString(privateKey);
+            var hash = provider.SignData(data);
 
             return hash;
         }
@@ -79,12 +74,9 @@ namespace Goliath.Security
         /// <returns></returns>
         public override bool Verify(string publicKey, byte[] signature, byte[] data)
         {
-            bool result;
-            using (var provider = new DSACryptoServiceProvider())
-            {
-                provider.FromXmlString(publicKey);
-                result = provider.VerifyData(data, signature);
-            }
+            using var provider = new DSACryptoServiceProvider();
+            provider.FromXmlString(publicKey);
+            var result = provider.VerifyData(data, signature);
 
             return result;
         }

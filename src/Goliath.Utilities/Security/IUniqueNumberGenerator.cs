@@ -7,5 +7,9 @@ namespace Goliath.Security
         /// </summary>
         /// <returns></returns>
         long GetNextId();
+
+#if NET7_0_OR_GREATER
+        static abstract IUniqueNumberGenerator Current{get;}
+#endif
     }
 }

@@ -212,3 +212,5 @@ Settings.StyleCop
 /src/PackAndPush.cmd
 .DS_Store
 src/.idea
+src/Goliath.Utilities.Tests/GenerateKeyPair_generate_key_private.key
+src/Goliath.Utilities.Tests/GenerateKeyPair_generate_key_public.key

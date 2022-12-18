@@ -52,5 +52,10 @@ namespace Goliath.Security
         }
 
         #endregion
+        
+#if NET7_0_OR_GREATER
+        static UniqueLongGenerator current = new UniqueLongGenerator();
+        public static IUniqueNumberGenerator Current => current;
+#endif
     }
 }

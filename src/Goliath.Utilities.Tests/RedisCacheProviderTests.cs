@@ -9,7 +9,7 @@ using StackExchange.Redis;
 namespace Goliath.Utilities.Tests
 {
 #if !INTEGRATION
-    // [Ignore]
+    [Ignore]
 #endif
     [TestClass]
     public class RedisCacheProviderTests
@@ -28,10 +28,6 @@ namespace Goliath.Utilities.Tests
                 TieBreaker = "",
                 ConfigCheckSeconds = 0,
                 ConnectTimeout = 12000,
-                //CommandMap = CommandMap.Create(new HashSet<string>
-                //{ // EXCLUDE a few commands
-                //    "SUBSCRIBE", "UNSUBSCRIBE", "CLUSTER"
-                //}, available: false),  
                 AllowAdmin = true
             };
 

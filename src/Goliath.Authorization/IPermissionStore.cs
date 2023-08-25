@@ -55,7 +55,7 @@ namespace Goliath.Authorization
         /// <param name="role">The role.</param>
         /// <param name="permissionModels">The permision models.</param>
         /// <param name="context">The context.</param>
-        void UpdateRolePermissions(IRole role, IList<PermissionActionModel> permissionModels, ApplicationContext context = null);
+        void UpdateRolePermissions(IRole role, IList<PermissionActionModel> permissionModels, UserContext context = null);
 
     }
 }

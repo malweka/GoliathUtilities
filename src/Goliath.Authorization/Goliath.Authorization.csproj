@@ -18,8 +18,4 @@
 		<PackageReference Include="Microsoft.Extensions.Logging" Version="7.0.0" />
 	</ItemGroup>
 
-	<ItemGroup>
-		<ProjectReference Include="..\Goliath.Models\Goliath.Models.csproj" />
-	</ItemGroup>
-
 </Project>

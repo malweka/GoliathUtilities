@@ -8,7 +8,7 @@
             User = user;
         }
 
-        public bool EvaluatePermission(int action)
+        public bool EvaluatePermission(long action)
         {
             return true;
         }

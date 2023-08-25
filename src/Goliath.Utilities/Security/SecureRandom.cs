@@ -49,7 +49,7 @@ namespace Goliath.Security
         }
 
         /// <summary>
-        /// Nexts the specified min.
+        /// Get the next specified min.
         /// </summary>
         /// <param name="min">The min.</param>
         /// <param name="max">The max.</param>

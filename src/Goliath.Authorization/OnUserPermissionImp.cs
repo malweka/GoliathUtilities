@@ -39,7 +39,7 @@ namespace Goliath.Authorization
                 return new AllowAllPermissionEvaluator(user);
             }
 
-            return new PermissionEvaluator(user, resource.ResourceId, permissionStore, loggerFactory.CreateLogger<PermissionEvaluator>());
+            return new CompressedPermissionEvaluator(user, resource.ResourceId, permissionStore, loggerFactory.CreateLogger<CompressedPermissionEvaluator>());
         }
 
         public IUserPermissionEvaluator OnResource(string resourceName)
@@ -60,12 +60,12 @@ namespace Goliath.Authorization
                 return new AllowAllPermissionEvaluator(user);
             }
 
-            return new PermissionEvaluator(user, resource.ResourceId, permissionStore, loggerFactory.CreateLogger<PermissionEvaluator>());
+            return new CompressedPermissionEvaluator(user, resource.ResourceId, permissionStore, loggerFactory.CreateLogger<CompressedPermissionEvaluator>());
         }
 
         public IUserPermissionEvaluator OnResource(long resourceId)
         {
-            return new PermissionEvaluator(user, resourceId, permissionStore, loggerFactory.CreateLogger<PermissionEvaluator>());
+            return new CompressedPermissionEvaluator(user, resourceId, permissionStore, loggerFactory.CreateLogger<CompressedPermissionEvaluator>());
         }
 
         public IUserPermissionEvaluator OnResourceType(Type resourceType)
@@ -87,7 +87,7 @@ namespace Goliath.Authorization
                 return new AllowAllPermissionEvaluator(user);
             }
 
-            return new PermissionEvaluator(user, resource.ResourceId, permissionStore, loggerFactory.CreateLogger<PermissionEvaluator>());
+            return new CompressedPermissionEvaluator(user, resource.ResourceId, permissionStore, loggerFactory.CreateLogger<CompressedPermissionEvaluator>());
         }
     }
 }

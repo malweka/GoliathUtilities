@@ -10,8 +10,8 @@ namespace Goliath.Authorization
     /// <seealso cref="BasePermissionStore" />
     public class InMemoryPermissionStore : BasePermissionStore
     {
-        static readonly object lockPad = new object();
-        static readonly Dictionary<long, PermissionList> permissionCache = new Dictionary<long, PermissionList>();
+        private static readonly object lockPad = new object();
+        private static readonly Dictionary<long, PermissionList> permissionCache = new Dictionary<long, PermissionList>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="InMemoryPermissionStore"/> class.
@@ -49,8 +49,7 @@ namespace Goliath.Authorization
         {
             if (permission == null) throw new ArgumentNullException(nameof(permission));
 
-            PermissionList resourcePerms;
-            if (permissionCache.TryGetValue(permission.ResourceId, out resourcePerms))
+            if (permissionCache.TryGetValue(permission.ResourceId, out var resourcePerms))
             {
                 resourcePerms.Add(permission);
             }
@@ -65,8 +64,7 @@ namespace Goliath.Authorization
         {
             lock (lockPad)
             {
-                PermissionList resourcePerms;
-                if (permissionCache.TryGetValue(resourceId, out resourcePerms))
+                if (permissionCache.TryGetValue(resourceId, out var resourcePerms))
                 {
                     if (resourcePerms.Contains(roleId))
                     {
@@ -102,10 +100,8 @@ namespace Goliath.Authorization
         {
             VerifyPermissionAreLoaded();
 
-            PermissionList permissionList;
-
             IPermissionItem permission = null;
-            if (permissionCache.TryGetValue(resourceId, out permissionList))
+            if (permissionCache.TryGetValue(resourceId, out var permissionList))
             {
                 if (permissionList.Contains(roleNumber))
                     permission = permissionList[roleNumber];
@@ -134,9 +130,7 @@ namespace Goliath.Authorization
         {
             VerifyPermissionAreLoaded();
 
-            PermissionList permissionList;
-
-            if (permissionCache.TryGetValue(resourceId, out permissionList))
+            if (permissionCache.TryGetValue(resourceId, out var permissionList))
             {
                 return permissionList;
             }
@@ -155,7 +149,7 @@ namespace Goliath.Authorization
             return permissionList;
         }
 
-        public override void UpdateRolePermissions(IRole role, IList<PermissionActionModel> permissionModels, ApplicationContext context = null)
+        public override void UpdateRolePermissions(IRole role, IList<PermissionActionModel> permissionModels, UserContext context = null)
         {
             if (role.Name.Equals("Admin"))
             {

@@ -26,19 +26,19 @@ namespace Goliath.Authorization
         /// <param name="permValue">The perm value.</param>
         /// <param name="context">The context.</param>
         /// <returns></returns>
-        IPermissionItem Insert(long resourceId, long roleNumber, int permValue, ApplicationContext context = null);
+        IPermissionItem Insert(long resourceId, long roleNumber, int permValue, UserContext context = null);
 
         Task<IPermissionItem> InsertAsync(long resourceId, long roleNumber, int permValue,
-            ApplicationContext context = null);
+            UserContext context = null);
 
         /// <summary>
         /// Updates the specified permission item.
         /// </summary>
         /// <param name="permissionItem">The permission item.</param>
         /// <param name="context">The context.</param>
-        void Update(IPermissionItem permissionItem, ApplicationContext context = null);
+        void Update(IPermissionItem permissionItem, UserContext context = null);
 
-        Task UpdateAsync(IPermissionItem permissionItem, ApplicationContext context = null);
+        Task UpdateAsync(IPermissionItem permissionItem, UserContext context = null);
 
         /// <summary>
         /// Gets all.
@@ -75,9 +75,9 @@ namespace Goliath.Authorization
         /// <param name="deletes">The deletes.</param>
         /// <param name="context">The context.</param>
         void BatchProcess(IList<IPermissionItem> inserts, IList<IPermissionItem> updates, IList<IPermissionItem> deletes,
-            ApplicationContext context = null);
+            UserContext context = null);
 
         Task BatchProcessAsync(IList<IPermissionItem> inserts, IList<IPermissionItem> updates, IList<IPermissionItem> deletes,
-            ApplicationContext context = null);
+            UserContext context = null);
     }
 }

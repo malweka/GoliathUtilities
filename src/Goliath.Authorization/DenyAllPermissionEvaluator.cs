@@ -9,11 +9,11 @@ namespace Goliath.Authorization
             User = user;
         }
 
-        public bool EvaluatePermission(int action)
+        public bool EvaluatePermission(long action)
         {
             return false;
         }
 
-        public IAppUser User { get; private set; }
+        public IAppUser User { get; }
     }
 }

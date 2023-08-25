@@ -6,17 +6,8 @@ namespace Goliath.Authorization
     /// <summary>
     /// 
     /// </summary>
-    public abstract class ApplicationContext
+    public abstract class UserContext
     {
-
-        /// <summary>
-        /// Gets or sets the current site URL.
-        /// </summary>
-        /// <value>
-        /// The current site URL.
-        /// </value>
-        public virtual string CurrentSiteUrl { get; set; }
-
         /// <summary>
         /// Gets or sets the current user.
         /// </summary>
@@ -33,7 +24,10 @@ namespace Goliath.Authorization
         /// </value>
         public virtual CultureInfo Culture => Thread.CurrentThread.CurrentCulture;
 
-        public abstract long SessionId { get; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public abstract string SessionId { get; }
 
         /// <summary>
         /// Gets the permission validator.

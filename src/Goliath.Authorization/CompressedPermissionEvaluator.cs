@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Goliath.Authorization
@@ -9,12 +8,11 @@ namespace Goliath.Authorization
     /// 
     /// </summary>
     /// <seealso cref="IUserPermissionEvaluator" />
-    public class PermissionEvaluator : IUserPermissionEvaluator
+    public class CompressedPermissionEvaluator : IUserPermissionEvaluator
     {
         private readonly long resourceId;
         private readonly IPermissionStore permissionStore;
-        private readonly Dictionary<long, IRole> userRoles;
-        private readonly ILogger<PermissionEvaluator> logger;
+        private readonly ILogger<CompressedPermissionEvaluator> logger;
 
         /// <summary>
         /// Gets the user.
@@ -25,21 +23,18 @@ namespace Goliath.Authorization
         public IAppUser User { get; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PermissionEvaluator" /> class.
+        /// Initializes a new instance of the <see cref="CompressedPermissionEvaluator" /> class.
         /// </summary>
         /// <param name="user">The user.</param>
         /// <param name="resourceId">The resource type identifier.</param>
         /// <param name="permissionStore">The permission store.</param>
         /// <param name="logger"></param>
-        public PermissionEvaluator(IAppUser user, long resourceId, IPermissionStore permissionStore, ILogger<PermissionEvaluator> logger)
+        public CompressedPermissionEvaluator(IAppUser user, long resourceId, IPermissionStore permissionStore, ILogger<CompressedPermissionEvaluator> logger)
         {
             User = user ?? throw new ArgumentNullException(nameof(user));
             this.resourceId = resourceId;
             this.permissionStore = permissionStore ?? throw new ArgumentNullException(nameof(permissionStore));
             this.logger = logger;
-
-            if (user.Roles != null)
-                userRoles = user.Roles.Values.ToDictionary(c => c.RoleNumber);
         }
 
         /// <summary>
@@ -47,18 +42,18 @@ namespace Goliath.Authorization
         /// </summary>
         /// <param name="action">The action.</param>
         /// <returns></returns>
-        public bool EvaluatePermission(int action)
+        public bool EvaluatePermission(long action)
         {
             if (User.Roles == null || User.Roles.Count == 0)
             {
-                logger.LogInformation("User {user} is not associated to any role. Permission is therefore denied.", User.UserName);
+                logger.LogInformation("User {user} is not associated to any role. Permission is therefore denied.", User.Username);
                 return false;
             }
 
             //if it's an admin user we don't need to evaluate the permissions
             if (User.Roles.Any(c => c.Value.IsAdminRole))
             {
-                logger.LogInformation("User {user} is associated to an admin Role. Permissions will not be evaluated and access granted by default.", User.UserName);
+                logger.LogInformation("User {user} is associated to an admin Role. Permissions will not be evaluated and access granted by default.", User.Username);
                 return true;
             }
 
@@ -75,6 +70,5 @@ namespace Goliath.Authorization
 
             return false;
         }
-
     }
 }

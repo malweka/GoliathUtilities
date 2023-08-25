@@ -10,7 +10,7 @@
         /// </summary>
         /// <param name="action">The action.</param>
         /// <returns></returns>
-        bool EvaluatePermission(int action);
+        bool EvaluatePermission(long action);
 
         /// <summary>
         /// Gets the user.

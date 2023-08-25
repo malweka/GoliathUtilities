@@ -39,7 +39,6 @@ namespace Goliath.Authorization
                 throw new InvalidOperationException("Permission cache must be loaded before performing this operation. Please call the LoadPermission method first.");
         }
 
-
         /// <summary>
         /// Loads the permissions.
         /// </summary>
@@ -79,7 +78,7 @@ namespace Goliath.Authorization
             {
                 if ((permission.PermValue & action) == action) return;
                 //add the permission 
-                permission.PermValue = permission.PermValue | action;
+                permission.PermValue |= action;
                 //update the database with the changes
                 PermissionDb.Update(permission);
             }
@@ -101,7 +100,7 @@ namespace Goliath.Authorization
             if ((permission.PermValue & action) != action) return;
 
             //remove permission
-            permission.PermValue = permission.PermValue ^ action;
+            permission.PermValue ^= action;
             //update the database with the changes
             PermissionDb.Update(permission);
         }
@@ -120,7 +119,7 @@ namespace Goliath.Authorization
         /// <param name="role">The role.</param>
         /// <param name="permissionModels">The permission models.</param>
         /// <param name="context">The context.</param>
-        public abstract void UpdateRolePermissions(IRole role, IList<PermissionActionModel> permissionModels, ApplicationContext context = null);
+        public abstract void UpdateRolePermissions(IRole role, IList<PermissionActionModel> permissionModels, UserContext context = null);
 
         /// <summary>
         /// Gets the permissions.
